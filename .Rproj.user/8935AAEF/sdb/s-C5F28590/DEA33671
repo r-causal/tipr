@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "meetupr: R interface to the meetup.com API\n--------------------\n\n[![Build Status](https://travis-ci.org/rladies/meetupr.svg?branch=master)](https://travis-ci.org/rladies/meetupr)\n\n**Authors:** [Lucy D'Agostino McGowan](http://www.lucymcgowan.com)<br/>\n**License:** [MIT](https://opensource.org/licenses/MIT)\n\n\n##Installation\n\n```\nlibrary(devtools)\ninstall_github(\"lucymcgowan/tipr\")\n```\n\n##Usage\n\nEnter estimated prevalences of an unmeasured confounder in the exposed and unexposed populations as well as the lower bound and upper bound of an effect you observe. The function will return the size of the unmeasured confounder needed to tip your analysis to non-significance.\n```\ntip(p1 = 0.5, p0 = 0, lb = 1.2, ub = 1.3)\n```\n\nIf you are interested in outputting a single sentence for inclusion in a manuscript, use the `explanation = TRUE` option:\n```\ntip(p1 = 0.5, p0 = 0, lb = 1.2, ub = 1.3)\n```\n\"An unmeasured confounder of size 1.4 with a prevalence of 0.5 in the exposed population and 0 in the unexposed population would tip your (1.2,1.3) result to nonsignificance.\"\n",
+    "created" : 1488490957732.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "828229243",
+    "id" : "DEA33671",
+    "lastKnownWriteTime" : 1488491138,
+    "last_content_update" : 1488491138682,
+    "path" : "~/Documents/wonderland/tipr/README.md",
+    "project_path" : "README.md",
+    "properties" : {
+    },
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "markdown"
+}
