@@ -1,4 +1,4 @@
-meetupr: R interface to the meetup.com API
+tipR: R tools for tipping point sensitivity analyses
 --------------------
 
 [![Build Status](https://travis-ci.org/rladies/meetupr.svg?branch=master)](https://travis-ci.org/rladies/meetupr)
