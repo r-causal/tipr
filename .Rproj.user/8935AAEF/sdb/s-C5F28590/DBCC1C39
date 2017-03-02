@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "Package: tipr\nType: Package\nTitle: Tipping Point Analyses\nVersion: 0.1.0\nAuthor: Lucy D'Agostino McGowan\nMaintainer: Lucy D'Agostino McGowan <ld.mcgowan@vanderbilt.edu>\nDescription: For conducting tipping point sensitivity analyses in R.\nLicense: MIT + file LICENSE\nEncoding: UTF-8\nLazyData: true\nRoxygenNote: 5.0.1\n",
+    "created" : 1488490683160.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2201918831",
+    "id" : "DBCC1C39",
+    "lastKnownWriteTime" : 1488490829,
+    "last_content_update" : 1488490829170,
+    "path" : "~/Documents/wonderland/tipr/DESCRIPTION",
+    "project_path" : "DESCRIPTION",
+    "properties" : {
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "dcf"
+}
