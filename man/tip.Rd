@@ -26,9 +26,9 @@ the size of an unmeasured confounder at the given prevalences that would tip the
 \description{
 choose two of the following three to specify, and the third will be estimated:
 \itemize{
-\item p1
-\item p0
-\item $\gamma$
+\item \code{p1}
+\item \code{p0}
+\item \code{gamma}
 }
 }
 \examples{

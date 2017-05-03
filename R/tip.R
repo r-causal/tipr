@@ -1,9 +1,9 @@
 #' Tipping point
 #'
 #' choose two of the following three to specify, and the third will be estimated:
-#' * p1
-#' * p0
-#' * $\gamma$
+#' * `p1`
+#' * `p0`
+#' * `gamma`
 #'
 #' @param p1 estimated prevalence of the unmeasured confounder in the exposed population
 #' @param p0 estimated prevalence of the unmeasured confounder in the unexposed population
