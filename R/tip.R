@@ -51,9 +51,7 @@ that could tip this. Please specify a larger prevalence difference
                 round(gamma,2),p1, p0, lb, ub))
     invisible(gamma)
     } else return(gamma)
-  }
-
-  if (is.null(p0)){
+  } else if (is.null(p0)){
 
     if(p1 < 0 | p1 > 1 ) stop("The prevalences entered must be between 0 and 1")
 
@@ -67,9 +65,7 @@ that could tip this. Please specify a larger prevalence difference
                   round(gamma,2),p1, p0, lb, ub))
       invisible(p0)
     } else return(p0)
-  }
-
-  if (is.null(p1)){
+  } else if (is.null(p1)){
 
     if(p0 < 0 | p0 > 1) stop("The prevalences entered must be between 0 and 1")
 
@@ -83,7 +79,6 @@ that could tip this. Please specify a larger prevalence difference
                   round(gamma,2),p0, p1, lb, ub))
       invisible(p1)
     } else return(p1)
-  }
-  warning("Please specify only 2 of the following: p0, p1, gamma. The function will return the third.")
+  } else warning("Please specify only 2 of the following: p0, p1, gamma. The function will return the third.")
   }
 
