@@ -1,7 +1,13 @@
 #' Tipping point
 #'
+#' choose two of the following three to specify, and the third will be estimated:
+#' * p1
+#' * p0
+#' * $\gamma$
+#'
 #' @param p1 estimated prevalence of the unmeasured confounder in the exposed population
 #' @param p0 estimated prevalence of the unmeasured confounder in the unexposed population
+#' @param gamma estimated size of an unmeasured confounder
 #' @param lb lower bound of your observed effect
 #' @param ub upper bound of your observed effect
 #' @param explanation logical value indicates whether you'd like the function to output a sentence explanation for inclusion in a manuscript.
@@ -16,15 +22,68 @@
 #' tip(p1 = .5,p0 = 0,lb = 1.2,ub = 1.5,explanation = TRUE)
 #'
 #' @export
-tip <- function(p1, p0, lb = 1, ub = 1, explanation = FALSE) {
+tip <- function(p1 = NULL, p0 = NULL, lb = NULL, ub = NULL, gamma = NULL, explanation = FALSE) {
   if (lb > 1 & ub > 1){
     b = lb
   } else if (lb < 1 & ub < 1){
     b = ub
   } else stop("Please input a significant result.")
+
+
+
+  if (is.null(gamma)){
+
   if(p1 < 0 | p0 < 0 | p1 > 1 | p0 > 1) stop("The prevalences entered must be between 0 and 1")
-  gamma = (1-p1+b*(p0-1))/(b*p0-p1)
+
+  gamma = ((1-p1)+b*(p0-1))/(b*p0-p1)
+  if ({
+    # !((p1/p0 > b & b > (1-p1)/(1-p0)) |
+    # (p1/p0 < b & b < (1-p1)/(1-p0)))
+    gamma < 0
+  }) {
+
+    stop(sprintf("Given these prevelances, there does not exist an unmeasured confounder
+that could tip this. Please specify a larger prevalence difference
+(ie: make p0 and p1 farther apart)."))
+  }
   if (explanation == TRUE){
-    print(paste0("An unmeasured confounder of size ",round(gamma,2), " with a prevalence of ",p1," in the exposed population and ", p0, " in the unexposed population would tip your (",lb,",",ub,") result to nonsignificance."))
-  } else gamma
-}
+    cat(sprintf("An unmeasured confounder of size %s with a prevalence of %s in the exposed population and %s in the unexposed population would tip your (%s,%s) result to nonsignificance.",
+                round(gamma,2),p1, p0, lb, ub))
+    invisible(gamma)
+    } else return(gamma)
+  }
+
+  if (is.null(p0)){
+
+    if(p1 < 0 | p1 > 1 ) stop("The prevalences entered must be between 0 and 1")
+
+
+    p0 = (p1*(-gamma)+p1+b-1)/(b-gamma*b)
+    if (p0 > 1 | p0 < 0) {
+   stop(sprintf("Given these parameters, there does not exist an unmeasured confounder that could tip this."))
+    }
+    if (explanation == TRUE){
+      cat(sprintf("An unmeasured confounder of size %s with a prevalence of %s in the exposed population would need a prevalence of %s in the unexposed population to tip your (%s,%s) result to nonsignificance.",
+                  round(gamma,2),p1, p0, lb, ub))
+      invisible(p0)
+    } else return(p0)
+  }
+
+  if (is.null(p1)){
+
+    if(p0 < 0 | p0 > 1) stop("The prevalences entered must be between 0 and 1")
+
+
+    p1 = (b*((gamma-1)*p0+1)-1)/(gamma-1)
+    if (p1 > 1 | p1 < 0) {
+      stop(sprintf("Given these parameters, there does not exist an unmeasured confounder that could tip this."))
+    }
+    if (explanation == TRUE){
+      cat(sprintf("An unmeasured confounder of size %s with a prevalence of %s in the unexposed population would need a prevalence of %s in the exposed population to tip your (%s,%s) result to nonsignificance.",
+                  round(gamma,2),p0, p1, lb, ub))
+      invisible(p1)
+    } else return(p1)
+  }
+  stop("Please specify only 2 of the following: p0, p1, gamma. The function will return the third.")
+  }
+

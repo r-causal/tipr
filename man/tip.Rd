@@ -4,7 +4,8 @@
 \alias{tip}
 \title{Tipping point}
 \usage{
-tip(p1, p0, lb = 1, ub = 1, explanation = FALSE)
+tip(p1 = NULL, p0 = NULL, lb = NULL, ub = NULL, gamma = NULL,
+  explanation = FALSE)
 }
 \arguments{
 \item{p1}{estimated prevalence of the unmeasured confounder in the exposed population}
@@ -15,13 +16,20 @@ tip(p1, p0, lb = 1, ub = 1, explanation = FALSE)
 
 \item{ub}{upper bound of your observed effect}
 
+\item{gamma}{estimated size of an unmeasured confounder}
+
 \item{explanation}{logical value indicates whether you'd like the function to output a sentence explanation for inclusion in a manuscript.}
 }
 \value{
 the size of an unmeasured confounder at the given prevalences that would tip the observed result
 }
 \description{
-Tipping point
+choose two of the following three to specify, and the third will be estimated:
+\itemize{
+\item p1
+\item p0
+\item $\gamma$
+}
 }
 \examples{
 #to output the size of an unmeasured confounder needed to tip analysis
@@ -31,4 +39,3 @@ tip(p1 = .5,p0 = 0,lb = 1.2,ub = 1.5)
 tip(p1 = .5,p0 = 0,lb = 1.2,ub = 1.5,explanation = TRUE)
 
 }
-
