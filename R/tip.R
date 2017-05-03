@@ -84,6 +84,6 @@ that could tip this. Please specify a larger prevalence difference
       invisible(p1)
     } else return(p1)
   }
-  stop("Please specify only 2 of the following: p0, p1, gamma. The function will return the third.")
+  warning("Please specify only 2 of the following: p0, p1, gamma. The function will return the third.")
   }
 
