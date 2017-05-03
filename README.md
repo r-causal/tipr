@@ -7,14 +7,14 @@ tipR: R tools for tipping point sensitivity analyses
 **License:** [MIT](https://opensource.org/licenses/MIT)
 
 
-##Installation
+## Installation
 
 ```
 library(devtools)
 install_github("lucymcgowan/tipr")
 ```
 
-##Usage
+## Usage
 
 Enter estimated prevalences of an unmeasured confounder in the exposed and unexposed populations as well as the lower bound and upper bound of an effect you observe. The function will return the size of the unmeasured confounder needed to tip your analysis to non-significance.
 ```
