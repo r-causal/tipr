@@ -33,9 +33,9 @@ choose one of the following, and the other will be estimated:
 }
 \examples{
 #to output the size of an unmeasured confounder needed to tip analysis
-tip_with_continuousy(mean_diff = -2, lb = 1.2,ub = 1.5)
+tip_with_continuous(mean_diff = -2, lb = 1.2, ub = 1.5)
 
 #to output a sentence explanation
-tip_with_continuous(mean_diff = -2, lb = 1.2,ub = 1.5,explanation = TRUE)
+tip_with_continuous(mean_diff = -2, lb = 1.2, ub = 1.5, explanation = TRUE)
 
 }
