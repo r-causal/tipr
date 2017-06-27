@@ -47,7 +47,7 @@ confounder that could tip this. Please specify a larger prevalence
 difference (ie: make p0 and p1 farther apart)."))
     }
     if (explanation == TRUE){
-      cat(sprintf("An unmeasured confounder of size %s with a prevalence of %s in the exposed population and %s in the unexposed population would tip your (%s,%s) result to nonsignificance.",
+      cat(sprintf("An unmeasured confounder of size %s with a prevalence of %s in the \nexposed population and %s in the unexposed population would tip your \n(%s,%s) result to nonsignificance.",
                   round(gamma,2),p1, p0, lb, ub))
       invisible(gamma)
     } else return(gamma)
@@ -61,7 +61,7 @@ difference (ie: make p0 and p1 farther apart)."))
       stop(sprintf("Given these parameters, there does not exist an unmeasured confounder that could tip this."))
     }
     if (explanation == TRUE){
-      cat(sprintf("An unmeasured confounder of size %s with a prevalence of %s in the exposed population would need a prevalence of %s in the unexposed population to tip your (%s,%s) result to nonsignificance.",
+      cat(sprintf("An unmeasured confounder of size %s with a prevalence of %s in the \nexposed population would need a prevalence of %s in the unexposed population to tip your \n(%s,%s) result to nonsignificance.",
                   round(gamma,2),p1, p0, lb, ub))
       invisible(p0)
     } else return(p0)
@@ -75,7 +75,7 @@ difference (ie: make p0 and p1 farther apart)."))
       stop(sprintf("Given these parameters, there does not exist an unmeasured confounder that could tip this."))
     }
     if (explanation == TRUE){
-      cat(sprintf("An unmeasured confounder of size %s with a prevalence of %s in the unexposed population would need a prevalence of %s in the exposed population to tip your (%s,%s) result to nonsignificance.",
+      cat(sprintf("An unmeasured confounder of size %s with a prevalence of %s in the \nunexposed population would need a prevalence of %s in the exposed population to tip your \n(%s,%s) result to nonsignificance.",
                   round(gamma,2),p0, p1, lb, ub))
       invisible(p1)
     } else return(p1)
@@ -120,7 +120,7 @@ tip_with_continuous <- function(mean_diff = NULL, gamma = NULL, lb = NULL, ub = 
       stop("This might be wrong..")
     }
     if (explanation == TRUE){
-      cat(sprintf("An unmeasured confounder of size %s with a mean difference of %s between the exposed and unexposed population would tip your (%s,%s) result to nonsignificance.",
+      cat(sprintf("An unmeasured confounder of size %s with a mean difference of %s between \nthe exposed and unexposed population would tip your (%s,%s) result \nto nonsignificance.",
                   round(gamma,2), mean_diff, lb, ub))
       invisible(gamma)
     } else return(gamma)
