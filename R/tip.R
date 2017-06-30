@@ -5,6 +5,7 @@
 #' * `p0`
 #' * `gamma`
 #'
+#' [`tip_b()`] is an alias for [`tip_with_binary()`].
 #' @param p1 estimated prevalence of the unmeasured confounder in the exposed population
 #' @param p0 estimated prevalence of the unmeasured confounder in the unexposed population
 #' @param gamma estimated size of an unmeasured confounder
@@ -23,13 +24,7 @@
 #'
 #' @export
 tip_with_binary <- function(p1 = NULL, p0 = NULL, gamma = NULL, lb = NULL, ub = NULL, explanation = FALSE) {
-  if (lb > 1 & ub > 1){
-    b <- lb
-  } else if (lb < 1 & ub < 1){
-    b <- ub
-  } else stop("Please input a significant result.")
-
-
+  b <- get_limiting_bound(lb, ub)
 
   if (is.null(gamma)){
 
@@ -88,6 +83,8 @@ difference (ie: make p0 and p1 farther apart)."))
 #' * `mean_diff`
 #' * `gamma`
 #'
+#' [`tip_c()`] is an alias for [`tip_with_continuous()`].
+#'
 #' @param mean_diff estimated mean difference of the unmeasured confounder in the
 #'  exposed population and unexposed population
 #' @param gamma estimated size of an unmeasured confounder
@@ -108,11 +105,8 @@ difference (ie: make p0 and p1 farther apart)."))
 #'
 #' @export
 tip_with_continuous <- function(mean_diff = NULL, gamma = NULL, lb = NULL, ub = NULL, explanation = FALSE) {
-  if (lb > 1 & ub > 1){
-    b <- lb
-  } else if (lb < 1 & ub < 1){
-    b <- ub
-  } else stop("Please input a significant result.")
+  b <- get_limiting_bound(lb, ub)
+
   if (is.null(gamma)){
     gamma <- (1/b)^{1/(mean_diff)}
 
@@ -129,15 +123,10 @@ tip_with_continuous <- function(mean_diff = NULL, gamma = NULL, lb = NULL, ub = 
   }
 }
 
-#' Tip a result with a binary confounder.
-#'
-#' Choose two of the following three to specify, and the third will be estimated:
-#' * `p1`
-#' * `p0`
-#' * `gamma`
-#' @inheritParams tip_with_binary
-#'
+#' @rdname tip_with_binary
 #' @export
-tip_b <- function(p1 = NULL, p0 = NULL, gamma = NULL, lb = NULL, ub = NULL, explanation = FALSE) {
-  tip_with_binary(p1 = p1, p0 = p0, gamma = gamma, lb = lb, ub = ub, explanation = explanation)
-}
+tip_b <- tip_with_binary
+
+#' @rdname tip_with_continuous
+#' @export
+tip_c <- tip_with_continuous

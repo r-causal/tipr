@@ -2,10 +2,14 @@
 % Please edit documentation in R/tip.R
 \name{tip_with_continuous}
 \alias{tip_with_continuous}
+\alias{tip_c}
 \title{Tip a result with a continuous confounder.}
 \usage{
 tip_with_continuous(mean_diff = NULL, gamma = NULL, lb = NULL,
   ub = NULL, explanation = FALSE)
+
+tip_c(mean_diff = NULL, gamma = NULL, lb = NULL, ub = NULL,
+  explanation = FALSE)
 }
 \arguments{
 \item{mean_diff}{estimated mean difference of the unmeasured confounder in the
@@ -30,6 +34,9 @@ choose one of the following, and the other will be estimated:
 \item \code{mean_diff}
 \item \code{gamma}
 }
+}
+\details{
+\code{\link[=tip_c]{tip_c()}} is an alias for \code{\link[=tip_with_continuous]{tip_with_continuous()}}.
 }
 \examples{
 #to output the size of an unmeasured confounder needed to tip analysis

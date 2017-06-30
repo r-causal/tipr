@@ -2,10 +2,14 @@
 % Please edit documentation in R/tip.R
 \name{tip_with_binary}
 \alias{tip_with_binary}
+\alias{tip_b}
 \title{Tip a result with a binary confounder.}
 \usage{
 tip_with_binary(p1 = NULL, p0 = NULL, gamma = NULL, lb = NULL,
   ub = NULL, explanation = FALSE)
+
+tip_b(p1 = NULL, p0 = NULL, gamma = NULL, lb = NULL, ub = NULL,
+  explanation = FALSE)
 }
 \arguments{
 \item{p1}{estimated prevalence of the unmeasured confounder in the exposed population}
@@ -30,6 +34,9 @@ choose two of the following three to specify, and the third will be estimated:
 \item \code{p0}
 \item \code{gamma}
 }
+}
+\details{
+\code{\link[=tip_b]{tip_b()}} is an alias for \code{\link[=tip_with_binary]{tip_with_binary()}}.
 }
 \examples{
 #to output the size of an unmeasured confounder needed to tip analysis
