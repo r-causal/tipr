@@ -22,18 +22,19 @@ tip_b(p1 = NULL, p0 = NULL, gamma = NULL, lb = NULL, ub = NULL,
 
 \item{ub}{upper bound of your observed effect}
 
-\item{explanation}{logical value indicates whether you'd like the function to output a sentence explanation for inclusion in a manuscript.}
-}
-\value{
-the size of an unmeasured confounder at the given prevalences that would tip the observed result
+\item{explanation}{logical value indicates whether you'd like the function to output
+a sentence explanation for inclusion in a manuscript.}
 }
 \description{
-choose two of the following three to specify, and the third will be estimated:
+Choose two of the following three to specify, and the third will be estimated:
 \itemize{
 \item \code{p1}
 \item \code{p0}
 \item \code{gamma}
 }
+
+Alternatively, specify all three and the function will return the number of unmeasured
+confounders specified needed to tip the analysis.
 }
 \details{
 \code{\link[=tip_b]{tip_b()}} is an alias for \code{\link[=tip_with_binary]{tip_with_binary()}}.
