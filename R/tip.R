@@ -40,7 +40,7 @@ tip_with_binary <- function(p1 = NULL, p0 = NULL, gamma = NULL, lb = NULL, ub = 
   if (is.null(p1)){
     return(tip_p1(p0, gamma, b, lb, ub, explanation))
   }
-  tip_n(p0, p1, gamma, lb, ub, explanation)
+  tip_n(p0, p1, gamma, b, lb, ub, explanation)
 }
 
 #' Tip a result with a continuous confounder.
