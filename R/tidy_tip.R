@@ -14,6 +14,7 @@
 #' @export
 #'
 #' @examples
+#' library(magrittr)
 #' ## Fit a model
 #' mod <- glm(vs ~ mpg, data = mtcars, family = binomial())
 #'
