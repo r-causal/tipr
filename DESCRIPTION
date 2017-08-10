@@ -10,4 +10,9 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.0.1
 Roxygen: list(markdown = TRUE)
-Suggests: testthat
+Suggests: 
+    testthat,
+    magrittr
+Imports: 
+    broom,
+    tibble
