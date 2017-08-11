@@ -30,7 +30,7 @@ data frame
 Tidy tipr
 }
 \examples{
-library(magrittr)
+\dontrun{
 ## Fit a model
 mod <- glm(vs ~ mpg, data = mtcars, family = binomial())
 
@@ -58,4 +58,5 @@ mod \%>\%
            p0 = 0,
            p1 = 0.1,
            gamma = 1.1)
+}
 }

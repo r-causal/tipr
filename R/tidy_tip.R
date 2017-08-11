@@ -14,7 +14,7 @@
 #' @export
 #'
 #' @examples
-#' library(magrittr)
+#' \dontrun{
 #' ## Fit a model
 #' mod <- glm(vs ~ mpg, data = mtcars, family = binomial())
 #'
@@ -42,6 +42,7 @@
 #'            p0 = 0,
 #'            p1 = 0.1,
 #'            gamma = 1.1)
+#'}
 tidy_tip <- function(mod, exposure, p0 = NULL, p1 = NULL, gamma = NULL, explanation = FALSE) {
 
   df <- broom::tidy(mod, conf.int = TRUE)
