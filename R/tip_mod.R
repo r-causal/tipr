@@ -32,7 +32,7 @@
 #'}
 tip_mod <- function(mod, exposure, rr_eu = NULL, rr_ud = NULL) {
 
-  df <- broom::tidy(mod, conf.int = TRUE)
+  df <- broom::tidy(mod, conf.int = 0.95)
   df <- df[df$term == exposure, ]
   lb <- exp(df[["conf.low"]])
   ub <- exp(df[["conf.high"]])

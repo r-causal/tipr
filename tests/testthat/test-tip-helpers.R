@@ -24,9 +24,9 @@ test_that("get_limiting_bound() errors if lb or ub < 0", {
 
 test_that("get_limiting_bound() gives correct bound", {
 
-  expect_identical(get_limiting_bound(lb = 1.1, ub = 1.2), 1.1)
-  expect_identical(get_limiting_bound(lb = 0.8, ub = 0.9), 0.9)
-  expect_identical(get_limiting_bound(lb = 1.1, ub = 1.1), 1.1)
+  expect_equivalent(get_limiting_bound(lb = 1.1, ub = 1.2), 1.1)
+  expect_equivalent(get_limiting_bound(lb = 0.8, ub = 0.9), 0.9)
+  expect_equivalent(get_limiting_bound(lb = 1.1, ub = 1.1), 1.1)
 
 })
 
