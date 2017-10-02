@@ -22,42 +22,47 @@ library("tipr")
 Usage
 -----
 
-Enter estimated prevalences of an unmeasured confounder in the exposed and unexposed populations as well as the lower bound and upper bound of an effect you observe. The function will return the size of the unmeasured confounder needed to tip your analysis to non-significance.
+After fitting your model, you can determine the unmeasured confounder needed to tip your analysis. This unmeasured confounder is determined by two quantities, the association between the exposure and the unmeasured confounder `rr_eu`, and the association between the unmeasured confounder and outcome `rr_ud`. Using the `tip_mod()` function, we can fix one of these and solve for the other. Alternatively, we can fix both and solve for `n`, that is, how many unmeasured confounders of this magnitude would tip the analysis. We can also leave both blank and solve for the minimum joint association, put forth by VanderWeele and Ding, known as the E-value.
 
 ``` r
-tip_with_binary(p1 = 0.5,
-                p0 = 0, 
-                lb = 1.2,
-                ub = 1.3)
+## Fit a model
+mod <- glm(vs ~ mpg, data = mtcars, family = binomial())
 ```
 
-    ## [1] 1.4
-
-If you are interested in outputting a single sentence for inclusion in a manuscript, use the `explanation = TRUE` option:
+Solve for the association between the exposure and unmeasured confounder needed to tip the analysis.
 
 ``` r
-tip_with_binary(p1 = 0.5, 
-                p0 = 0, 
-                lb = 1.2,
-                ub = 1.3,
-                explanation = TRUE)
+mod %>%
+  tip_mod(exposure = "mpg",
+      rr_ud = 1.4)
 ```
 
-    ## An unmeasured confounder of size 1.4 with a prevalence of 0.5 in the 
-    ## exposed population and 0 in the unexposed population would tip your 
-    ## (1.2,1.3) result to nonsignificance.
+    ## # A tibble: 1 x 5
+    ##         lb       ub    rr_eu rr_ud     n
+    ##      <dbl>    <dbl>    <dbl> <dbl> <dbl>
+    ## 1 1.203144 2.280633 2.444723   1.4     1
 
-Alternatively, you can specify all three parameters and the function will output the number of specified unmeasured confounders needed to tip the analysis.
+Solve for the association between the unmeasured confounder and the outcome needed to tip the analysis.
 
 ``` r
-tip_with_binary(p1 = 0.5,
-                p0 = 0, 
-                gamma = 1.1, 
-                lb = 1.2, 
-                ub = 1.3, 
-                explanation = TRUE)
+mod %>%
+  tip_mod(exposure = "mpg",
+      rr_eu = 1.4)
 ```
 
-    ## 3.74 unmeasured confounders of size 1.1 with a prevalence of 0.5 in the 
-    ## exposed population and 0 in the unexposed population would tip your
-    ## (1.2, 1.3) result to nonsignificance.
+    ## # A tibble: 1 x 5
+    ##         lb       ub rr_eu    rr_ud     n
+    ##      <dbl>    <dbl> <dbl>    <dbl> <dbl>
+    ## 1 1.203144 2.280633   1.4 2.444723     1
+
+Solve for the minimum joint association between the exposure and unmeasured confounder and the unmeasured confounder and outcome, also known as the E-value.
+
+``` r
+mod %>%
+   tip_mod(exposure = "mpg")
+```
+
+    ## # A tibble: 1 x 5
+    ##         lb       ub    rr_eu    rr_ud     n
+    ##      <dbl>    <dbl>    <dbl>    <dbl> <dbl>
+    ## 1 1.203144 2.280633 1.697525 1.697525     1

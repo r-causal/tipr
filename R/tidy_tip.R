@@ -1,4 +1,4 @@
-#' Tidy tipr
+#' Tidy tip a result with a binary confounder.
 #'
 #' @param mod Model object from [`glm()`] or [`coxph()`]
 #' @param exposure Character string. The name of the exposure variable.

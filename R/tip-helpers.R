@@ -8,10 +8,10 @@ get_limiting_bound <- function(lb = NULL, ub = NULL) {
         lb, ub)
   }
   if (lb > 1 && ub > 1) {
-    return(lb)
+    return(c(lb = lb))
   }
   if (lb < 1 && ub < 1) {
-    return(ub)
+    return(c(ub = ub))
   }
   spf("You input: (%s, %s)\nPlease input a significant result.",
       lb, ub)
@@ -116,4 +116,8 @@ tip_n <- function(p0, p1, gamma, b, lb, ub, explanation) {
     return(invisible(n))
   }
   n
+}
+
+e_value <- function(rr) {
+  rr + sqrt(rr * (rr - 1))
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/tidy_tip.R
 \name{tidy_tip}
 \alias{tidy_tip}
-\title{Tidy tipr}
+\title{Tidy tip a result with a binary confounder.}
 \usage{
 tidy_tip(mod, exposure, p0 = NULL, p1 = NULL, gamma = NULL,
   explanation = FALSE)
@@ -27,7 +27,7 @@ a sentence explanation for inclusion in a manuscript.}
 data frame
 }
 \description{
-Tidy tipr
+Tidy tip a result with a binary confounder.
 }
 \examples{
 \dontrun{
