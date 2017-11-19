@@ -67,13 +67,13 @@ tip_with_continuous <- function(mean_diff = NULL, gamma = NULL, lb = NULL, ub = 
 
   if (is.null(gamma)){
     gamma <- (b)^{1/(mean_diff)}
-
-    if (gamma < 0) {
-      stop("This might be wrong..")
-    } else return(gamma)
+    return(gamma)
   } else if (is.null(mean_diff)){
-    stop("we can't do this yet")
+    mean_diff <- log(b) / log(gamma)
+    return(mean_diff)
   }
+    n <- log(b) / (mean_diff * log(gamma))
+    n
 }
 
 #' @rdname tip_with_binary
