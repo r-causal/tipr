@@ -74,7 +74,7 @@ tip_with_continuous <- function(mean_diff = NULL, gamma = NULL, lb = NULL, ub = 
   b <- get_limiting_bound(lb, ub)
 
   if (is.null(gamma)){
-    gamma <- (1/b)^{1/(mean_diff)}
+    gamma <- (b)^{1/(mean_diff)}
 
     if (gamma < 0) {
       stop("This might be wrong..")
