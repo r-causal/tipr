@@ -8,10 +8,10 @@ get_limiting_bound <- function(lb = NULL, ub = NULL) {
         lb, ub)
   }
   if (lb > 1 && ub > 1) {
-    return(c(lb = lb))
+    return(lb)
   }
   if (lb < 1 && ub < 1) {
-    return(c(ub = ub))
+    return(ub)
   }
   spf("You input: (%s, %s)\nPlease input a significant result.",
       lb, ub)
