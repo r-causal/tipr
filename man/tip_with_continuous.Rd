@@ -6,10 +6,9 @@
 \title{Tip a result with a continuous confounder.}
 \usage{
 tip_with_continuous(mean_diff = NULL, gamma = NULL, lb = NULL,
-  ub = NULL, explanation = FALSE)
+  ub = NULL)
 
-tip_c(mean_diff = NULL, gamma = NULL, lb = NULL, ub = NULL,
-  explanation = FALSE)
+tip_c(mean_diff = NULL, gamma = NULL, lb = NULL, ub = NULL)
 }
 \arguments{
 \item{mean_diff}{estimated mean difference of the unmeasured confounder in the
@@ -20,9 +19,6 @@ exposed population and unexposed population}
 \item{lb}{lower bound of your observed effect}
 
 \item{ub}{upper bound of your observed effect}
-
-\item{explanation}{logical value indicates whether you'd like the function to
-output a sentence explanation for inclusion in a manuscript.}
 }
 \value{
 Numeric. The size of an unmeasured confounder at the given parameters
@@ -42,7 +38,5 @@ choose one of the following, and the other will be estimated:
 #to output the size of an unmeasured confounder needed to tip analysis
 tip_with_continuous(mean_diff = -2, lb = 1.2, ub = 1.5)
 
-#to output a sentence explanation
-tip_with_continuous(mean_diff = -2, lb = 1.2, ub = 1.5, explanation = TRUE)
 
 }

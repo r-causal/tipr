@@ -6,10 +6,9 @@
 \title{Tip a result with a binary confounder.}
 \usage{
 tip_with_binary(p1 = NULL, p0 = NULL, gamma = NULL, lb = NULL,
-  ub = NULL, explanation = FALSE)
+  ub = NULL)
 
-tip_b(p1 = NULL, p0 = NULL, gamma = NULL, lb = NULL, ub = NULL,
-  explanation = FALSE)
+tip_b(p1 = NULL, p0 = NULL, gamma = NULL, lb = NULL, ub = NULL)
 }
 \arguments{
 \item{p1}{estimated prevalence of the unmeasured confounder in the exposed population}
@@ -21,9 +20,6 @@ tip_b(p1 = NULL, p0 = NULL, gamma = NULL, lb = NULL, ub = NULL,
 \item{lb}{lower bound of your observed effect}
 
 \item{ub}{upper bound of your observed effect}
-
-\item{explanation}{logical value indicates whether you'd like the function to output
-a sentence explanation for inclusion in a manuscript.}
 }
 \description{
 Choose two of the following three to specify, and the third will be estimated:
@@ -43,7 +39,5 @@ confounders specified needed to tip the analysis.
 #to output the size of an unmeasured confounder needed to tip analysis
 tip_with_binary(p1 = .5, p0 = 0, lb = 1.2, ub = 1.5)
 
-#to output a sentence explanation
-tip_with_binary(p1 = .5, p0 = 0, lb = 1.2, ub = 1.5, explanation = TRUE)
 
 }

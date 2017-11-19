@@ -21,8 +21,7 @@ tip_gamma <- function(p0 = NULL,
                       p1 = NULL,
                       b = NULL,
                       lb = NULL,
-                      ub = NULL,
-                      explanation = FALSE) {
+                      ub = NULL) {
   if (is.null(p1) || is.null(p0)) {
     stop("Please input at least 2 of the following:\n`p0`,`p1`,`gamma`.")
   }
@@ -39,20 +38,14 @@ tip_gamma <- function(p0 = NULL,
                  confounder that could tip this. Please specify a larger prevalence
                  difference (ie: make p0 and p1 farther apart).")
   }
-  if (explanation){
-    cat(sprintf("An unmeasured confounder of size %s with a prevalence of %s in the \nexposed population and %s in the unexposed population would tip your \n(%s,%s) result to nonsignificance.",
-                round(gamma, 2), p1, p0, lb, ub))
-    return(invisible(gamma))
-  }
-  gamma
+  as.numeric(gamma)
 }
 
 tip_p0 <- function(p1 = NULL,
                    gamma = NULL,
                    b = NULL,
                    lb = NULL,
-                   ub = NULL,
-                   explanation = FALSE) {
+                   ub = NULL) {
   if (is.null(p1) || is.null(gamma)) {
     stop("Please input at least 2 of the following:\n`p0`,`p1`,`gamma`.")
   }
@@ -67,12 +60,7 @@ tip_p0 <- function(p1 = NULL,
     spf("Given these parameters: `p1`: %s, `gamma`: %s, `lb`: %s, `ub`: %s\nthere does not exist an unmeasured confounder that could tip this.",
         p1, gamma, lb, ub)
   }
-  if (explanation){
-    cat(sprintf("An unmeasured confounder of size %s with a prevalence of %s in the \nexposed population would need a prevalence of %s in the unexposed population to tip your \n(%s, %s) result to nonsignificance.",
-                round(gamma, 2), p1, p0, lb, ub))
-    return(invisible(p0))
-  }
-  p0
+  as.numeric(p0)
 }
 
 
@@ -80,8 +68,7 @@ tip_p1 <- function(p0 = NULL,
                    gamma = NULL,
                    b = NULL,
                    lb = NULL,
-                   ub = NULL,
-                   explanation = FALSE) {
+                   ub = NULL) {
   if (is.null(p0) || is.null(gamma)) {
     stop("Please input at least 2 of the following:\n`p0`,`p1`,`gamma`.")
   }
@@ -96,26 +83,16 @@ tip_p1 <- function(p0 = NULL,
     spf("Given these parameters: `p0`: %s, `gamma`: %s, `lb`: %s, `ub`: %s\nthere does not exist an unmeasured confounder that could tip this.",
         p0, gamma, lb, ub)
   }
-  if (explanation){
-    cat(sprintf("An unmeasured confounder of size %s with a prevalence of %s in the \nunexposed population would need a prevalence of %s in the exposed population to tip your \n(%s, %s) result to nonsignificance.",
-                round(gamma, 2), p0, p1, lb, ub))
-    return(invisible(p1))
-  }
-  p1
+  as.numeric(p1)
 }
 
-tip_n <- function(p0, p1, gamma, b, lb, ub, explanation) {
+tip_n <- function(p0, p1, gamma, b, lb, ub) {
   n <- log(1/b)/(log((gamma*p0+(1-p0))/(gamma*p1+(1-p1))))
   if (n < 1) {
     warning("This analysis would tip with < 1 of the given unmeasured confounders.",
             call. = FALSE)
   }
-  if (explanation) {
-    cat(sprintf("%s unmeasured confounders of size %s with a prevalence of %s in the \nexposed population and %s in the unexposed population would tip your\n(%s, %s) result to nonsignificance.\n",
-                round(n, 2), round(gamma, 2), p1, p0, lb, ub))
-    return(invisible(n))
-  }
-  n
+  as.numeric(n)
 }
 
 e_value <- function(rr) {

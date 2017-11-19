@@ -43,15 +43,15 @@ tip_mod <- function(mod, exposure, rr_eu = NULL, rr_ud = NULL) {
   }
   n <- 1
   if (!is.null(rr_eu) & !is.null(rr_ud)) {
-    n <- tip_n(p0 = 1/rr_eu, p1 = 1, gamma = rr_ud, b, lb, ub, explanation = FALSE)
+    n <- tip_n(p0 = 1/rr_eu, p1 = 1, gamma = rr_ud, b, lb, ub)
   }
 
   if (is.null(rr_ud) && is.null(rr_eu)) {
     rr_ud <- rr_eu <- e_value(b)
   } else if (is.null(rr_ud)) {
-    rr_ud <- tip_gamma(p0 = 1/rr_eu, p1 = 1, b, lb, ub, explanation = FALSE)
+    rr_ud <- tip_gamma(p0 = 1/rr_eu, p1 = 1, b, lb, ub)
   } else if (is.null(rr_eu)){
-    rr_eu <- 1 / tip_p0(p1 = 1, gamma = rr_ud, b, lb, ub, explanation = FALSE)
+    rr_eu <- 1 / tip_p0(p1 = 1, gamma = rr_ud, b, lb, ub)
   }
 
   tibble::tibble(

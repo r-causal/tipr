@@ -4,8 +4,7 @@
 \alias{tidy_tip}
 \title{Tidy tip a result with a binary confounder.}
 \usage{
-tidy_tip(mod, exposure, p0 = NULL, p1 = NULL, gamma = NULL,
-  explanation = FALSE)
+tidy_tip(mod, exposure, p0 = NULL, p1 = NULL, gamma = NULL)
 }
 \arguments{
 \item{mod}{Model object from \code{\link[=glm]{glm()}} or \code{\link[=coxph]{coxph()}}}
@@ -19,9 +18,6 @@ unexposed population.}
 exposed population.}
 
 \item{gamma}{Numeric. Estimated size of an unmeasured confounder.}
-
-\item{explanation}{Logical. Indicates whether you'd like the function to output
-a sentence explanation for inclusion in a manuscript.}
 }
 \value{
 data frame
