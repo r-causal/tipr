@@ -4,7 +4,15 @@ Title: Tipping Point Analyses
 Version: 0.1.1
 Author: Lucy D'Agostino McGowan
 Maintainer: Lucy D'Agostino McGowan <ld.mcgowan@vanderbilt.edu>
-Description: For conducting tipping point sensitivity analyses in R.
+Description:The strength of evidence provided by epidemiological and observational 
+            studies is inherently limited by the potential for unmeasured confounding. 
+            We focus on three key quantities: the observed bound of the confidence interval
+            closest to the null, a plausible residual effect size for an unmeasured continuous 
+            or binary confounder, and a realistic mean difference or prevalence difference for 
+            this hypothetical confounder. Building on the methods put forth by 
+            Lin, Psaty, & Kronmal (1998) <doi:10.2307/2533848>, we can use these quantities to 
+            assess how an unmeasured confounder may tip our result to insignificance, rendering the
+            study inconclusive.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
