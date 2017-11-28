@@ -9,7 +9,6 @@
 #' @param gamma Numeric. Estimated size of an unmeasured confounder.
 #'
 #' @return data frame
-#' @export
 #'
 #' @examples
 #' \dontrun{

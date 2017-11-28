@@ -22,47 +22,49 @@ library("tipr")
 Usage
 -----
 
-After fitting your model, you can determine the unmeasured confounder needed to tip your analysis. This unmeasured confounder is determined by two quantities, the association between the exposure and the unmeasured confounder `rr_eu`, and the association between the unmeasured confounder and outcome `rr_ud`. Using the `tip_mod()` function, we can fix one of these and solve for the other. Alternatively, we can fix both and solve for `n`, that is, how many unmeasured confounders of this magnitude would tip the analysis. We can also leave both blank and solve for the minimum joint association, put forth by VanderWeele and Ding, known as the E-value.
+After fitting your model, you can determine the unmeasured confounder needed to tip your analysis. This unmeasured confounder is determined by two quantities, the association between the exposure and the unmeasured confounder (if the unmeasured confounder is continuous, this is indicated with `mean_diff`, if binary, with `p1` and `p0`), and the association between the unmeasured confounder and outcome `gamma`. Using this 📦, we can fix one of these and solve for the other. Alternatively, we can fix both and solve for `n`, that is, how many unmeasured confounders of this magnitude would tip the analysis.
+
+In this example, a model was fit and the exposure-outcome relationship was 1.5 (95% CI: 1.2, 1.8).
+
+Continuous unmeasured confounder example
+----------------------------------------
+
+We are interested in a continuous unmeasured confounder, so we will use the `tip_with_continuous()` function.
+
+Let's assume the relationship between the unmeasured confounder and outcome is 1.5 (`gamma = 1.5`), let's solve for the association between the exposure and unmeasured confounder needed to tip the analysis (in this case, we are solving for `mean_diff`, the mean difference needed between the exposed and unexposed).
 
 ``` r
-## Fit a model
-mod <- glm(vs ~ mpg, data = mtcars, family = binomial())
+tip_with_continuous(gamma = 1.5, lb = 1.2, ub = 1.8)
 ```
 
-Solve for the association between the exposure and unmeasured confounder needed to tip the analysis.
+    ## [1] 0.4496603
+
+A hypothetical unobserved continuous confounder that has an association of 1.5 with the outcome would need a scaled mean difference between exposure groups of 0.45 to tip this analysis at the 5% level, rendering it inconclusive.
+
+Binary unmeasured confounder example
+------------------------------------
+
+Now we are interested in the binary unmeasured confounder, so we will use the `tip_with_binary()` function.
+
+Let's assume the unmeasured confounder is prevalent in 25% of the exposed population (`p1 = 0.25`) and in 10% of the unexposed population (`p0 = 0.10`) -- let's solve for the association between the unmeasured confounder and the outcome needed to tip the analysis (`gamma`).
 
 ``` r
-mod %>%
-  tip_mod(exposure = "mpg",
-      rr_ud = 1.4)
+tip_with_binary(p1 = 0.25, p0 = 0.10, lb = 1.2, ub = 1.8)
 ```
 
-    ## # A tibble: 1 x 5
-    ##         lb       ub    rr_eu rr_ud     n
-    ##      <dbl>    <dbl>    <dbl> <dbl> <dbl>
-    ## 1 1.203144 2.280633 2.444723   1.4     1
+    ## [1] 2.538462
 
-Solve for the association between the unmeasured confounder and the outcome needed to tip the analysis.
+A hypothetical unobserved binary confounder that is prevalent in 10% of the unexposed population and 25% of the exposed population would need to have an association with the outcome of 2.54 to tip this analysis at the 5% level, rendering it inconclusive.
+
+Many unmeasured confounders
+---------------------------
+
+Suppose we are concerned that there are many small, independent, continuous, unmeasured confounders present.
 
 ``` r
-mod %>%
-  tip_mod(exposure = "mpg",
-      rr_eu = 1.4)
+tip_with_continuous(mean_diff = 0.25, gamma = 1.05, lb = 1.2, ub = 1.8)
 ```
 
-    ## # A tibble: 1 x 5
-    ##         lb       ub rr_eu    rr_ud     n
-    ##      <dbl>    <dbl> <dbl>    <dbl> <dbl>
-    ## 1 1.203144 2.280633   1.4 2.444723     1
+    ## [1] 14.9474
 
-Solve for the minimum joint association between the exposure and unmeasured confounder and the unmeasured confounder and outcome, also known as the E-value.
-
-``` r
-mod %>%
-   tip_mod(exposure = "mpg")
-```
-
-    ## # A tibble: 1 x 5
-    ##         lb       ub    rr_eu    rr_ud     n
-    ##      <dbl>    <dbl>    <dbl>    <dbl> <dbl>
-    ## 1 1.203144 2.280633 1.697525 1.697525     1
+It would take about 15 more independent unmeasured confounders with a scaled mean difference between exposure groups of 0.25 to and an association with the outcome of 1.05 tip the observed analysis at the 5% level, rendering it inconclusive.

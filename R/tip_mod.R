@@ -6,7 +6,6 @@
 #' @param rr_ud Numeric. The association between the unmeasured confounder and the outcome.
 #'
 #' @return data frame
-#' @export
 #'
 #' @examples
 #' \dontrun{
