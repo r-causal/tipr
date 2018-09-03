@@ -21,6 +21,6 @@ Roxygen: list(markdown = TRUE)
 Suggests:
     testthat
 Imports:
-    broom,
+    glue,
     tibble,
     purrr
