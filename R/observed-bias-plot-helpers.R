@@ -1,5 +1,5 @@
 get_y <- function(m) {
-  deparse(formula(m)[[2]])
+  deparse(stats::formula(m)[[2]])
 }
 
 parse_formula <- function(m) {
@@ -104,7 +104,7 @@ clean_covariate <- function(x) {
 
 build_formula <- function(y, x) {
   covs <- glue::glue_collapse(x, sep = "+")
-  as.formula(
+  stats::as.formula(
     glue::glue("{y} ~ {covs}")
   )
 }
@@ -113,7 +113,7 @@ update_model <- function(drop, formula, model) {
   if (is.na(drop)) {
     return(model)
   }
-  update(model, formula)
+  stats::update(model, formula)
 }
 
 

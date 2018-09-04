@@ -44,6 +44,6 @@ observed_bias_tbl <- function(ps_mod, outcome_mod, groups = NULL) {
   )
   tibble::add_column(
     observed_bias_tbl,
-    p = purrr::map(observed_bias_tbl$ps_model, predict, type = "response")
+    p = purrr::map(observed_bias_tbl$ps_model, stats::predict, type = "response")
   )
 }
