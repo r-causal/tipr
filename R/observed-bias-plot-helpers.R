@@ -44,7 +44,7 @@ drop_cov_tbl <- function(ps_mod, outcome_mod, groups = NULL) {
   drop_tbl <- tibble::tibble(
     ps_drop_clean = c(same_ps, diff_ps, rep(NA_character_, length(diff_outcome))),
     outcome_drop_clean = c(same_outcome, rep(NA_character_, length(diff_ps)), diff_outcome),
-    group = FALSE
+    type = "covariate"
   )
 
   drop_tbl <- tibble::add_column(
@@ -82,7 +82,7 @@ drop_cov_tbl <- function(ps_mod, outcome_mod, groups = NULL) {
       g,
       ps_drop_clean = names(groups),
       outcome_drop_clean = names(groups),
-      group = TRUE
+      type = "group"
     )
     drop_tbl <- rbind(drop_tbl, g)
   }

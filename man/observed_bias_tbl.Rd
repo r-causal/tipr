@@ -17,7 +17,7 @@ observed_bias_tbl(ps_mod, outcome_mod, groups = NULL)
 Data frame with the following columns:
 \itemize{
 \item \code{dropped}: The covariate or group of covariates that were dropped
-\item \code{group}: An indicator for whether \code{dropped} refers to a single covariate or a group of covariates
+\item \code{type}: Explanation of \code{dropped}, whether it refers to a single covariate (\code{covariate}) or a group of covariates (\code{group})
 \item \code{ps_formula}: The new formula for the updated propensity score model
 \item \code{outcome_formula}: The new formula for the updated outcome model
 \item \code{ps_model}: The new model object for the updated propensity score model

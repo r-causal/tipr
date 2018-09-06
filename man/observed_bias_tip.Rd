@@ -22,7 +22,7 @@ observed_bias_tip(tip, point_estimate, lb, ub,
 A data frame with five columns:
 \itemize{
 \item \code{dropped}: the input from \code{tip_desc}
-\item \code{group}: and indicator for whether this is a group variable (\code{TRUE})
+\item \code{type}: Explanation of \code{dropped}, here \code{tip} to clarify that this was calculated as a tipping point.
 \item \code{point_estimate}: the shifted point estimate
 \item \code{lb}: the shifted lower bound
 \item \code{ub}: the shifted upper bound

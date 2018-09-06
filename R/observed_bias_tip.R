@@ -8,7 +8,7 @@
 #'
 #' @return A data frame with five columns:
 #' * `dropped`: the input from `tip_desc`
-#' * `group`: and indicator for whether this is a group variable (`TRUE`)
+#' * `type`: Explanation of `dropped`, here `tip` to clarify that this was calculated as a tipping point.
 #' * `point_estimate`: the shifted point estimate
 #' * `lb`: the shifted lower bound
 #' * `ub`: the shifted upper bound
@@ -18,7 +18,7 @@ observed_bias_tip <- function(tip, point_estimate, lb, ub, tip_desc = "Hypotheti
   shift <- 1 - tip
   tibble::tibble(
     dropped = tip_desc,
-    group = TRUE,
+    type = "tip",
     point_estimate = point_estimate + shift,
     lb = lb + shift,
     ub = ub + shift

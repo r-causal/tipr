@@ -7,7 +7,7 @@
 observed_bias_order(d, by)
 }
 \arguments{
-\item{d}{Observed bias data frame. Must have columns \code{dropped} and \code{group}}
+\item{d}{Observed bias data frame. Must have columns \code{dropped} and \code{type}}
 
 \item{by}{Character. Variable in \code{d} to order by.}
 }
