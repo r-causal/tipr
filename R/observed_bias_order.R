@@ -14,7 +14,7 @@ observed_bias_order <- function(d, by) {
   hypo <- which(d$type == "tip")
   hypo <- hypo[order(hypo_[[by]])]
 
-  d <- d[c(hypo, grps, order(d[[by]][d$type != "group"], decreasing = TRUE)), ]
+  d <- d[c(hypo, grps, order(d[[by]][d$type == "covariate"], decreasing = TRUE)), ]
   d$dropped <- factor(d$dropped,
                       levels = d$dropped)
   d
