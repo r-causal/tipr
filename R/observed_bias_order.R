@@ -10,8 +10,8 @@ observed_bias_order <- function(d, by) {
   grps <- which(d$type == "group" & !grepl("Hypothetical", d$dropped))
   grps <- grps[order(grps_[[by]], decreasing = TRUE)]
 
-  hypo_ <- d[d$type == "group" & grepl("Hypothetical", d$dropped), ]
-  hypo <- which(d$type == "group" & grepl("Hypothetical", d$dropped))
+  hypo_ <- d[d$type == "tip", ]
+  hypo <- which(d$type == "tip")
   hypo <- hypo[order(hypo_[[by]])]
 
   d <- d[c(hypo, grps, order(d[[by]][d$type != "group"], decreasing = TRUE)), ]
