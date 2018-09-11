@@ -43,7 +43,7 @@ test_that("tip_gamma() returns correct result", {
   expect_identical(tip_gamma(p0 = 0, p1 = 1, b = .8), .8)
   expect_identical(tip_gamma(p0 = 1, p1 = 0, b = 1.2), 1/1.2)
   expect_error(tip_gamma(p0 = .5, p1 = .2, b = 5),
-               "Given these prevelances, there does not exist an unmeasured")
+               "There does not exist an unmeasured confounder")
 
 })
 
