@@ -1,6 +1,6 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-tipR: R tools for tipping point sensitivity analyses
+tipr: R tools for tipping point sensitivity analyses
 ====================================================
 
 [![Build Status](https://travis-ci.org/LucyMcGowan/tipr.svg?branch=master)](https://travis-ci.org/LucyMcGowan/tipr)
