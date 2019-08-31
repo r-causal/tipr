@@ -2,7 +2,8 @@
 #'
 #' @param ps_mod Model object for the propensity score model
 #' @param outcome_mod Model object for the outcome model
-#' @param groups Named list of groups of covariates to drop together
+#' @param drop_list Named list of covariates or groups of covariates to drop if
+#'   `NULL`, will default to dropping each covariate one at a time.
 #'
 #' @return Data frame with the following columns:
 #'   * `dropped`: The covariate or group of covariates that were dropped
@@ -19,31 +20,36 @@
 #' observed_bias_tbl(
 #'  ps_mod,
 #'  outcome_mod,
-#'  groups = list(
+#'  drop_list = list(
 #'    group_one = c("mpg", "hp"),
 #'    group_two = c("cyl", "wt")
 #'    )
 #'  )
-observed_bias_tbl <- function(ps_mod, outcome_mod, groups = NULL) {
-  check_groups_list(groups)
 
-  exposure <- get_y(ps_mod)
+observed_bias_tbl <- function(ps_mod, outcome_mod, drop_list = NULL) {
+  c <- create_covariate_lists(ps_mod, outcome_mod)
+
+  if (is.null(drop_list)) {
+    drop_list <- create_individual_covariate_list(c)
+  }
+
+  check_drop_list(drop_list)
   outcome <- get_y(outcome_mod)
-  d <- drop_cov_tbl(ps_mod, outcome_mod, groups = groups)
-  d <- add_formula(d, exposure, outcome)
+
+  g <- drop_tbl(drop_list, c)
+  d <- add_formula(g, c[["exposure"]], outcome)
+
   observed_bias_tbl <- tibble::tibble(
-    dropped = ifelse(
-      is.na(d$ps_drop_clean),
-      d$outcome_drop_clean,
-      d$ps_drop_clean
-    ),
+    dropped = d$dropped,
     type = d$type,
     ps_formula = d$ps_form,
     outcome_formula = d$outcome_form,
-    ps_model = purrr::map2(d$ps_drop_clean, d$ps_form, ~ update_model(.x, .y, ps_mod))
+    ps_model = purrr::map(d$ps_form, ~ stats::update(ps_mod, .x))
   )
+
   tibble::add_column(
     observed_bias_tbl,
-    p = purrr::map(observed_bias_tbl$ps_model, stats::predict, type = "response")
+    p = purrr::map(observed_bias_tbl$ps_model,
+                   stats::predict, type = "response")
   )
 }

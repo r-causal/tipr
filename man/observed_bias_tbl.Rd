@@ -4,14 +4,15 @@
 \alias{observed_bias_tbl}
 \title{Create a data frame to assist with creating an observed bias plot}
 \usage{
-observed_bias_tbl(ps_mod, outcome_mod, groups = NULL)
+observed_bias_tbl(ps_mod, outcome_mod, drop_list = NULL)
 }
 \arguments{
 \item{ps_mod}{Model object for the propensity score model}
 
 \item{outcome_mod}{Model object for the outcome model}
 
-\item{groups}{Named list of groups of covariates to drop together}
+\item{drop_list}{Named list of covariates or groups of covariates to drop if
+\code{NULL}, will default to dropping each covariate one at a time.}
 }
 \value{
 Data frame with the following columns:
@@ -33,7 +34,7 @@ outcome_mod <- lm(qsec ~ am + hp + disp + wt, data = mtcars)
 observed_bias_tbl(
  ps_mod,
  outcome_mod,
- groups = list(
+ drop_list = list(
    group_one = c("mpg", "hp"),
    group_two = c("cyl", "wt")
    )
