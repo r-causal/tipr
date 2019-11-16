@@ -4,7 +4,7 @@ Title: Tipping Point Analyses
 Version: 0.1.1
 Author: Lucy D'Agostino McGowan
 Maintainer: Lucy D'Agostino McGowan <ld.mcgowan@vanderbilt.edu>
-Description:The strength of evidence provided by epidemiological and observational 
+Description: The strength of evidence provided by epidemiological and observational 
             studies is inherently limited by the potential for unmeasured confounding. 
             We focus on three key quantities: the observed bound of the confidence interval
             closest to the null, a plausible residual effect size for an unmeasured continuous 
@@ -16,7 +16,7 @@ Description:The strength of evidence provided by epidemiological and observation
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1
 Roxygen: list(markdown = TRUE)
 Suggests:
     testthat

@@ -34,9 +34,16 @@ drop_one_mod_tbl <- function(cov, names, covariate_lists) {
 
   cov_ps <- cov[cov %in% covariate_lists[["ps_covariates_clean"]]]
   cov_outcome <- cov[cov %in% covariate_lists[["outcome_covariates_clean"]]]
+  if (all(clean_covariate(ps_covariates) %in% cov_ps)) {
+    new_ps = 1
+  } else{
+    new_ps = ps_covariates[
+      !(clean_covariate(ps_covariates) %in% cov_ps)
+      ]
+  }
   tibble::tibble(
     dropped = names,
-    new_ps = list(ps_covariates[!(clean_covariate(ps_covariates) %in% cov_ps)]),
+    new_ps = list(new_ps),
     new_outcome = list(
       outcome_covariates[
         !(clean_covariate(outcome_covariates) %in% cov_outcome)

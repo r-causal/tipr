@@ -62,12 +62,18 @@ test_that("drop_one_mod_tbl effectively creates a tbl for dropped covariate from
   expect_equal(t$new_outcome[[1]], c("am", "cyl", "wt", "I(wt^2)"))
 })
 
-test_that("drop_on_mod_tbl effectively creates a tbl for dropped group of covariates", {
+test_that("drop_one_mod_tbl effectively creates a tbl for dropped group of covariates", {
   t <- drop_one_mod_tbl(c("disp", "cyl"), "disp and cyl",
                         create_covariate_lists(ps_mod, outcome_mod))
   expect_equal(t$dropped, "disp and cyl")
   expect_equal(t$new_ps[[1]], c("hp", "I(hp^2)"))
   expect_equal(t$new_outcome[[1]], c("am", "wt", "I(wt^2)"))
+})
+
+test_that("drop_one_mod works for dropping all covariates", {
+  t <- drop_one_mod_tbl(c("hp", "cyl"), "hp and cyl",
+                        create_covariate_lists(ps_mod, outcome_mod))
+  expect_equal(t$new_ps[[1]], 1)
 })
 
 test_that("create_individual_covariate_list effectively creates a list of all covariates modelled", {
