@@ -26,17 +26,17 @@ tip_with_binary <- function(p1 = NULL, p0 = NULL, gamma = NULL, lb = NULL, ub = 
   b <- get_limiting_bound(lb, ub)
 
   if (is.null(gamma)) {
-    return(tip_gamma(p0, p1, b, lb, ub))
+    return(tip_gamma(p0, p1, b))
   }
 
   if (is.null(p0)){
-   return(tip_p0(p1, gamma, b, lb, ub))
+    return(tip_p0(p1, gamma, b))
   }
 
   if (is.null(p1)){
-    return(tip_p1(p0, gamma, b, lb, ub))
+    return(tip_p1(p0, gamma, b))
   }
-  tip_n(p0, p1, gamma, b, lb, ub)
+  tip_n(p0, p1, gamma, b)
 }
 
 #' Tip a result with a continuous confounder.
@@ -65,15 +65,19 @@ tip_with_binary <- function(p1 = NULL, p0 = NULL, gamma = NULL, lb = NULL, ub = 
 tip_with_continuous <- function(mean_diff = NULL, gamma = NULL, lb = NULL, ub = NULL) {
   b <- get_limiting_bound(lb, ub)
 
-  if (is.null(gamma)){
-    gamma <- (b)^(1/(mean_diff))
+  check_gamma(gamma)
+
+  if (is.null(gamma)) {
+    gamma <- b ^ (1 / mean_diff)
+
     return(gamma)
-  } else if (is.null(mean_diff)){
+  } else if (is.null(mean_diff)) {
     mean_diff <- log(b) / log(gamma)
+
     return(mean_diff)
   }
-    n <- log(b) / (mean_diff * log(gamma))
-    n
+  n <- log(b) / (mean_diff * log(gamma))
+  n
 }
 
 #' @rdname tip_with_binary
