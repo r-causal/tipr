@@ -40,7 +40,7 @@ columns are assumed to be called \code{conf.low} and \code{conf.high}. If this
 is not the case, the names can be changed using the \code{lb_name} and
 \code{ub_name} parameters.}
 
-\item{smd}{Numeric. Estimated standardized mean difference between the
+\item{smd}{Numeric. Estimated scaled mean difference between the
 unmeasured confounder in the exposed population and unexposed population}
 
 \item{outcome_association}{Numeric positive value. estimated association
@@ -62,7 +62,7 @@ Data frame.
 choose one of the following, and the other will be estimated:
 \itemize{
 \item \code{smd}
-\item \code{gamma}
+\item \code{outcome_association}
 }
 }
 \examples{

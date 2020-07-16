@@ -121,14 +121,14 @@ tip_with_binary_one <- function(lb, ub, exposed_p, unexposed_p,
 #'
 #' choose one of the following, and the other will be estimated:
 #' * `smd`
-#' * `gamma`
+#' * `outcome_association`
 #'
 #' @param d Data frame. A data frame with the observed effect(s). This should have
 #'   at least two columns with the lower and upper confidence bounds. These
 #'   columns are assumed to be called `conf.low` and `conf.high`. If this
 #'   is not the case, the names can be changed using the `lb_name` and
 #'   `ub_name` parameters.
-#' @param smd Numeric. Estimated standardized mean difference between the
+#' @param smd Numeric. Estimated scaled mean difference between the
 #'    unmeasured confounder in the exposed population and unexposed population
 #' @param outcome_association Numeric positive value. estimated association
 #'    between the unmeasured confounder and the outcome
