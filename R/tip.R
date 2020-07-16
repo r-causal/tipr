@@ -233,3 +233,11 @@ tip_one <- function(lb, ub, smd, outcome_association, verbose) {
 #' @rdname tip_with_binary
 #' @export
 tip_b <- tip_with_binary
+
+#' @rdname tip
+#' @export
+tip_with_continuous <- tip
+
+#' @rdname tip
+#' @export
+tip_c <- tip

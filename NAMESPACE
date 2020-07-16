@@ -3,6 +3,8 @@
 export("%>%")
 export(tip)
 export(tip_b)
+export(tip_c)
 export(tip_with_binary)
+export(tip_with_continuous)
 importFrom(purrr,"%>%")
 importFrom(purrr,"%||%")

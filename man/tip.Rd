@@ -2,9 +2,29 @@
 % Please edit documentation in R/tip.R
 \name{tip}
 \alias{tip}
+\alias{tip_with_continuous}
+\alias{tip_c}
 \title{Tip a result with a continuous confounder.}
 \usage{
 tip(
+  d,
+  smd = NULL,
+  outcome_association = NULL,
+  verbose = TRUE,
+  lb_name = "conf.low",
+  ub_name = "conf.high"
+)
+
+tip_with_continuous(
+  d,
+  smd = NULL,
+  outcome_association = NULL,
+  verbose = TRUE,
+  lb_name = "conf.low",
+  ub_name = "conf.high"
+)
+
+tip_c(
   d,
   smd = NULL,
   outcome_association = NULL,
