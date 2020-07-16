@@ -1,5 +1,7 @@
 #' tipr
 #'
+#' The tipr package.
+#'
 #' @name tipr
 #' @docType package
 #' @references
@@ -19,4 +21,5 @@
 #'
 #'
 #' @importFrom purrr %||%
+#' @importFrom purrr %>%
 NULL
