@@ -92,7 +92,7 @@ tip_with_binary_one <- function(lb, ub, exposed_p, unexposed_p,
     if (o$n_unmeasured_confounders == 0) {
       message_glue(
         "The observed effect ({round(o$observed_lb, 2)}, {round(o$observed_ub, 2)}) ",
-        "cannot be tipped by an unmeasured confounder with the ",
+        "cannot be tipped by an unmeasured confounder\nwith the ",
         "following specifications:",
         "\n  * estimated prevalence of the unmeasured confounder ",
         "in the exposed population: {round(o$exposed_p, 2)}\n  * estimated prevalence of ",
@@ -104,7 +104,7 @@ tip_with_binary_one <- function(lb, ub, exposed_p, unexposed_p,
       message_glue(
         "The observed effect ({round(o$observed_lb, 2)}, {round(o$observed_ub, 2)}) WOULD ",
         "be tipped by {round(o$n_unmeasured_confounders)} ",
-        "unmeasured confounder{ifelse(o$n_unmeasured_confounders > 1, 's', '')} ",
+        "unmeasured confounder{ifelse(o$n_unmeasured_confounders > 1, 's', '')}\n",
         "with the following ",
         "specifications:\n  * estimated prevalence of the unmeasured confounder ",
         "in the exposed population: {round(o$exposed_p, 2)}\n  * estimated prevalence of ",
@@ -205,7 +205,7 @@ tip_one <- function(lb, ub, smd, outcome_association, verbose) {
     if (o$n_unmeasured_confounders == 0) {
       message_glue(
         "The observed effect ({round(o$observed_lb, 2)}, {round(o$observed_ub, 2)}) ",
-        "cannot be tipped by an unmeasured confounder with the ",
+        "cannot be tipped by an unmeasured confounder\nwith the ",
         "following specifications:",
         "\n  * estimated standardized mean difference between the ",
         "unmeasured confounder in the exposed population and ",
@@ -217,7 +217,7 @@ tip_one <- function(lb, ub, smd, outcome_association, verbose) {
       message_glue(
         "The observed effect ({round(o$observed_lb, 2)}, {round(o$observed_ub, 2)}) WOULD ",
         "be tipped by {round(o$n_unmeasured_confounders)} ",
-        "unmeasured confounder{ifelse(o$n_unmeasured_confounders > 1, 's', '')} ",
+        "unmeasured confounder{ifelse(o$n_unmeasured_confounders > 1, 's', '')}\n",
         "with the following specifications:",
         "\n  * estimated standardized mean difference between the ",
         "unmeasured confounder in the exposed population and ",
