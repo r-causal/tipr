@@ -208,7 +208,7 @@ tip_one <- function(lb, ub, smd, outcome_association, verbose) {
         "cannot be tipped by an unmeasured confounder\nwith the ",
         "following specifications:",
         "\n  * estimated standardized mean difference between the ",
-        "unmeasured confounder in the exposed population and ",
+        "unmeasured confounder\nin the exposed population and ",
         "unexposed population: {round(o$smd, 2)}",
         "\n  * estimated association between the unmeasured confounder and the ",
         "outcome: {round(o$outcome_association, 2)}\n"
@@ -220,7 +220,7 @@ tip_one <- function(lb, ub, smd, outcome_association, verbose) {
         "unmeasured confounder{ifelse(o$n_unmeasured_confounders > 1, 's', '')}\n",
         "with the following specifications:",
         "\n  * estimated standardized mean difference between the ",
-        "unmeasured confounder in the exposed population and ",
+        "unmeasured confounder\nin the exposed population and ",
         "unexposed population: {round(o$smd, 2)}",
         "\n  * estimated association between the unmeasured confounder and the ",
         "outcome: {round(o$outcome_association, 2)}\n"
