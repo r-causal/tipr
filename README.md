@@ -53,8 +53,10 @@ data.frame(conf.low = 1.2,
 tip(outcome_association = 1.5)
 ```
 
-    ## The observed effect (1.2, 1.8) WOULD be tipped by 1 unmeasured confounder with the following specifications:
-    ##   * estimated standardized mean difference between the unmeasured confounder in the exposed population and unexposed population: 0.45
+    ## The observed effect (1.2, 1.8) WOULD be tipped by 1 unmeasured confounder
+    ## with the following specifications:
+    ##   * estimated standardized mean difference between the unmeasured confounder
+    ##     in the exposed population and unexposed population: 0.45
     ##   * estimated association between the unmeasured confounder and the outcome: 1.5
 
     ## # A tibble: 1 x 5
@@ -84,7 +86,8 @@ data.frame(conf.low = 1.2,
 tip_with_binary(exposed_p = 0.25, unexposed_p = 0.10)
 ```
 
-    ## The observed effect (1.2, 1.8) WOULD be tipped by 1 unmeasured confounder with the following specifications:
+    ## The observed effect (1.2, 1.8) WOULD be tipped by 1 unmeasured confounder
+    ## with the following specifications:
     ##   * estimated prevalence of the unmeasured confounder in the exposed population: 0.25
     ##   * estimated prevalence of the unmeasured confounder in the unexposed population: 0.1
     ##   * estimated association between the unmeasured confounder and the outcome: 2.54
@@ -111,8 +114,10 @@ data.frame(conf.low = 1.2,
 tip(smd = 0.25, outcome_association = 1.05)
 ```
 
-    ## The observed effect (1.2, 1.8) WOULD be tipped by 15 unmeasured confounders with the following specifications:
-    ##   * estimated standardized mean difference between the unmeasured confounder in the exposed population and unexposed population: 0.25
+    ## The observed effect (1.2, 1.8) WOULD be tipped by 15 unmeasured confounders
+    ## with the following specifications:
+    ##   * estimated standardized mean difference between the unmeasured confounder
+    ##     in the exposed population and unexposed population: 0.25
     ##   * estimated association between the unmeasured confounder and the outcome: 1.05
 
     ## # A tibble: 1 x 5
@@ -142,8 +147,10 @@ if (requireNamespace("broom", quietly = TRUE) &&  requireNamespace("dplyr", quie
 }
 ```
 
-    ## The observed effect (1.13, 1.8) WOULD be tipped by 1 unmeasured confounder with the following specifications:
-    ##   * estimated standardized mean difference between the unmeasured confounder in the exposed population and unexposed population: 0.13
+    ## The observed effect (1.13, 1.8) WOULD be tipped by 1 unmeasured confounder
+    ## with the following specifications:
+    ##   * estimated standardized mean difference between the unmeasured confounder
+    ##     in the exposed population and unexposed population: 0.13
     ##   * estimated association between the unmeasured confounder and the outcome: 2.5
 
     ## # A tibble: 1 x 5
