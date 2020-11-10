@@ -6,8 +6,9 @@
 [![Build
 Status](https://travis-ci.org/LucyMcGowan/tipr.svg?branch=master)](https://travis-ci.org/LucyMcGowan/tipr)
 
-**Authors:** [Lucy D’Agostino McGowan](http://www.lucymcgowan.com)<br/>
-**License:** [MIT](https://opensource.org/licenses/MIT)
+**Authors:** [Lucy D’Agostino
+McGowan](https://www.lucymcgowan.com/)<br/> **License:**
+[MIT](https://opensource.org/licenses/MIT)
 
 ## Installation
 
