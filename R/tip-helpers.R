@@ -163,9 +163,9 @@ tip_n <- function(p0, p1, gamma, b) {
   as.numeric(n)
 }
 
-# e_value <- function(lb, ub) {
-#   observed_covariate_e_value(lb, ub, 1, 1)
-# }
+e_value <- function(lb, ub) {
+  observed_covariate_e_value(lb, ub, 1, 1)
+}
 
 hr_transform <- function(hr) {
   (1 - (0.5^sqrt(hr))) / (1 - (0.5^sqrt(1 / hr)))
