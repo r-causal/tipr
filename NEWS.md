@@ -1,3 +1,7 @@
+# tipr 0.3.0
+
+* Added ability to perform sensitivity analyses on linear models via `lm_tip()`
+
 # tipr 0.2.0
 
 * Updated several function and parameter names. The main functions are now `tip()` and `tip_with_binary()`. The parameter names are more self-explanatory.
