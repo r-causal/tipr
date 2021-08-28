@@ -130,7 +130,7 @@ tip_with_binary_one <- function(lb, ub, exposed_p, unexposed_p,
 #'   `ub_name` parameters.
 #' @param smd Numeric. Estimated scaled mean difference between the
 #'    unmeasured confounder in the exposed population and unexposed population
-#' @param outcome_association Numeric positive value. estimated association
+#' @param outcome_association Numeric positive value. Estimated association
 #'    between the unmeasured confounder and the outcome
 #' @param verbose Logical. Indicates whether to print informative message.
 #'    Default: `TRUE`

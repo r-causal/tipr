@@ -23,6 +23,25 @@ get_limiting_bound <- function(lb = NULL, ub = NULL) {
   )
 }
 
+get_lm_limiting_bound <- function(lb = NULL, ub = NULL) {
+  if (is.null(lb) || is.null(ub)) {
+    stop("Please input a dataset `d` that contains your observed confidence interval. Be sure your column names match `lb_name` and `ub_name`",
+         call. = FALSE
+    )
+  }
+
+  if (lb > 0 && ub > 0) {
+    return(lb)
+  }
+  if (lb < 0 && ub < 0) {
+    return(ub)
+  }
+  stop_glue(
+    "You input: ({lb}, {ub})\n",
+    "Please input a significant result."
+  )
+}
+
 get_limiting_bound_adj <- function(b = NULL, lb = NULL, ub = NULL) {
   if (is.null(lb) || is.null(ub)) {
     stop("Please input a data frame `d` that contains for your observed confidence interval.",
