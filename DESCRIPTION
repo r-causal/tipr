@@ -10,12 +10,11 @@ Description: The strength of evidence provided by epidemiological and observatio
             closest to the null, a plausible residual effect size for an unmeasured continuous 
             or binary confounder, and a realistic mean difference or prevalence difference for 
             this hypothetical confounder. Building on the methods put forth by 
-            Lin, Psaty, & Kronmal (1998) DOI:10.2307/2533848, we can use these quantities to 
+            Lin, Psaty, & Kronmal (1998) <doi:10.2307/2533848>, we can use these quantities to 
             assess how an unmeasured confounder may tip our result to insignificance, rendering the
             study inconclusive.
 License: MIT + file LICENSE
 Encoding: UTF-8
-LazyData: true
 RoxygenNote: 7.1.1
 Roxygen: list(markdown = TRUE)
 Suggests:
