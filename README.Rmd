@@ -35,9 +35,7 @@ We are interested in a continuous unmeasured confounder, so we will use the `tip
 Let's assume the relationship between the unmeasured confounder and outcome is 1.5 (`outcome_association = 1.5`),  let's solve for the association between the exposure and unmeasured confounder needed to tip the analysis (in this case, we are solving for `smd`, the mean difference needed between the exposed and unexposed).
 
 ```{r}
-data.frame(conf.low = 1.2,
-           conf.high = 1.8) %>%
-tip(outcome_association = 1.5)
+tip(1.2, outcome_association = 1.5)
 ```
 
 A hypothetical unobserved continuous confounder that has an association of 1.5 with the outcome would need a scaled mean difference between exposure groups of `0.45` to tip this analysis at the 5% level, rendering it inconclusive.
@@ -49,9 +47,7 @@ Now we are interested in the binary unmeasured confounder, so we will use the `t
 Let's assume the unmeasured confounder is prevalent in 25% of the exposed population (`exposed_p = 0.25`) and in 10% of the unexposed population (`unexposed_p = 0.10`) -- let's solve for the association between the unmeasured confounder and the outcome needed to tip the analysis (`outcome_association`).
 
 ```{r}
-data.frame(conf.low = 1.2,
-           conf.high = 1.8) %>%
-tip_with_binary(exposed_p = 0.25, unexposed_p = 0.10)
+tip_with_binary(1.2, exposed_p = 0.25, unexposed_p = 0.10)
 ```
 
 A hypothetical unobserved binary confounder that is prevalent in 10% of the unexposed population and 25% of the exposed population would need to have an association with the outcome of 2.5 to tip this analysis at the 5% level, rendering it inconclusive.
@@ -61,9 +57,7 @@ A hypothetical unobserved binary confounder that is prevalent in 10% of the unex
 Suppose we are concerned that there are many small, independent, continuous, unmeasured confounders present.
 
 ```{r}
-data.frame(conf.low = 1.2,
-           conf.high = 1.8) %>%
-tip(smd = 0.25, outcome_association = 1.05)
+tip(1.2, smd = 0.25, outcome_association = 1.05)
 ```
 
 It would take about `15` independent unmeasured confounders with a scaled mean difference between exposure groups of 0.25 to and an association with the outcome of 1.05 tip the observed analysis at the 5% level, rendering it inconclusive.
@@ -77,6 +71,7 @@ if (requireNamespace("broom", quietly = TRUE) &&  requireNamespace("dplyr", quie
    glm(am ~ mpg, data = mtcars, family = "binomial") %>%
     broom::tidy(conf.int = TRUE, exponentiate = TRUE) %>%
     dplyr::filter(term == "mpg") %>%
+    dplyr::pull(conf.low) %>%
     tip(outcome_association = 2.5)
 }
 ```
