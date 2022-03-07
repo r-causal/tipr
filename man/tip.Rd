@@ -4,43 +4,39 @@
 \alias{tip}
 \alias{tip_with_continuous}
 \alias{tip_c}
-\title{Tip a result with a continuous confounder.}
+\title{Tip a result with a normally distributed confounder.}
 \usage{
 tip(
-  d,
+  effect,
   smd = NULL,
   outcome_association = NULL,
   verbose = TRUE,
-  lb_name = "conf.low",
-  ub_name = "conf.high"
+  correction_factor = "none"
 )
 
 tip_with_continuous(
-  d,
+  effect,
   smd = NULL,
   outcome_association = NULL,
   verbose = TRUE,
-  lb_name = "conf.low",
-  ub_name = "conf.high"
+  correction_factor = "none"
 )
 
 tip_c(
-  d,
+  effect,
   smd = NULL,
   outcome_association = NULL,
   verbose = TRUE,
-  lb_name = "conf.low",
-  ub_name = "conf.high"
+  correction_factor = "none"
 )
 }
 \arguments{
-\item{d}{Data frame. A data frame with the observed effect(s). This should have
-at least two columns with the lower and upper confidence bounds. These
-columns are assumed to be called \code{conf.low} and \code{conf.high}. If this
-is not the case, the names can be changed using the \code{lb_name} and
-\code{ub_name} parameters.}
+\item{effect}{Numeric positive value. Observed exposure - outcome effect
+(assumed to be the exponentiated coefficient, so a relative risk, odds
+ratio, or hazard ratio). This can be the point estimate, lower confidence
+bound, or upper confidence bound.}
 
-\item{smd}{Numeric. Estimated scaled mean difference between the
+\item{smd}{Numeric. Estimated difference in scaled means between the
 unmeasured confounder in the exposed population and unexposed population}
 
 \item{outcome_association}{Numeric positive value. Estimated association
@@ -49,11 +45,13 @@ between the unmeasured confounder and the outcome}
 \item{verbose}{Logical. Indicates whether to print informative message.
 Default: \code{TRUE}}
 
-\item{lb_name}{Character. Column name of \code{d} that holds the lower
-confidence bound. Default: \code{conf.low} based on \code{broom} defaults.}
-
-\item{ub_name}{Character. Column name of \code{d} that holds the upper
-confidence bound. Default: \code{conf.high} based on \code{broom} defaults.}
+\item{correction_factor}{Character string. Options are "none", "hr", "or".
+For common outcomes (>15\%), the odds ratio or hazard ratio is not a good
+estimate for the relative risk. In these cases, we can apply a correction
+factor. If you are supplying a hazard ratio for a common outcome, set
+this to "hr"; if you are supplying an odds ratio for a common outcome, set
+this to "or"; if you are supplying a risk ratio or your outcome is rare,
+set this to "none" (default).}
 }
 \value{
 Data frame.
@@ -66,14 +64,13 @@ choose one of the following, and the other will be estimated:
 }
 }
 \examples{
-d <- data.frame(conf.low = 1.2, conf.high = 1.5)
 ## to estimate the association between an unmeasured confounder and outcome
 ## needed to tip analysis
-tip(d, smd = -2)
+tip(1.2, smd = -2)
 
 ## to estimate the number of unmeasured confounders specified needed to tip
 ## the analysis
-tip(d, smd = -2, outcome_association = .99)
+tip(1.2, smd = -2, outcome_association = .99)
 
 ## Example with broom
 if (requireNamespace("broom", quietly = TRUE) &&
@@ -81,6 +78,7 @@ if (requireNamespace("broom", quietly = TRUE) &&
   glm(am ~ mpg, data = mtcars, family = "binomial") \%>\%
    broom::tidy(conf.int = TRUE, exponentiate = TRUE) \%>\%
    dplyr::filter(term == "mpg") \%>\%
+   dplyr::pull(conf.low) \%>\%
    tip(outcome_association = 2.5)
 }
 }

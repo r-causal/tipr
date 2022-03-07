@@ -67,11 +67,23 @@ check_gamma <- function(gamma = NULL) {
   if (!is.null(gamma) && gamma < 0) {
     stop_glue(
       "You input:\n * `outcome_association`: {gamma}\n",
-      "We are expecting an odds ratio, hazard ratio, or relative risk,\n",
+      "We are expecting a relative risk, odds ratio, or hazard ratio,\n",
       "therefore `outcome_association` should not be less than 0."
     )
   }
 }
+
+check_effect <- function(x) {
+  if (x < 0) {
+    stop_glue(
+      "You input:\n * An observed effect of {x}\n",
+      "We are expecting a relative risk, odds ratio, or hazard ratio,\n",
+      "therefore your effect should not be less than 0."
+    )
+  }
+}
+
+
 
 check_prevalences <- function(p0 = NULL, p1 = NULL) {
   if (is.null(p0)) {
@@ -174,9 +186,9 @@ tip_n <- function(p0, p1, gamma, b) {
   n <- -log(b) / (log(gamma * p0 + (1 - p0)) - log(gamma * p1 + (1 - p1)))
   if (n < 0) {
     n <- 0
-    warning_glue("The limiting bound {b} would not tip with the unmeasured confounder given.")
+    warning_glue("The observed effect {b} would not tip with the unmeasured confounder given.")
   } else if (n < 1) {
-    warning_glue("The limiting bound {b} would tip with < 1 of the given unmeasured confounders.")
+    warning_glue("The observed effect {b} would tip with < 1 of the given unmeasured confounders.")
   }
 
   as.numeric(n)
@@ -187,5 +199,15 @@ e_value <- function(lb, ub) {
 }
 
 hr_transform <- function(hr) {
+  if (is.null(hr)) {
+    return(NULL)
+  }
   (1 - (0.5^sqrt(hr))) / (1 - (0.5^sqrt(1 / hr)))
+}
+
+or_transform <- function(or) {
+  if (is.null(or)) {
+    return(NULL)
+  }
+  sqrt(or)
 }
