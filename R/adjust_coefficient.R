@@ -334,12 +334,12 @@ adjust_hr_with_binary <- function(hr, exposed_p, unexposed_p, outcome_associatio
       '')}"
     )
   }
-  return(o)
 
   if (!hr_correction) {
     names(o)[1] <- "hr_adjusted"
     names(o)[2] <- "hr_observed"
   }
+  return(o)
 }
 
 
