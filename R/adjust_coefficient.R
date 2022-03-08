@@ -19,8 +19,8 @@
 #' ## Update an observed coefficient of 0.5 with an unmeasured confounder
 #' ## with a difference in scaled means between exposure groups of 0.2
 #' ## and coefficient of 0.3
-#' adjust_coefficient(0.5, 0.2, 0.3)
-adjust_coefficient <- function(effect, smd, outcome_association, verbose = TRUE) {
+#' adjust_coef(0.5, 0.2, 0.3)
+adjust_coef <- function(effect, smd, outcome_association, verbose = TRUE) {
   effect_adj <- effect - outcome_association * smd
   o <- tibble::tibble(
     effect_adjusted = effect_adj,
@@ -41,6 +41,56 @@ adjust_coefficient <- function(effect, smd, outcome_association, verbose = TRUE)
   return(o)
 }
 
+#' Adjust an observed coefficient from a loglinear model with a binary confounder
+#'
+#' @param effect Numeric. Observed exposure - outcome effect from a loglinear
+#'    model. This can be the beta coefficient, the lower confidence bound of
+#'    the beta coefficient, or the upper confidence bound of the beta
+#'    coefficient.
+#' @param exposed_p Numeric between 0 and 1. Estimated prevalence of the
+#'    unmeasured confounder in the exposed population
+#' @param unexposed_p Numeric between 0 and 1. Estimated prevalence of the
+#'    unmeasured confounder in the unexposed population
+#' @param outcome_association Numeric. Estimated association
+#'    between the unmeasured confounder and the outcome.
+#' @param verbose Logical. Indicates whether to print informative message.
+#'    Default: `TRUE`
+#'
+#' @return Data frame.
+#' @export
+#'
+#' @examples
+#' adjust_coef_with_binary(1.1, 0.5, 0.3, 1.3)
+adjust_coef_with_binary <- function(effect, exposed_p, unexposed_p, outcome_association, verbose = TRUE) {
+  check_prevalences(unexposed_p, exposed_p)
+
+  confounding_factor <- log(
+    (exp(outcome_association) * exposed_p + (1 - exposed_p)) /
+      (exp(outcome_association) * unexposed_p + (1 - unexposed_p))
+  )
+
+  effect_adj <- effect - confounding_factor
+  o <- tibble::tibble(
+    effect_adjusted = effect_adj,
+    effect_observed = effect,
+    exposed_p = exposed_p,
+    unexposed_p = unexposed_p,
+    outcome_association = outcome_association
+  )
+  if (verbose) {
+    message_glue(
+      "The observed effect ({round(effect, 2)}) ",
+      "is updated to {round(effect_adj, 2)} ",
+      "by an confounder with the following specifications:",
+      "\n  * estimated prevalence of the unmeasured confounder ",
+      "in the exposed population: {round(exposed_p, 2)}\n  * estimated prevalence of ",
+      "the unmeasured confounder in the unexposed population: {round(unexposed_p, 2)}",
+      "\n  * estimated association between the unmeasured confounder and the ",
+      "outcome: {round(outcome_association, 2)}\n"
+    )
+  }
+  return(o)
+}
 #' Adjust an observed relative risk for a normally distributed
 #' confounder
 #'
