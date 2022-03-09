@@ -46,18 +46,31 @@
 #' @export
 tip <- function(effect, smd = NULL, outcome_association = NULL,
                 verbose = TRUE, correction_factor = "none") {
-    o <- purrr::map(
-      effect,
-      ~ tip_one(
-        .x,
-        smd = smd,
-        outcome_association = outcome_association,
-        verbose = verbose,
-        correction_factor
-      )
-    )
-    do.call(rbind, o)
-  }
+
+  smd <- smd %||% list(NULL)
+  outcome_association <- outcome_association %||% list(NULL)
+
+  o <- purrr::pmap(
+    list(b = effect,
+         smd = smd,
+         outcome_association = outcome_association,
+         verbose = verbose,
+         correction_factor = correction_factor),
+    tip_one
+  )
+  do.call(rbind, o)
+  # o <- purrr::map(
+  #   effect,
+  #   ~ tip_one(
+  #     .x,
+  #     smd = smd,
+  #     outcome_association = outcome_association,
+  #     verbose = verbose,
+  #     correction_factor
+  #   )
+  # )
+  # do.call(rbind, o)
+}
 
 tip_one <- function(b, smd, outcome_association, verbose, correction_factor) {
   check_effect(b)

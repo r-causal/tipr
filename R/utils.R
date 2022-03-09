@@ -31,3 +31,9 @@ message_glue <- function(..., .sep = "", .envir = parent.frame(),
     domain = .domain
   )
 }
+
+`%||%` <- function (x, y) {
+  if (is.null(x)) {
+    y
+  } else x
+}

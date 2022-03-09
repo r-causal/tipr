@@ -58,17 +58,18 @@ tip_with_binary <- function(effect,
                             outcome_association = NULL,
                             verbose = TRUE,
                             correction_factor = "none") {
+  exposed_p <- exposed_p %||% list(NULL)
+  unexposed_p <- unexposed_p %||% list(NULL)
+  outcome_association <- outcome_association %||% list(NULL)
 
-  o <- purrr::map(
-    effect,
-    ~ tip_with_binary_one(
-      .x,
-      exposed_p = exposed_p,
-      unexposed_p = unexposed_p,
-      outcome_association = outcome_association,
-      verbose = verbose,
-      correction_factor = correction_factor
-    )
+  o <- purrr::pmap(
+    list(b = effect,
+         exposed_p = exposed_p,
+         unexposed_p = unexposed_p,
+         outcome_association = outcome_association,
+         verbose = verbose,
+         correction_factor = correction_factor),
+    tip_with_binary_one
   )
   do.call(rbind, o)
 }
