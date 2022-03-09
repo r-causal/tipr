@@ -94,7 +94,7 @@ adjust_coef_with_binary <- function(effect, exposed_p, unexposed_p, outcome_asso
 #' Adjust an observed relative risk for a normally distributed
 #' confounder
 #'
-#' @param rr Numeric positive value. Observed exposure - outcome relative risk.
+#' @param effect Numeric positive value. Observed exposure - outcome relative risk.
 #'    This can be the point estimate, lower confidence bound, or upper
 #'    confidence bound.
 #' @param smd Numeric. Estimated difference in scaled means between the
@@ -109,7 +109,8 @@ adjust_coef_with_binary <- function(effect, exposed_p, unexposed_p, outcome_asso
 #'
 #' @examples
 #' adjust_rr(1.2, 0.5, 1.1)
-adjust_rr <- function(rr, smd, outcome_association, verbose  = TRUE) {
+adjust_rr <- function(effect, smd, outcome_association, verbose  = TRUE) {
+  rr <- effect
   check_gamma(outcome_association)
   check_effect(rr)
   rr_adj <- rr / (outcome_association^smd)
@@ -136,7 +137,7 @@ adjust_rr <- function(rr, smd, outcome_association, verbose  = TRUE) {
 #' Adjust an observed hazard ratio for a normally distributed
 #' confounder
 #'
-#' @param hr Numeric positive value. Observed exposure - outcome hazard ratio.
+#' @param effect Numeric positive value. Observed exposure - outcome hazard ratio.
 #'    This can be the point estimate, lower confidence bound, or upper
 #'    confidence bound.
 #' @param smd Numeric. Estimated difference in scaled means between the
@@ -156,7 +157,8 @@ adjust_rr <- function(rr, smd, outcome_association, verbose  = TRUE) {
 #'
 #' @examples
 #' adjust_hr(0.9, -0.9, 1.3)
-adjust_hr <- function(hr, smd, outcome_association, verbose = TRUE, hr_correction = FALSE) {
+adjust_hr <- function(effect, smd, outcome_association, verbose = TRUE, hr_correction = FALSE) {
+  hr <- effect
   if (hr_correction) {
     hr <- hr_transform(hr)
     outcome_association <- hr_transform(outcome_association)
@@ -190,7 +192,7 @@ adjust_hr <- function(hr, smd, outcome_association, verbose = TRUE, hr_correctio
 #' Adjust an observed odds ratio for a normally distributed
 #' confounder
 #'
-#' @param or Numeric positive value. Observed exposure - outcome odds ratio.
+#' @param effect Numeric positive value. Observed exposure - outcome odds ratio.
 #'    This can be the point estimate, lower confidence bound, or upper
 #'    confidence bound.
 #' @param smd Numeric. Estimated difference in scaled means between the
@@ -210,7 +212,8 @@ adjust_hr <- function(hr, smd, outcome_association, verbose = TRUE, hr_correctio
 #'
 #' @examples
 #' adjust_or(1.2, 0.9, 1.3)
-adjust_or <- function(or, smd, outcome_association, verbose = TRUE, or_correction = FALSE) {
+adjust_or <- function(effect, smd, outcome_association, verbose = TRUE, or_correction = FALSE) {
+  or <- effect
   if (or_correction) {
     or <- or_transform(or)
     outcome_association <- or_transform(outcome_association)
@@ -242,7 +245,7 @@ adjust_or <- function(or, smd, outcome_association, verbose = TRUE, or_correctio
 
 #' Adjust an observed relative risk with a binary confounder
 #'
-#' @param rr Numeric positive value. Observed exposure - outcome relative risk.
+#' @param effect Numeric positive value. Observed exposure - outcome relative risk.
 #'    This can be the point estimate, lower confidence bound, or upper
 #'    confidence bound.
 #' @param exposed_p Numeric between 0 and 1. Estimated prevalence of the
@@ -259,7 +262,8 @@ adjust_or <- function(or, smd, outcome_association, verbose = TRUE, or_correctio
 #'
 #' @examples
 #' adjust_rr_with_binary(1.1, 0.5, 0.3, 1.3)
-adjust_rr_with_binary <- function(rr, exposed_p, unexposed_p, outcome_association, verbose = TRUE) {
+adjust_rr_with_binary <- function(effect, exposed_p, unexposed_p, outcome_association, verbose = TRUE) {
+  rr <- effect
   check_prevalences(unexposed_p, exposed_p)
 
   confounding_factor <- (outcome_association * exposed_p + (1 - exposed_p)) /
@@ -289,7 +293,7 @@ adjust_rr_with_binary <- function(rr, exposed_p, unexposed_p, outcome_associatio
 }
 #' Adjust an observed hazard ratio with a binary confounder
 #'
-#' @param hr Numeric positive value. Observed exposure - outcome hazard ratio.
+#' @param effect Numeric positive value. Observed exposure - outcome hazard ratio.
 #'    This can be the point estimate, lower confidence bound, or upper
 #'    confidence bound.
 #' @param exposed_p Numeric between 0 and 1. Estimated prevalence of the
@@ -311,7 +315,8 @@ adjust_rr_with_binary <- function(rr, exposed_p, unexposed_p, outcome_associatio
 #'
 #' @examples
 #' adjust_hr_with_binary(0.8, 0.1, 0.5, 1.8)
-adjust_hr_with_binary <- function(hr, exposed_p, unexposed_p, outcome_association, verbose = TRUE, hr_correction = FALSE) {
+adjust_hr_with_binary <- function(effect, exposed_p, unexposed_p, outcome_association, verbose = TRUE, hr_correction = FALSE) {
+  hr <- effect
   if (hr_correction) {
     hr <- hr_transform(hr)
     outcome_association <- hr_transform(outcome_association)
@@ -345,7 +350,7 @@ adjust_hr_with_binary <- function(hr, exposed_p, unexposed_p, outcome_associatio
 
 #' Adjust an observed odds ratio with a binary confounder
 #'
-#' @param or Numeric positive value. Observed exposure - outcome odds ratio.
+#' @param effect Numeric positive value. Observed exposure - outcome odds ratio.
 #'    This can be the point estimate, lower confidence bound, or upper
 #'    confidence bound.
 #' @param exposed_p Numeric between 0 and 1. Estimated prevalence of the
@@ -368,7 +373,8 @@ adjust_hr_with_binary <- function(hr, exposed_p, unexposed_p, outcome_associatio
 #' @examples
 #' adjust_or_with_binary(3, 1, 0, 3)
 #' adjust_or_with_binary(3, 1, 0, 3, or_correction = TRUE)
-adjust_or_with_binary <- function(or, exposed_p, unexposed_p, outcome_association, verbose = TRUE, or_correction = FALSE) {
+adjust_or_with_binary <- function(effect, exposed_p, unexposed_p, outcome_association, verbose = TRUE, or_correction = FALSE) {
+  or <- effect
   if (or_correction) {
     or <- or_transform(or)
     outcome_association <- or_transform(outcome_association)

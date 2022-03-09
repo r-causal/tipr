@@ -157,6 +157,7 @@ tip_with_binary_one <- function(b,
     }
   }
   o <- tibble::tibble(
+    adjusted_effect = 1,
     observed_effect = b,
     exposed_p = exposed_p,
     unexposed_p = unexposed_p,
@@ -229,7 +230,7 @@ tip_with_binary_one <- function(b,
 #'
 #' Alternatively, specify all three and the function will return the number of unmeasured
 #' confounders specified needed to tip the analysis.
-#' @param rr Numeric positive value. Observed exposure - outcome relative risk.
+#' @param effect Numeric positive value. Observed exposure - outcome relative risk.
 #'    This can be the point estimate, lower confidence bound, or upper
 #'    confidence bound.
 #' @param exposed_p Numeric between 0 and 1. Estimated prevalence of the
@@ -241,8 +242,8 @@ tip_with_binary_one <- function(b,
 #' @param verbose Logical. Indicates whether to print informative message.
 #'    Default: `TRUE`
 
-tip_rr_with_binary <- function(rr, exposed_p, unexposed_p, outcome_association, verbose = TRUE) {
-  tip_with_binary(rr, exposed_p = exposed_p, unexposed_p = unexposed_p, outcome_association = outcome_association, verbose = verbose)
+tip_rr_with_binary <- function(effect, exposed_p, unexposed_p, outcome_association, verbose = TRUE) {
+  tip_with_binary(effect, exposed_p = exposed_p, unexposed_p = unexposed_p, outcome_association = outcome_association, verbose = verbose)
 }
 
 #' Tip an observed hazard ratio with a binary confounder.
@@ -255,7 +256,7 @@ tip_rr_with_binary <- function(rr, exposed_p, unexposed_p, outcome_association, 
 #'
 #' Alternatively, specify all three and the function will return the number of unmeasured
 #' confounders specified needed to tip the analysis.
-#' @param hr Numeric positive value. Observed exposure - outcome hazard ratio.
+#' @param effect Numeric positive value. Observed exposure - outcome hazard ratio.
 #'    This can be the point estimate, lower confidence bound, or upper
 #'    confidence bound.
 #' @param exposed_p Numeric between 0 and 1. Estimated prevalence of the
@@ -278,9 +279,9 @@ tip_rr_with_binary <- function(rr, exposed_p, unexposed_p, outcome_association, 
 #' @examples
 #' tip_hr_with_binary(0.9, 0.9, 0.1)
 
-tip_hr_with_binary <- function(hr, exposed_p = NULL, unexposed_p = NULL, outcome_association = NULL, verbose = TRUE, hr_correction = FALSE) {
+tip_hr_with_binary <- function(effect, exposed_p = NULL, unexposed_p = NULL, outcome_association = NULL, verbose = TRUE, hr_correction = FALSE) {
   correction_factor <- ifelse(hr_correction, "hr", "none")
-  tip_with_binary(hr, exposed_p = exposed_p, unexposed_p = unexposed_p, outcome_association = outcome_association, verbose = verbose, correction_factor = correction_factor)
+  tip_with_binary(effect, exposed_p = exposed_p, unexposed_p = unexposed_p, outcome_association = outcome_association, verbose = verbose, correction_factor = correction_factor)
 }
 
 #' Tip an observed odds ratio with a binary confounder.
@@ -293,7 +294,7 @@ tip_hr_with_binary <- function(hr, exposed_p = NULL, unexposed_p = NULL, outcome
 #'
 #' Alternatively, specify all three and the function will return the number of unmeasured
 #' confounders specified needed to tip the analysis.
-#' @param or Numeric positive value. Observed exposure - outcome odds ratio.
+#' @param effect Numeric positive value. Observed exposure - outcome odds ratio.
 #'    This can be the point estimate, lower confidence bound, or upper
 #'    confidence bound.
 #' @param exposed_p Numeric between 0 and 1. Estimated prevalence of the
@@ -316,9 +317,9 @@ tip_hr_with_binary <- function(hr, exposed_p = NULL, unexposed_p = NULL, outcome
 #' @examples
 #' tip_or_with_binary(0.9, 0.9, 0.1)
 
-tip_or_with_binary <- function(or, exposed_p = NULL, unexposed_p = NULL, outcome_association = NULL, verbose = TRUE, or_correction = FALSE) {
+tip_or_with_binary <- function(effect, exposed_p = NULL, unexposed_p = NULL, outcome_association = NULL, verbose = TRUE, or_correction = FALSE) {
   correction_factor <- ifelse(or_correction, "or", "none")
-  tip_with_binary(or, exposed_p = exposed_p, unexposed_p = unexposed_p, outcome_association = outcome_association, verbose = verbose, correction_factor = correction_factor)
+  tip_with_binary(effect, exposed_p = exposed_p, unexposed_p = unexposed_p, outcome_association = outcome_association, verbose = verbose, correction_factor = correction_factor)
 }
 
 #' @rdname tip_with_binary

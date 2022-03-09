@@ -5,7 +5,7 @@
 \title{Tip an observed hazard ratio with a normally distributed confounder.}
 \usage{
 tip_hr(
-  hr,
+  effect,
   smd = NULL,
   outcome_association = NULL,
   verbose = TRUE,
@@ -13,7 +13,7 @@ tip_hr(
 )
 }
 \arguments{
-\item{hr}{Numeric positive value. Observed exposure - outcome hazard ratio.
+\item{effect}{Numeric positive value. Observed exposure - outcome hazard ratio.
 This can be the point estimate, lower confidence bound, or upper
 confidence bound.}
 

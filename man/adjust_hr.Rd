@@ -5,10 +5,16 @@
 \title{Adjust an observed hazard ratio for a normally distributed
 confounder}
 \usage{
-adjust_hr(hr, smd, outcome_association, verbose = TRUE, hr_correction = FALSE)
+adjust_hr(
+  effect,
+  smd,
+  outcome_association,
+  verbose = TRUE,
+  hr_correction = FALSE
+)
 }
 \arguments{
-\item{hr}{Numeric positive value. Observed exposure - outcome hazard ratio.
+\item{effect}{Numeric positive value. Observed exposure - outcome hazard ratio.
 This can be the point estimate, lower confidence bound, or upper
 confidence bound.}
 

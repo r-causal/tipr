@@ -168,7 +168,7 @@ tip_p1 <- function(p0 = NULL,
   check_prevalences(p0 = p0)
   check_gamma(gamma)
 
-  p1 <- (b * ((gamma - 1) * p0 + 1) - 1) / (gamma - 1)
+  p1 <- ((b - 1) / (gamma - 1)) + b * p0
 
   if (p1 > 1 | p1 < 0) {
     stop_glue(
@@ -194,9 +194,9 @@ tip_n <- function(p0, p1, gamma, b) {
   as.numeric(n)
 }
 
-e_value <- function(lb, ub) {
-  observed_covariate_e_value(lb, ub, 1, 1)
-}
+# e_value <- function(lb, ub) {
+#   observed_covariate_e_value(lb, ub, 1, 1)
+# }
 
 hr_transform <- function(hr) {
   if (is.null(hr)) {

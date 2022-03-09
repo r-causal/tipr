@@ -5,7 +5,7 @@
 \title{Tip an observed odds ratio with a binary confounder.}
 \usage{
 tip_or_with_binary(
-  or,
+  effect,
   exposed_p = NULL,
   unexposed_p = NULL,
   outcome_association = NULL,
@@ -14,7 +14,7 @@ tip_or_with_binary(
 )
 }
 \arguments{
-\item{or}{Numeric positive value. Observed exposure - outcome odds ratio.
+\item{effect}{Numeric positive value. Observed exposure - outcome odds ratio.
 This can be the point estimate, lower confidence bound, or upper
 confidence bound.}
 

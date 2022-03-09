@@ -5,10 +5,10 @@
 \title{Adjust an observed relative risk for a normally distributed
 confounder}
 \usage{
-adjust_rr(rr, smd, outcome_association, verbose = TRUE)
+adjust_rr(effect, smd, outcome_association, verbose = TRUE)
 }
 \arguments{
-\item{rr}{Numeric positive value. Observed exposure - outcome relative risk.
+\item{effect}{Numeric positive value. Observed exposure - outcome relative risk.
 This can be the point estimate, lower confidence bound, or upper
 confidence bound.}
 

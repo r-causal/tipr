@@ -5,7 +5,7 @@
 \title{Tip an observed relative risk with a binary confounder.}
 \usage{
 tip_rr_with_binary(
-  rr,
+  effect,
   exposed_p,
   unexposed_p,
   outcome_association,
@@ -13,7 +13,7 @@ tip_rr_with_binary(
 )
 }
 \arguments{
-\item{rr}{Numeric positive value. Observed exposure - outcome relative risk.
+\item{effect}{Numeric positive value. Observed exposure - outcome relative risk.
 This can be the point estimate, lower confidence bound, or upper
 confidence bound.}
 

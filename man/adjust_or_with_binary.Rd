@@ -5,7 +5,7 @@
 \title{Adjust an observed odds ratio with a binary confounder}
 \usage{
 adjust_or_with_binary(
-  or,
+  effect,
   exposed_p,
   unexposed_p,
   outcome_association,
@@ -14,7 +14,7 @@ adjust_or_with_binary(
 )
 }
 \arguments{
-\item{or}{Numeric positive value. Observed exposure - outcome odds ratio.
+\item{effect}{Numeric positive value. Observed exposure - outcome odds ratio.
 This can be the point estimate, lower confidence bound, or upper
 confidence bound.}
 

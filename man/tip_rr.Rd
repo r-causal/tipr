@@ -4,10 +4,10 @@
 \alias{tip_rr}
 \title{Tip an observed relative risk with a normally distributed confounder.}
 \usage{
-tip_rr(rr, smd = NULL, outcome_association = NULL, verbose = TRUE)
+tip_rr(effect, smd = NULL, outcome_association = NULL, verbose = TRUE)
 }
 \arguments{
-\item{rr}{Numeric positive value. Observed exposure - outcome relative risk.
+\item{effect}{Numeric positive value. Observed exposure - outcome relative risk.
 This can be the point estimate, lower confidence bound, or upper
 confidence bound.}
 

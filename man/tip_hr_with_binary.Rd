@@ -5,7 +5,7 @@
 \title{Tip an observed hazard ratio with a binary confounder.}
 \usage{
 tip_hr_with_binary(
-  hr,
+  effect,
   exposed_p = NULL,
   unexposed_p = NULL,
   outcome_association = NULL,
@@ -14,7 +14,7 @@ tip_hr_with_binary(
 )
 }
 \arguments{
-\item{hr}{Numeric positive value. Observed exposure - outcome hazard ratio.
+\item{effect}{Numeric positive value. Observed exposure - outcome hazard ratio.
 This can be the point estimate, lower confidence bound, or upper
 confidence bound.}
 

@@ -5,10 +5,16 @@
 \title{Adjust an observed odds ratio for a normally distributed
 confounder}
 \usage{
-adjust_or(or, smd, outcome_association, verbose = TRUE, or_correction = FALSE)
+adjust_or(
+  effect,
+  smd,
+  outcome_association,
+  verbose = TRUE,
+  or_correction = FALSE
+)
 }
 \arguments{
-\item{or}{Numeric positive value. Observed exposure - outcome odds ratio.
+\item{effect}{Numeric positive value. Observed exposure - outcome odds ratio.
 This can be the point estimate, lower confidence bound, or upper
 confidence bound.}
 

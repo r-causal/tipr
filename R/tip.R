@@ -44,8 +44,8 @@
 #'    tip(outcome_association = 2.5)
 #'}
 #' @export
-tip <- function(effect, smd = NULL, outcome_association = NULL, verbose = TRUE,
-                correction_factor = "none") {
+tip <- function(effect, smd = NULL, outcome_association = NULL,
+                verbose = TRUE, correction_factor = "none") {
     o <- purrr::map(
       effect,
       ~ tip_one(
@@ -120,6 +120,7 @@ tip_one <- function(b, smd, outcome_association, verbose, correction_factor) {
     }
   }
   o <- tibble::tibble(
+    adjusted_effect = 1,
     observed_effect = b,
     smd = smd,
     outcome_association = outcome_association,
@@ -186,7 +187,7 @@ tip_one <- function(b, smd, outcome_association, verbose, correction_factor) {
 #' * `smd`
 #' * `outcome_association`
 #'
-#' @param rr Numeric positive value. Observed exposure - outcome relative risk.
+#' @param effect Numeric positive value. Observed exposure - outcome relative risk.
 #'    This can be the point estimate, lower confidence bound, or upper
 #'    confidence bound.
 #' @param smd Numeric. Estimated difference in scaled means between the
@@ -209,8 +210,8 @@ tip_one <- function(b, smd, outcome_association, verbose, correction_factor) {
 #' tip_rr(1.2, smd = -2, outcome_association = .99)
 #'
 #' @export
-tip_rr <- function(rr, smd = NULL, outcome_association = NULL, verbose = TRUE) {
-  tip(rr, smd = smd, outcome_association = outcome_association, verbose = verbose)
+tip_rr <- function(effect, smd = NULL, outcome_association = NULL, verbose = TRUE) {
+  tip(effect, smd = smd, outcome_association = outcome_association, verbose = verbose)
 }
 
 
@@ -220,7 +221,7 @@ tip_rr <- function(rr, smd = NULL, outcome_association = NULL, verbose = TRUE) {
 #' * `smd`
 #' * `outcome_association`
 #'
-#' @param hr Numeric positive value. Observed exposure - outcome hazard ratio.
+#' @param effect Numeric positive value. Observed exposure - outcome hazard ratio.
 #'    This can be the point estimate, lower confidence bound, or upper
 #'    confidence bound.
 #' @param smd Numeric. Estimated difference in scaled means between the
@@ -247,9 +248,9 @@ tip_rr <- function(rr, smd = NULL, outcome_association = NULL, verbose = TRUE) {
 #' tip_hr(1.2, smd = -2, outcome_association = .99)
 #'
 #' @export
-tip_hr <- function(hr, smd = NULL, outcome_association = NULL, verbose = TRUE, hr_correction = FALSE) {
+tip_hr <- function(effect, smd = NULL, outcome_association = NULL, verbose = TRUE, hr_correction = FALSE) {
   correction_factor <- ifelse(hr_correction, "hr", "none")
-  tip(hr, smd = smd, outcome_association = outcome_association, verbose = verbose, correction_factor = correction_factor)
+  tip(effect, smd = smd, outcome_association = outcome_association, verbose = verbose, correction_factor = correction_factor)
 }
 
 #' Tip an observed odds ratio with a normally distributed confounder.
@@ -258,7 +259,7 @@ tip_hr <- function(hr, smd = NULL, outcome_association = NULL, verbose = TRUE, h
 #' * `smd`
 #' * `outcome_association`
 #'
-#' @param or Numeric positive value. Observed exposure - outcome odds ratio.
+#' @param effect Numeric positive value. Observed exposure - outcome odds ratio.
 #'    This can be the point estimate, lower confidence bound, or upper
 #'    confidence bound.
 #' @param smd Numeric. Estimated difference in scaled means between the
@@ -294,9 +295,9 @@ tip_hr <- function(hr, smd = NULL, outcome_association = NULL, verbose = TRUE, h
 #'    tip_or(outcome_association = 2.5, or_correction = TRUE)
 #'}
 #' @export
-tip_or <- function(or, smd = NULL, outcome_association = NULL, verbose = TRUE, or_correction = FALSE) {
+tip_or <- function(effect, smd = NULL, outcome_association = NULL, verbose = TRUE, or_correction = FALSE) {
   correction_factor <- ifelse(or_correction, "or", "none")
-  tip(or, smd = smd, outcome_association = outcome_association, verbose = verbose, correction_factor = correction_factor)
+  tip(effect, smd = smd, outcome_association = outcome_association, verbose = verbose, correction_factor = correction_factor)
 }
 
 
