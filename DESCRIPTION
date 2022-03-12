@@ -25,4 +25,5 @@ Suggests:
 Imports:
     glue,
     tibble,
-    purrr
+    purrr,
+    sensemakr
