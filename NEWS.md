@@ -4,6 +4,7 @@
 * The API has been fundamentally updated so that the functions now take a numeric value as a first argument rather than a data frame.
 * Added adjust_* functions to allow for specification of all unmeasured confounder qualities without tipping
 * Split `tip_*` functions into hazard ratio, odds ratio, and relative risk
+* Add R2 parameterization with `tip_coef_with_r2()`, `adjust_coef_with_r2()`, and `r_value()`
 
 # tipr 0.3.0
 
