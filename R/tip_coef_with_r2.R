@@ -50,7 +50,7 @@ tip_coef_with_r2 <- function(effect,
     if (tip_bound) {
       outcome_r2 <- tip_outcome_r2_bound(effect, se, df, exposure_r2, alpha)
     } else{
-      outcome_r2 <-  tip_outcome_r2(effect, se, df, exposure_r2)
+      outcome_r2 <- tip_outcome_r2(effect, se, df, exposure_r2)
     }
   }
   o <- adjust_coef_with_r2(

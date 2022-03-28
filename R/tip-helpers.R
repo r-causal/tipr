@@ -135,12 +135,12 @@ tip_gamma <- function(p0 = NULL,
 }
 
 check_r2 <- function(r2, exposure = FALSE, effect, se, df) {
-  if (r2 < 0 | r2 > 1) {
+  if (any(r2 < 0) | any(r2 > 1)) {
     stop_glue("You input:\n {r2}\n",
               "The partial R2 values entered must be between 0 and 1.")
   }
   if (exposure) {
-    if (r2 == 1) {
+    if (any(r2 == 1)) {
       stop_glue("You input:\n * `exposure_r2`: {r2}\n",
                 "This means 100% of the residual variation in the exposure ",
                 "is explained by the unmeasured confounder, meaning regardless ",
@@ -148,8 +148,8 @@ check_r2 <- function(r2, exposure = FALSE, effect, se, df) {
                 "will be \"tipped\".")
     }
     limit <- sensemakr::partial_r2(effect / se, df)
-    if (r2 < limit) {
-      stop_glue("You input:\n * `exposure_r2`: {r2}\n",
+    if (any(r2 < limit)) {
+      stop_glue("You input:\n * `exposure_r2`: {r2[r2 < limit]}\n",
                 "It is not possible to tip this result with any unmeasured ",
                 "confounder - outcome relationship. In fact, if your ",
                 "unmeasured confounder explained 100% of the residual ",
@@ -171,9 +171,9 @@ check_r2 <- function(r2, exposure = FALSE, effect, se, df) {
 
     exposure_r2 <-
       effect ^ 2 / (effect ^ 2 + se ^ 2 * df * outcome_r2)
-    if (exposure_r2 > 1) {
+    if (any(exposure_r2 > 1)) {
       stop_glue(
-        "Given the input:\n * `effect`: {effect}\n * `outcome_r2`: {outcome_r2}\n",
+        "Given the input:\n * `effect`: {effect}\n * `outcome_r2`: {outcome_r2[exposure_r2 > 1]}\n",
         "There does not exist an unmeasured confounder that could tip this.\n",
       )
     }
@@ -266,9 +266,9 @@ check_r2 <- function(r2, exposure = FALSE, effect, se, df) {
 
     outcome_r2 <-
       (effect ^ 2 - effect ^ 2 * exposure_r2) / (se ^ 2 * df * exposure_r2)
-    if (outcome_r2 > 1) {
+    if (any(outcome_r2 > 1)) {
       stop_glue(
-        "Given the input:\n * `effect`: {effect}\n * `exposure_r2`: {exposure_r2}\n",
+        "Given the input:\n * `effect`: {effect}\n * `exposure_r2`: {exposure_r2[outcome_r2 > 1]}\n",
         "There does not exist an unmeasured confounder that could tip this.\n",
       )
     }
