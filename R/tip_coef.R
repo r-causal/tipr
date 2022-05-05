@@ -1,4 +1,4 @@
-#' Tip a linear model result with a continuous confounder.
+#' Tip a linear model coefficient with a continuous confounder.
 #'
 #' choose one of the following, and the other will be estimated:
 #' * `smd`
@@ -14,24 +14,17 @@
 #'    between the unmeasured confounder and the outcome
 #' @param verbose Logical. Indicates whether to print informative message.
 #'    Default: `TRUE`
-#' @param correction_factor Character string. Options are "none", "hr", "or".
-#'   For common outcomes (>15%), the odds ratio or hazard ratio is not a good
-#'   estimate for the relative risk. In these cases, we can apply a correction
-#'   factor. If you are supplying a hazard ratio for a common outcome, set
-#'   this to "hr"; if you are supplying an odds ratio for a common outcome, set
-#'   this to "or"; if you are supplying a risk ratio or your outcome is rare,
-#'   set this to "none" (default).
 #'
 #' @return Data frame.
 #'
 #' @examples
 #' ## to estimate the association between an unmeasured confounder and outcome
 #' ## needed to tip analysis
-#' tip_lm(1.2, smd = -2)
+#' tip_coef(1.2, smd = -2)
 #'
 #' ## to estimate the number of unmeasured confounders specified needed to tip
 #' ## the analysis
-#' tip_lm(1.2, smd = -2, outcome_association = -0.05)
+#' tip_coef(1.2, smd = -2, outcome_association = -0.05)
 #'
 #' ## Example with broom
 #' if (requireNamespace("broom", quietly = TRUE) &&
@@ -40,38 +33,25 @@
 #'    broom::tidy(conf.int = TRUE) %>%
 #'    dplyr::filter(term == "mpg") %>%
 #'    dplyr::pull(conf.low) %>%
-#'    tip_lm(outcome_association = 2.5)
+#'    tip_coef(outcome_association = 2.5)
 #'}
 #' @export
-tip_lm <- function(effect, smd = NULL, outcome_association = NULL, verbose = TRUE, correction_factor = "none") {
+tip_coef <- function(effect, smd = NULL, outcome_association = NULL, verbose = TRUE) {
 
   o <- purrr::map(
     effect,
-    ~ tip_lm_one(.x,
+    ~ tip_coef_one(.x,
               smd = smd,
               outcome_association = outcome_association,
-              verbose = verbose,
-              correction_factor = correction_factor
+              verbose = verbose
     )
   )
   do.call(rbind, o)
 }
 
-tip_lm_one <- function(b, smd, outcome_association, verbose, correction_factor) {
+tip_coef_one <- function(b, smd, outcome_association, verbose) {
 
   n_unmeasured_confounders <- 1
-  correction <- ""
-  if (correction_factor == "hr") {
-    b <- hr_transform(b)
-    outcome_association <- hr_transform(outcome_association)
-    correction <- 'You opted to use the hazard ratio correction to convert your hazard ratios to approximate risk ratios.\nThis is a good idea if the outcome is common (>15%).'
-  }
-
-  if (correction_factor == "or") {
-    b <- or_transform(b)
-    outcome_association <- or_transform(outcome_association)
-    correction <- 'You opted to use the odds ratio correction to convert your odds ratios to approximate risk ratios.\nThis is a good idea if the outcome is common (>15%).'
-  }
 
   if (is.null(outcome_association)) {
     outcome_association <- b / smd
@@ -130,7 +110,7 @@ tip_lm_one <- function(b, smd, outcome_association, verbose, correction_factor) 
         "unmeasured confounder\n     in the exposed population and ",
         "unexposed population: {round(o_notip$smd, 2)}",
         "\n  * estimated association between the unmeasured confounder and the ",
-        "outcome: {round(o_notip$outcome_association, 2)}\n\n{correction}"
+        "outcome: {round(o_notip$outcome_association, 2)}\n\n"
       )
     } else if (any(o$n_unmeasured_confounders == 0)) {
       o_notip <- o[o$n_unmeasured_confounders == 0,]
@@ -142,7 +122,7 @@ tip_lm_one <- function(b, smd, outcome_association, verbose, correction_factor) 
         "unmeasured confounder\n     in the exposed population and ",
         "unexposed population: {round(o_notip$smd, 2)}",
         "\n  * estimated association between the unmeasured confounder and the ",
-        "outcome: {round(o_notip$outcome_association, 2)}\n\n{correction}"
+        "outcome: {round(o_notip$outcome_association, 2)}\n\n"
       )
 
       o_tip <- o[o$n_unmeasured_confounders != 0,]
@@ -155,7 +135,7 @@ tip_lm_one <- function(b, smd, outcome_association, verbose, correction_factor) 
         "unmeasured confounder\n    in the exposed population and ",
         "unexposed population: {round(o_tip$smd, 2)}",
         "\n  * estimated association between the unmeasured confounder and the ",
-        "outcome: {round(o_tip$outcome_association, 2)}\n\n{correction}"
+        "outcome: {round(o_tip$outcome_association, 2)}\n\n"
       )
     } else {
       message_glue(
@@ -167,16 +147,20 @@ tip_lm_one <- function(b, smd, outcome_association, verbose, correction_factor) 
         "unmeasured confounder\n    in the exposed population and ",
         "unexposed population: {round(o$smd, 2)}",
         "\n  * estimated association between the unmeasured confounder and the ",
-        "outcome: {round(o$outcome_association, 2)}\n\n{correction}"
+        "outcome: {round(o$outcome_association, 2)}\n\n"
       )
     }
   }
   o
 }
 
-#' @rdname tip_lm
+#' @rdname tip_coef
 #' @export
 lm_tip <- function(effect, smd, outcome_association, verbose = TRUE) {
   .Deprecated("tip_lm")
-  tip_lm(effect, smd, outcome_association, verbose)
+  tip_coef(effect, smd, outcome_association, verbose)
 }
+
+#' @rdname tip_coef
+#' @export
+tip_coef_with_continuous <- tip_coef
