@@ -2,9 +2,17 @@
 % Please edit documentation in R/tip.R
 \name{tip_rr}
 \alias{tip_rr}
+\alias{tip_rr_with_continuous}
 \title{Tip an observed relative risk with a normally distributed confounder.}
 \usage{
 tip_rr(effect, smd = NULL, outcome_association = NULL, verbose = TRUE)
+
+tip_rr_with_continuous(
+  effect,
+  smd = NULL,
+  outcome_association = NULL,
+  verbose = TRUE
+)
 }
 \arguments{
 \item{effect}{Numeric positive value. Observed exposure - outcome relative risk.

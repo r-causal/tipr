@@ -2,10 +2,19 @@
 % Please edit documentation in R/adjust_coefficient.R
 \name{adjust_or}
 \alias{adjust_or}
+\alias{adjust_or_with_continuous}
 \title{Adjust an observed odds ratio for a normally distributed
 confounder}
 \usage{
 adjust_or(
+  effect,
+  smd,
+  outcome_association,
+  verbose = TRUE,
+  or_correction = FALSE
+)
+
+adjust_or_with_continuous(
   effect,
   smd,
   outcome_association,

@@ -405,3 +405,19 @@ adjust_or_with_binary <- function(effect, exposed_p, unexposed_p, outcome_associ
 
   return(o)
 }
+
+#' @rdname adjust_coef
+#' @export
+adjust_coef_with_continuous <- adjust_coef
+
+#' @rdname adjust_rr
+#' @export
+adjust_rr_with_continuous <- adjust_rr
+
+#' @rdname adjust_or
+#' @export
+adjust_or_with_continuous <- adjust_or
+
+#' @rdname adjust_hr
+#' @export
+adjust_hr_with_continuous <- adjust_hr

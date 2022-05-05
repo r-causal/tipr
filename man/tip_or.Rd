@@ -2,9 +2,18 @@
 % Please edit documentation in R/tip.R
 \name{tip_or}
 \alias{tip_or}
+\alias{tip_or_with_continuous}
 \title{Tip an observed odds ratio with a normally distributed confounder.}
 \usage{
 tip_or(
+  effect,
+  smd = NULL,
+  outcome_association = NULL,
+  verbose = TRUE,
+  or_correction = FALSE
+)
+
+tip_or_with_continuous(
   effect,
   smd = NULL,
   outcome_association = NULL,

@@ -2,9 +2,18 @@
 % Please edit documentation in R/tip.R
 \name{tip_hr}
 \alias{tip_hr}
+\alias{tip_hr_with_continuous}
 \title{Tip an observed hazard ratio with a normally distributed confounder.}
 \usage{
 tip_hr(
+  effect,
+  smd = NULL,
+  outcome_association = NULL,
+  verbose = TRUE,
+  hr_correction = FALSE
+)
+
+tip_hr_with_continuous(
   effect,
   smd = NULL,
   outcome_association = NULL,

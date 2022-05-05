@@ -5,3 +5,6 @@
 ^README.Rmd$
 ^cran-comments\.md$
 ^CRAN-RELEASE$
+^CRAN-SUBMISSION$
+^paper\.md$
+^paper\.bib$

@@ -2,10 +2,13 @@
 % Please edit documentation in R/adjust_coefficient.R
 \name{adjust_coef}
 \alias{adjust_coef}
+\alias{adjust_coef_with_continuous}
 \title{Adjust an observed regression coefficient for a normally distributed
 confounder}
 \usage{
 adjust_coef(effect, smd, outcome_association, verbose = TRUE)
+
+adjust_coef_with_continuous(effect, smd, outcome_association, verbose = TRUE)
 }
 \arguments{
 \item{effect}{Numeric. Observed exposure - outcome effect from a regression

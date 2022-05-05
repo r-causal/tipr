@@ -2,10 +2,13 @@
 % Please edit documentation in R/adjust_coefficient.R
 \name{adjust_rr}
 \alias{adjust_rr}
+\alias{adjust_rr_with_continuous}
 \title{Adjust an observed relative risk for a normally distributed
 confounder}
 \usage{
 adjust_rr(effect, smd, outcome_association, verbose = TRUE)
+
+adjust_rr_with_continuous(effect, smd, outcome_association, verbose = TRUE)
 }
 \arguments{
 \item{effect}{Numeric positive value. Observed exposure - outcome relative risk.

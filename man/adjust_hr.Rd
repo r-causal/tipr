@@ -2,10 +2,19 @@
 % Please edit documentation in R/adjust_coefficient.R
 \name{adjust_hr}
 \alias{adjust_hr}
+\alias{adjust_hr_with_continuous}
 \title{Adjust an observed hazard ratio for a normally distributed
 confounder}
 \usage{
 adjust_hr(
+  effect,
+  smd,
+  outcome_association,
+  verbose = TRUE,
+  hr_correction = FALSE
+)
+
+adjust_hr_with_continuous(
   effect,
   smd,
   outcome_association,

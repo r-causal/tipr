@@ -1,7 +1,3 @@
-## Response to comments
-
-Fixed DOI and LazyData notes.
-
 ## R CMD check results
 
 0 errors | 0 warnings | 0 notes

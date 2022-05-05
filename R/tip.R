@@ -302,6 +302,17 @@ tip_or <- function(effect, smd = NULL, outcome_association = NULL, verbose = TRU
   tip(effect, smd = smd, outcome_association = outcome_association, verbose = verbose, correction_factor = correction_factor)
 }
 
+#' @rdname tip_rr
+#' @export
+tip_rr_with_continuous <- tip_rr
+
+#' @rdname tip_hr
+#' @export
+tip_hr_with_continuous <- tip_hr
+
+#' @rdname tip_or
+#' @export
+tip_or_with_continuous <- tip_or
 
 #' @rdname tip
 #' @export

@@ -1,3 +1,7 @@
+# tipr 0.4.1
+
+* Add additional functions that specify `*_with_continuous()` (long form of, the function names, the default unmeasured confounder is Normally distributed)
+
 # tipr 0.4.0
 
 * Changed the name of `lm_tip()` to `tip_lm()`
