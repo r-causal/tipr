@@ -6,9 +6,9 @@
 \usage{
 tip_rr_with_binary(
   effect,
-  exposed_p,
-  unexposed_p,
-  outcome_association,
+  exposed_p = NULL,
+  unexposed_p = NULL,
+  outcome_association = NULL,
   verbose = TRUE
 )
 }

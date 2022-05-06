@@ -243,7 +243,7 @@ tip_with_binary_one <- function(b,
 #' @param verbose Logical. Indicates whether to print informative message.
 #'    Default: `TRUE`
 
-tip_rr_with_binary <- function(effect, exposed_p, unexposed_p, outcome_association, verbose = TRUE) {
+tip_rr_with_binary <- function(effect, exposed_p = NULL, unexposed_p = NULL, outcome_association = NULL, verbose = TRUE) {
   tip_with_binary(effect, exposed_p = exposed_p, unexposed_p = unexposed_p, outcome_association = outcome_association, verbose = verbose)
 }
 
