@@ -58,10 +58,10 @@ tip(1.2, outcome_association = 1.5)
     ##     in the exposed population and unexposed population: 0.45
     ##   * estimated association between the unmeasured confounder and the outcome: 1.5
 
-    ## # A tibble: 1 × 4
-    ##   observed_effect   smd outcome_association n_unmeasured_confounders
-    ##             <dbl> <dbl>               <dbl>                    <dbl>
-    ## 1             1.2 0.450                 1.5                        1
+    ## # A tibble: 1 × 5
+    ##   adjusted_effect observed_effect   smd outcome_association n_unmeasured_confou…
+    ##             <dbl>           <dbl> <dbl>               <dbl>                <dbl>
+    ## 1               1             1.2 0.450                 1.5                    1
 
 A hypothetical unobserved continuous confounder that has an association
 of 1.5 with the outcome would need a scaled mean difference between
@@ -89,10 +89,11 @@ tip_with_binary(1.2, exposed_p = 0.25, unexposed_p = 0.10)
     ##   * estimated prevalence of the unmeasured confounder in the unexposed population: 0.1
     ##   * estimated association between the unmeasured confounder and the outcome: 2.54
 
-    ## # A tibble: 1 × 5
-    ##   observed_effect exposed_p unexposed_p outcome_association n_unmeasured_confou…
-    ##             <dbl>     <dbl>       <dbl>               <dbl>                <dbl>
-    ## 1             1.2      0.25         0.1                2.54                    1
+    ## # A tibble: 1 × 6
+    ##   adjusted_effect observed_effect exposed_p unexposed_p outcome_association
+    ##             <dbl>           <dbl>     <dbl>       <dbl>               <dbl>
+    ## 1               1             1.2      0.25         0.1                2.54
+    ## # … with 1 more variable: n_unmeasured_confounders <dbl>
 
 A hypothetical unobserved binary confounder that is prevalent in 10% of
 the unexposed population and 25% of the exposed population would need to
@@ -114,10 +115,10 @@ tip(1.2, smd = 0.25, outcome_association = 1.05)
     ##     in the exposed population and unexposed population: 0.25
     ##   * estimated association between the unmeasured confounder and the outcome: 1.05
 
-    ## # A tibble: 1 × 4
-    ##   observed_effect   smd outcome_association n_unmeasured_confounders
-    ##             <dbl> <dbl>               <dbl>                    <dbl>
-    ## 1             1.2  0.25                1.05                     14.9
+    ## # A tibble: 1 × 5
+    ##   adjusted_effect observed_effect   smd outcome_association n_unmeasured_confou…
+    ##             <dbl>           <dbl> <dbl>               <dbl>                <dbl>
+    ## 1               1             1.2  0.25                1.05                 14.9
 
 It would take about `15` independent unmeasured confounders with a
 scaled mean difference between exposure groups of 0.25 to and an
@@ -148,7 +149,7 @@ if (requireNamespace("broom", quietly = TRUE) &&  requireNamespace("dplyr", quie
     ##     in the exposed population and unexposed population: 0.13
     ##   * estimated association between the unmeasured confounder and the outcome: 2.5
 
-    ## # A tibble: 1 × 4
-    ##   observed_effect   smd outcome_association n_unmeasured_confounders
-    ##             <dbl> <dbl>               <dbl>                    <dbl>
-    ## 1            1.13 0.133                 2.5                        1
+    ## # A tibble: 1 × 5
+    ##   adjusted_effect observed_effect   smd outcome_association n_unmeasured_confou…
+    ##             <dbl>           <dbl> <dbl>               <dbl>                <dbl>
+    ## 1               1            1.13 0.133                 2.5                    1
