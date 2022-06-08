@@ -27,13 +27,13 @@ We focus on three key quantities: the observed bound of the confidence interval
 closest to the null, a plausible residual effect size for an unmeasured continuous
 or binary confounder, and a realistic mean difference or prevalence difference for
 this hypothetical confounder. Building on the methods put forth by
-@Cornfield, @Bross, @Schlesselman, @Rosenbaum:1983, @Lin, @lash2009applying, @rosenbaum1986dropping, @draperapplied, @cinelli2020making, @VanderWeele:2017ki, and @Ding, we can use these quantities to
+@Cornfield, @Bross, @Schlesselman, @Rosenbaum:1983, @Lin, @lash2009applying, @rosenbaum1986dropping, @cinelli2020making, @VanderWeele:2017ki, and @Ding, we can use these quantities to
 assess how an unmeasured confounder may tip our result to insignificance, rendering the
 study inconclusive.
 
 # Statement of need
 
-When assessing the relationship between an exposure and an outcome, the "no unmeasured confounders" assumption is crucial.[@rubin1974estimating; @DAgostino:1998tu] This assumption, however, is untestable, rendering sensitivity analyses necessary to quantify the potential impact of an unmeasured confounder. There are several related methods for conducting sensitivity analyses for unmeasured confounders[@Cornfield; @Bross; @Schlesselman; @Rosenbaum:1983; @Lin; @lash2009applying; @rosenbaum1986dropping; @draperapplied; @cinelli2020making; @VanderWeele:2017ki; @Ding], however there is not currently a single R package that has a unified grammar allowing the user to conduct appropriate sensitivity analysis for their study. A unified grammar allows the user to easily transition between methods depending on the scenario under which they are conducting the sensitivity analysis as well as compare the results between methods. `tipr` seeks to fill this need.
+When assessing the relationship between an exposure and an outcome, the "no unmeasured confounders" assumption is crucial.[@rubin1974estimating; @DAgostino:1998tu] This assumption, however, is untestable, rendering sensitivity analyses necessary to quantify the potential impact of an unmeasured confounder. There are several related methods for conducting sensitivity analyses for unmeasured confounders[@Cornfield; @Bross; @Schlesselman; @Rosenbaum:1983; @Lin; @lash2009applying; @rosenbaum1986dropping; @cinelli2020making; @VanderWeele:2017ki; @Ding], however there is not currently a single R package that has a unified grammar allowing the user to conduct appropriate sensitivity analysis for their study. A unified grammar allows the user to easily transition between methods depending on the scenario under which they are conducting the sensitivity analysis as well as compare the results between methods. `tipr` seeks to fill this need.
 
 # Overview 
 
@@ -314,7 +314,7 @@ glm(am ~ mpg, data = mtcars, family = "binomial") %>%
     
 # Conclusion
 
-The `tipr` package faciliates sensitivity analyses for unmeasured confounding, building on the methods put forth by
-@Cornfield, @Bross, @Schlesselman, @Rosenbaum:1983, @Lin, @lash2009applying, @rosenbaum1986dropping, @draperapplied, @cinelli2020making, @VanderWeele:2017ki, and @Ding. 
+The `tipr` package facilitates sensitivity analyses for unmeasured confounding, building on the methods put forth by
+@Cornfield, @Bross, @Schlesselman, @Rosenbaum:1983, @Lin, @lash2009applying, @rosenbaum1986dropping, @cinelli2020making, @VanderWeele:2017ki, and @Ding. 
 
 # References
