@@ -21,15 +21,7 @@ bibliography: paper.bib
 
 # Summary
 
-The strength of evidence provided by epidemiological and observational
-studies is inherently limited by the potential for unmeasured confounding.
-We focus on three key quantities: the observed bound of the confidence interval
-closest to the null, a plausible residual effect size for an unmeasured continuous
-or binary confounder, and a realistic mean difference or prevalence difference for
-this hypothetical confounder. Building on the methods put forth by
-@Cornfield, @Bross, @Schlesselman, @Rosenbaum:1983, @Lin, @lash2009applying, @rosenbaum1986dropping, @cinelli2020making, @VanderWeele:2017ki, and @Ding, we can use these quantities to
-assess how an unmeasured confounder may tip our result to insignificance, rendering the
-study inconclusive.
+The strength of evidence provided by epidemiological and observational studies is inherently limited by the potential for unmeasured confounding. We focus on three key quantities: the observed bound of the confidence interval closest to the null, the relationship between an unmeasured confounder and the outcome, for example a plausible residual effect size for an unmeasured continuous or binary confounder, and the relationship between an unmeasured confounder and the exposure, for example a realistic mean difference or prevalence difference for this hypothetical confounder between exposure groups. Building on the methods put forth by @Cornfield, @Bross, @Schlesselman, @Rosenbaum:1983, @Lin, @lash2009applying, @rosenbaum1986dropping, @cinelli2020making, @VanderWeele:2017ki, and @Ding, we can use these quantities to assess how an unmeasured confounder may tip our result to insignificance, rendering the study inconclusive.
 
 # Statement of need
 
@@ -178,31 +170,11 @@ An overview of the main functions in `tipr` is summarized in **Table 1**:
 # Tipping Point Example
 
 After fitting your model, you can determine the unmeasured confounder
-needed to tip your analysis. This unmeasured confounder is determined by
-two quantities, the association between the exposure and the unmeasured
-confounder (if the unmeasured confounder is continuous, this is
-indicated with `smd`, if binary, with `exposed_p` and `unexposed_p`),
-and the association between the unmeasured confounder and outcome
-`outcome_association`. Using `tipr`, we can fix one of these and solve
-for the other. Alternatively, we can fix both and solve for `n`, that
-is, how many unmeasured confounders of this magnitude would tip the
-analysis.
+needed to tip your analysis. In this example, a model was fit and the exposure-outcome relationship was a relative risk of 1.5 (95% CI: 1.2, 1.8).
 
-In this example, a model was fit and the exposure-outcome relationship
-was a relative risk of 1.5 (95% CI: 1.2, 1.8).
+We are interested in a Normally distributed unmeasured confounder, so we can use the `tip_rr_with_continuous()` function. The function `tip()` is an alias for this function.
 
-## Continuous unmeasured confounder example
-
-We are interested in a Normally distributed unmeasured confounder, so we can use
-the `tip_rr_with_continuous()` function. The function `tip()` is an alias for 
-for this function (assuming the relationship you want to examine is the relative
-risk and the unmeasured confounder is Normally distributed.
-
-Let’s assume the relationship between the unmeasured confounder and
-outcome is 1.5 (`outcome_association = 1.5`), let's solve for the
-association between the exposure and unmeasured confounder needed to tip
-the analysis (in this case, we are solving for `smd`, the mean
-difference needed between the exposed and unexposed).
+Let’s assume the relationship between the unmeasured confounder and outcome is 1.5 (`outcome_association = 1.5`), let's solve for the association between the exposure and unmeasured confounder needed to tip the analysis (in this case, we are solving for `smd`, the mean difference needed between the exposed and unexposed).
 
 ``` r
 tip(1.2, outcome_association = 1.5)
@@ -220,98 +192,11 @@ tip(1.2, outcome_association = 1.5)
     ##             <dbl>           <dbl> <dbl>               <dbl>                    <dbl>
     ## 1               1             1.2 0.450                 1.5                        1
 
-
 A hypothetical unobserved continuous confounder that has an association
 of 1.5 with the outcome would need a scaled mean difference between
 exposure groups of `0.45` to tip this analysis at the 5% level,
 rendering it inconclusive.
 
-## Binary unmeasured confounder example
-
-Now we are interested in the binary unmeasured confounder, so we will
-use the `tip_rr_with_binary()` function.
-
-Let’s assume the unmeasured confounder is prevalent in 25% of the
-exposed population (`exposed_p = 0.25`) and in 10% of the unexposed
-population (`unexposed_p = 0.10`) – let’s solve for the association
-between the unmeasured confounder and the outcome needed to tip the
-analysis (`outcome_association`).
-
-``` r
-tip_rr_with_binary(1.2, exposed_p = 0.25, unexposed_p = 0.10)
-```
-
-    ## The observed effect (1.2) WOULD be tipped by 1 unmeasured confounder
-    ## with the following specifications:
-    ##   * estimated prevalence of the unmeasured confounder in the exposed population: 0.25
-    ##   * estimated prevalence of the unmeasured confounder in the unexposed population: 0.1
-    ##   * estimated association between the unmeasured confounder and the outcome: 2.54
-    ## 
-    ## 
-    ## # A tibble: 1 × 6
-    ##   adjusted_effect observed_effect exposed_p unexposed_p outcome_association n_unmeasured_confound…
-    ##             <dbl>           <dbl>     <dbl>       <dbl>               <dbl>                  <dbl>
-    ## 1               1             1.2      0.25         0.1                2.54                      1
-
-A hypothetical unobserved binary confounder that is prevalent in 10% of
-the unexposed population and 25% of the exposed population would need to
-have an association with the outcome of 2.5 to tip this analysis at the
-5% level, rendering it inconclusive.
-
-## Many unmeasured confounders
-
-Suppose we are concerned that there are many small, independent,
-continuous, unmeasured confounders present.
-
-``` r
-tip(1.2, smd = 0.25, outcome_association = 1.05)
-```
-
-    ## The observed effect (1.2) WOULD be tipped by 15 unmeasured confounders
-    ## with the following specifications:
-    ##   * estimated difference in scaled means between the unmeasured confounder
-    ##     in the exposed population and unexposed population: 0.25
-    ##   * estimated association between the unmeasured confounder and the outcome: 1.05
-    ## 
-    ## 
-    ## # A tibble: 1 × 5
-    ##   adjusted_effect observed_effect   smd outcome_association n_unmeasured_confounders
-    ##             <dbl>           <dbl> <dbl>               <dbl>                    <dbl>
-    ## 1               1             1.2  0.25                1.05                     14.9
-
-It would take about `15` independent unmeasured confounders with a
-scaled mean difference between exposure groups of 0.25 to and an
-association with the outcome of 1.05 tip the observed analysis at the 5%
-level, rendering it inconclusive.
-
-## Integration with broom
-
-These functions can be easily integrated with models tidied
-using the **broom** package. This is not *necessary* to use these
-functions. Here is an example of a logistic regression fit with `glm` and 
-tidied with the `tidy` function **broom** that can be directly fed into the 
-`tip()` function.
-
-``` r
-glm(am ~ mpg, data = mtcars, family = "binomial") %>%
-  broom::tidy(conf.int = TRUE, exponentiate = TRUE) %>%
-  dplyr::filter(term == "mpg") %>%
-  dplyr::pull(conf.low) %>%
-  tip(outcome_association = 2.5)
-```
-
-    ## The observed effect (1.13) WOULD be tipped by 1 unmeasured confounder
-    ## with the following specifications:
-    ##   * estimated difference in scaled means between the unmeasured confounder
-    ##     in the exposed population and unexposed population: 0.13
-    ##   * estimated association between the unmeasured confounder and the outcome: 2.5
-    ## 
-    ## 
-    ## # A tibble: 1 × 5
-    ##   adjusted_effect observed_effect   smd outcome_association n_unmeasured_confounders
-    ##             <dbl>           <dbl> <dbl>               <dbl>                    <dbl>
-    ## 1               1            1.13 0.133                 2.5                        1
-    
 # Conclusion
 
 The `tipr` package facilitates sensitivity analyses for unmeasured confounding, building on the methods put forth by
