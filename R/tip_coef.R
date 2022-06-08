@@ -41,9 +41,9 @@ tip_coef <- function(effect, smd = NULL, outcome_association = NULL, verbose = T
   o <- purrr::map(
     effect,
     ~ tip_coef_one(.x,
-              smd = smd,
-              outcome_association = outcome_association,
-              verbose = verbose
+                   smd = smd,
+                   outcome_association = outcome_association,
+                   verbose = verbose
     )
   )
   do.call(rbind, o)
@@ -154,10 +154,23 @@ tip_coef_one <- function(b, smd, outcome_association, verbose) {
   o
 }
 
-#' @rdname tip_coef
+#' Deprecated
+#'
+#' This function has been deprecated and replaced by [`tip_coef`].
+#'
+#' @param effect Numeric. Observed exposure - outcome effect from a regression
+#'    model. This can be the beta coefficient, the lower confidence bound of
+#'    the beta coefficient, or the upper confidence bound of the beta
+#'    coefficient.
+#' @param smd Numeric. Estimated scaled mean difference between the
+#'    unmeasured confounder in the exposed population and unexposed population
+#' @param outcome_association Numeric positive value. Estimated association
+#'    between the unmeasured confounder and the outcome
+#' @param verbose Logical. Indicates whether to print informative message.
+#'    Default: `TRUE`
 #' @export
-lm_tip <- function(effect, smd, outcome_association, verbose = TRUE) {
-  .Deprecated("tip_lm")
+lm_tip <- function(effect, smd = NULL, outcome_association = NULL, verbose = TRUE) {
+  .Deprecated("tip_coef")
   tip_coef(effect, smd, outcome_association, verbose)
 }
 

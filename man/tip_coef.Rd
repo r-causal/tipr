@@ -2,13 +2,10 @@
 % Please edit documentation in R/tip_coef.R
 \name{tip_coef}
 \alias{tip_coef}
-\alias{lm_tip}
 \alias{tip_coef_with_continuous}
 \title{Tip a linear model coefficient with a continuous confounder.}
 \usage{
 tip_coef(effect, smd = NULL, outcome_association = NULL, verbose = TRUE)
-
-lm_tip(effect, smd, outcome_association, verbose = TRUE)
 
 tip_coef_with_continuous(
   effect,
