@@ -35,7 +35,7 @@ The `tipr` R package [@rstats] allows the user to conduct sensitivity analyses f
 (2) Functions that calculate the magnitude of an unmeasured confounder needed to tip an observed effect to cross the null, rendering it inconclusive (`tip` functions)
 (3) Functions that calculate single number summaries of an observed effect's "sensitivity", such as the E-value[@VanderWeele:2017ki] or Robustness value [@cinelli2020making].
 
-`tipr` is available on [CRAN](https://github.com/lucymcgowan/tipr) and [Github](https://github.com/lucymcgowan/tipr). Documenation can be found at 
+`tipr` is available on [CRAN](https://github.com/lucymcgowan/tipr) and [Github](https://github.com/lucymcgowan/tipr). Documentation can be found at 
 https://lucymcgowan.github.io/tipr/. It can be installed from CRAN using the 
 following code:
 
@@ -80,9 +80,10 @@ library(tipr)
 adjust_coef(effect = 1.5,
             smd = 0.1,
             outcome_association = 1)
-#> The observed effect (1.5) is updated to 1.4 by a confounder with the following specifications:
-#> * estimated difference in scaled means: 0.1
-#> * estimated association between the unmeasured confounder and the outcome: 1
+#> The observed effect (1.5) is updated to 1.4 by a confounder with the 
+#> following specifications:
+#>  * estimated difference in scaled means: 0.1
+#>  * estimated association between the unmeasured confounder and the outcome: 1
 #> # A tibble: 1 × 4
 #>   effect_adjusted effect_observed   smd outcome_association
 #>             <dbl>           <dbl> <dbl>               <dbl>
@@ -182,15 +183,17 @@ tip(1.2, outcome_association = 1.5)
 
     ## The observed effect (1.2) WOULD be tipped by 1 unmeasured confounder
     ## with the following specifications:
-    ##   * estimated difference in scaled means between the unmeasured confounder
-    ##     in the exposed population and unexposed population: 0.45
-    ##   * estimated association between the unmeasured confounder and the outcome: 1.5
+    ##   * estimated difference in scaled means between the unmeasured 
+    ##     confounder in the exposed population and unexposed population: 0.45
+    ##   * estimated association between the unmeasured confounder and 
+    ##     the outcome: 1.5
     ## 
     ## 
     ## # A tibble: 1 × 5
-    ##   adjusted_effect observed_effect   smd outcome_association n_unmeasured_confounders
-    ##             <dbl>           <dbl> <dbl>               <dbl>                    <dbl>
-    ## 1               1             1.2 0.450                 1.5                        1
+    ##   adjusted_effect observed_effect   smd outcome_association 
+    ##             <dbl>           <dbl> <dbl>               <dbl>                    
+    ## 1               1             1.2 0.450                 1.5
+    ## # … with 1 more variable: n_unmeasured_confounders <dbl>
 
 A hypothetical unobserved continuous confounder that has an association
 of 1.5 with the outcome would need a scaled mean difference between
