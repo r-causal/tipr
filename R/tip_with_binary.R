@@ -158,8 +158,8 @@ tip_with_binary_one <- function(b,
     }
   }
   o <- tibble::tibble(
-    adjusted_effect = 1,
-    observed_effect = b,
+    effect_adjusted = 1,
+    effect_observed = b,
     exposed_p = exposed_p,
     unexposed_p = unexposed_p,
     outcome_association = outcome_association,
@@ -170,7 +170,7 @@ tip_with_binary_one <- function(b,
       o_notip <- o[o$n_unmeasured_confounders == 0,]
 
       message_glue(
-        "The observed effect ({round(o_notip$observed_effect, 2)}) ",
+        "The observed effect ({round(o_notip$effect_observed, 2)}) ",
         "cannot be tipped by an unmeasured confounder\nwith the ",
         "following specifications:",
         "\n  * estimated prevalence of the unmeasured confounder ",
@@ -182,7 +182,7 @@ tip_with_binary_one <- function(b,
     } else if (any(o$n_unmeasured_confounders == 0)) {
       o_notip <- o[o$n_unmeasured_confounders == 0,]
       message_glue(
-        "The observed effect ({round(o_notip$observed_effect, 2)}) ",
+        "The observed effect ({round(o_notip$effect_observed, 2)}) ",
         "cannot be tipped by an unmeasured confounder\nwith the ",
         "following specifications:",
         "\n  * estimated prevalence of the unmeasured confounder ",
@@ -194,7 +194,7 @@ tip_with_binary_one <- function(b,
 
       o_tip <- o[o$n_unmeasured_confounders != 0,]
       message_glue(
-        "The observed effect ({round(o_tip$observed_effect, 2)}) WOULD ",
+        "The observed effect ({round(o_tip$effect_observed, 2)}) WOULD ",
         "be tipped by {round(o_tip$n_unmeasured_confounders)} ",
         "unmeasured confounder{ifelse(o_tip$n_unmeasured_confounders > 1, 's', '')}\n",
         "with the following ",
@@ -206,7 +206,7 @@ tip_with_binary_one <- function(b,
       )
     } else {
       message_glue(
-        "The observed effect ({round(o$observed_effect, 2)}) WOULD ",
+        "The observed effect ({round(o$effect_observed, 2)}) WOULD ",
         "be tipped by {round(o$n_unmeasured_confounders)} ",
         "unmeasured confounder{ifelse(o$n_unmeasured_confounders > 1, 's', '')}\n",
         "with the following ",
