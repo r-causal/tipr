@@ -80,14 +80,15 @@ library(tipr)
 adjust_coef(effect = 1.5,
             smd = 0.1,
             outcome_association = 1)
-#> The observed effect (1.5) is updated to 1.4 by a confounder with the 
-#> following specifications:
-#>  * estimated difference in scaled means: 0.1
-#>  * estimated association between the unmeasured confounder and the outcome: 1
-#> # A tibble: 1 × 4
-#>   effect_adjusted effect_observed   smd outcome_association
-#>             <dbl>           <dbl> <dbl>               <dbl>
-#> 1             1.4             1.5   0.1                   1
+    ## The observed effect (1.5) is updated to 1.4 by a confounder with the 
+    ## following specifications:
+    ##  * estimated difference in scaled means: 0.1
+    ##  * estimated association between the unmeasured confounder and the 
+    ##    outcome: 1
+    ## # A tibble: 1 × 4
+    ## effect_adjusted effect_observed   smd outcome_association
+    ##             <dbl>           <dbl> <dbl>               <dbl>
+    ## 1             1.4             1.5   0.1                   1
 ```
 
 # Functions
@@ -190,7 +191,7 @@ tip(1.2, outcome_association = 1.5)
     ## 
     ## 
     ## # A tibble: 1 × 5
-    ##   adjusted_effect observed_effect   smd outcome_association 
+    ##   effect_adjusted effect_observed   smd outcome_association 
     ##             <dbl>           <dbl> <dbl>               <dbl>                    
     ## 1               1             1.2 0.450                 1.5
     ## # … with 1 more variable: n_unmeasured_confounders <dbl>
