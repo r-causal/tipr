@@ -19,7 +19,7 @@ devtools::install_github("lucymcgowan/tipr")
 ```
 
 ```{r}
-library("tipr")
+library(tipr)
 ```
 
 ## Usage

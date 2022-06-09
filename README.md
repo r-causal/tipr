@@ -18,7 +18,7 @@ devtools::install_github("lucymcgowan/tipr")
 ```
 
 ``` r
-library("tipr")
+library(tipr)
 ```
 
 ## Usage
@@ -59,7 +59,7 @@ tip(1.2, outcome_association = 1.5)
     ##   * estimated association between the unmeasured confounder and the outcome: 1.5
 
     ## # A tibble: 1 × 5
-    ##   adjusted_effect observed_effect   smd outcome_association n_unmeasured_confou…
+    ##   effect_adjusted effect_observed   smd outcome_association n_unmeasured_confou…
     ##             <dbl>           <dbl> <dbl>               <dbl>                <dbl>
     ## 1               1             1.2 0.450                 1.5                    1
 
@@ -90,7 +90,7 @@ tip_with_binary(1.2, exposed_p = 0.25, unexposed_p = 0.10)
     ##   * estimated association between the unmeasured confounder and the outcome: 2.54
 
     ## # A tibble: 1 × 6
-    ##   adjusted_effect observed_effect exposed_p unexposed_p outcome_association
+    ##   effect_adjusted effect_observed exposed_p unexposed_p outcome_association
     ##             <dbl>           <dbl>     <dbl>       <dbl>               <dbl>
     ## 1               1             1.2      0.25         0.1                2.54
     ## # … with 1 more variable: n_unmeasured_confounders <dbl>
@@ -116,7 +116,7 @@ tip(1.2, smd = 0.25, outcome_association = 1.05)
     ##   * estimated association between the unmeasured confounder and the outcome: 1.05
 
     ## # A tibble: 1 × 5
-    ##   adjusted_effect observed_effect   smd outcome_association n_unmeasured_confou…
+    ##   effect_adjusted effect_observed   smd outcome_association n_unmeasured_confou…
     ##             <dbl>           <dbl> <dbl>               <dbl>                <dbl>
     ## 1               1             1.2  0.25                1.05                 14.9
 
@@ -150,6 +150,6 @@ if (requireNamespace("broom", quietly = TRUE) &&  requireNamespace("dplyr", quie
     ##   * estimated association between the unmeasured confounder and the outcome: 2.5
 
     ## # A tibble: 1 × 5
-    ##   adjusted_effect observed_effect   smd outcome_association n_unmeasured_confou…
+    ##   effect_adjusted effect_observed   smd outcome_association n_unmeasured_confou…
     ##             <dbl>           <dbl> <dbl>               <dbl>                <dbl>
     ## 1               1            1.13 0.133                 2.5                    1
