@@ -5,16 +5,16 @@
 \title{Adjust an observed hazard ratio with a binary confounder}
 \usage{
 adjust_hr_with_binary(
-  effect,
+  effect_observed,
   exposed_p,
   unexposed_p,
-  outcome_effect,
+  confounder_outcome_effect,
   verbose = TRUE,
   hr_correction = FALSE
 )
 }
 \arguments{
-\item{effect}{Numeric positive value. Observed exposure - outcome hazard ratio.
+\item{effect_observed}{Numeric positive value. Observed exposure - outcome hazard ratio.
 This can be the point estimate, lower confidence bound, or upper
 confidence bound.}
 
@@ -24,7 +24,7 @@ unmeasured confounder in the exposed population}
 \item{unexposed_p}{Numeric between 0 and 1. Estimated prevalence of the
 unmeasured confounder in the unexposed population}
 
-\item{outcome_effect}{Numeric positive value. Estimated relationship
+\item{confounder_outcome_effect}{Numeric positive value. Estimated relationship
 between the unmeasured confounder and the outcome}
 
 \item{verbose}{Logical. Indicates whether to print informative message.

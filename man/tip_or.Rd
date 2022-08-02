@@ -6,30 +6,30 @@
 \title{Tip an observed odds ratio with a normally distributed confounder.}
 \usage{
 tip_or(
-  effect,
-  smd = NULL,
-  outcome_effect = NULL,
+  effect_observed,
+  exposure_confounder_effect = NULL,
+  confounder_outcome_effect = NULL,
   verbose = TRUE,
   or_correction = FALSE
 )
 
 tip_or_with_continuous(
-  effect,
-  smd = NULL,
-  outcome_effect = NULL,
+  effect_observed,
+  exposure_confounder_effect = NULL,
+  confounder_outcome_effect = NULL,
   verbose = TRUE,
   or_correction = FALSE
 )
 }
 \arguments{
-\item{effect}{Numeric positive value. Observed exposure - outcome odds ratio.
+\item{effect_observed}{Numeric positive value. Observed exposure - outcome odds ratio.
 This can be the point estimate, lower confidence bound, or upper
 confidence bound.}
 
-\item{smd}{Numeric. Estimated difference in scaled means between the
+\item{exposure_confounder_effect}{Numeric. Estimated difference in scaled means between the
 unmeasured confounder in the exposed population and unexposed population}
 
-\item{outcome_effect}{Numeric positive value. Estimated relationship
+\item{confounder_outcome_effect}{Numeric positive value. Estimated relationship
 between the unmeasured confounder and the outcome}
 
 \item{verbose}{Logical. Indicates whether to print informative message.
@@ -47,18 +47,18 @@ Data frame.
 \description{
 choose one of the following, and the other will be estimated:
 \itemize{
-\item \code{smd}
-\item \code{outcome_effect}
+\item \code{exposure_confounder_effect}
+\item \code{confounder_outcome_effect}
 }
 }
 \examples{
 ## to estimate the relationship between an unmeasured confounder and outcome
 ## needed to tip analysis
-tip_or(1.2, smd = -2)
+tip_or(1.2, exposure_confounder_effect = -2)
 
 ## to estimate the number of unmeasured confounders specified needed to tip
 ## the analysis
-tip_or(1.2, smd = -2, outcome_effect = .99)
+tip_or(1.2, exposure_confounder_effect = -2, confounder_outcome_effect = .99)
 
 ## Example with broom
 if (requireNamespace("broom", quietly = TRUE) &&
@@ -67,6 +67,6 @@ if (requireNamespace("broom", quietly = TRUE) &&
    broom::tidy(conf.int = TRUE, exponentiate = TRUE) \%>\%
    dplyr::filter(term == "mpg") \%>\%
    dplyr::pull(conf.low) \%>\%
-   tip_or(outcome_effect = 2.5, or_correction = TRUE)
+   tip_or(confounder_outcome_effect = 2.5, or_correction = TRUE)
 }
 }

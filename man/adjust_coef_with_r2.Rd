@@ -7,21 +7,21 @@ for an unmeasured confounder-exposure relationship and unmeasured confounder-
 outcome relationship}
 \usage{
 adjust_coef_with_r2(
-  effect,
+  effect_observed,
   se,
   df,
-  exposure_r2,
-  outcome_r2,
+  confounder_exposure_r2,
+  confounder_outcome_r2,
   verbose = TRUE,
   alpha = 0.05,
   ...
 )
 }
 \arguments{
-\item{effect}{Numeric. Observed exposure - outcome effect from a regression
+\item{effect_observed}{Numeric. Observed exposure - outcome effect from a regression
 model. This is the point estimate (beta coefficient)}
 
-\item{se}{Numeric. Standard error of the \code{effect} in the previous parameter.}
+\item{se}{Numeric. Standard error of the \code{effect_observed} in the previous parameter.}
 
 \item{df}{Numeric positive value. Residual degrees of freedom for the model
 used to estimate the observed exposure - outcome effect. This is the total
@@ -29,10 +29,10 @@ number of observations minus the number of parameters estimated in your
 model. Often for models estimated with an intercept this is N - k - 1
 where k is the number of predictors in the model.}
 
-\item{exposure_r2}{Numeric value between 0 and 1. The assumed partial R2 of
+\item{confounder_exposure_r2}{Numeric value between 0 and 1. The assumed partial R2 of
 the unobserved confounder with the exposure given the measured covariates.}
 
-\item{outcome_r2}{Numeric value between 0 and 1. The assumed partial R2 of
+\item{confounder_outcome_r2}{Numeric value between 0 and 1. The assumed partial R2 of
 the unobserved confounder with the outcome given the exposure and
 the measured covariates.}
 

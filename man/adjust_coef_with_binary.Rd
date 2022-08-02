@@ -5,15 +5,15 @@
 \title{Adjust an observed coefficient from a loglinear model with a binary confounder}
 \usage{
 adjust_coef_with_binary(
-  effect,
+  effect_observed,
   exposed_p,
   unexposed_p,
-  outcome_effect,
+  confounder_outcome_effect,
   verbose = TRUE
 )
 }
 \arguments{
-\item{effect}{Numeric. Observed exposure - outcome effect from a loglinear
+\item{effect_observed}{Numeric. Observed exposure - outcome effect from a loglinear
 model. This can be the beta coefficient, the lower confidence bound of
 the beta coefficient, or the upper confidence bound of the beta
 coefficient.}
@@ -24,7 +24,7 @@ unmeasured confounder in the exposed population}
 \item{unexposed_p}{Numeric between 0 and 1. Estimated prevalence of the
 unmeasured confounder in the unexposed population}
 
-\item{outcome_effect}{Numeric. Estimated relationship
+\item{confounder_outcome_effect}{Numeric. Estimated relationship
 between the unmeasured confounder and the outcome.}
 
 \item{verbose}{Logical. Indicates whether to print informative message.

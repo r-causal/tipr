@@ -1,6 +1,14 @@
-# tipr 0.5.0
+# tipr 1.0.0
 
-* Change `outcome_association` -> `outcome_effect` to better describe the quantity being estimated
+**Breaking changes**. The names of several arguments were changed for increased clarity:
+
+* `effect` -> `effect_observed`
+* `outcome_association` -> `confounder_outcome_effect`
+* `smd` -> `exposure_confounder_effect`
+* `exposed_p` -> `exposed_confounder_prev`
+* `unexposed_p` -> `exposed_confounder_prev`
+* `exposure_r2` -> `confounder_exposure_r2`
+* `outcome_r2` -> `confounder_outcome_r2`
 
 # tipr 0.4.2
 

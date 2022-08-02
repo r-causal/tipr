@@ -2,9 +2,9 @@
 #'
 #' This function wraps the [`sensemakr::robustness_value()`] function
 #'
-#' @param effect Numeric. Observed exposure - outcome effect from a regression
-#'    model. This is the point estimate (beta coefficient)
-#' @param se Numeric. Standard error of the `effect` in the previous parameter.
+#' @param effect_observed Numeric. Observed exposure - outcome effect from a
+#'    regression model. This is the point estimate (beta coefficient)
+#' @param se Numeric. Standard error of the `effect_observed` in the previous parameter.
 #' @param df Numeric positive value. Residual degrees of freedom for the model
 #'    used to estimate the observed exposure - outcome effect. This is the total
 #'    number of observations minus the number of parameters estimated in your
@@ -23,6 +23,6 @@
 #' @examples
 #' r_value(0.5, 0.1, 102)
 
-r_value <- function(effect, se, df, ...) {
-  as.numeric(sensemakr::robustness_value(effect / se, dof = df, ...))
+r_value <- function(effect_observed, se, df, ...) {
+  as.numeric(sensemakr::robustness_value(effect_observed / se, dof = df, ...))
 }
