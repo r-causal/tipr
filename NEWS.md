@@ -1,3 +1,7 @@
+# tipr 0.4.2
+
+* Make the output tibble names consistent (`adjusted_effect` -> `effect_adjusted`)
+
 # tipr 0.4.1
 
 * Add additional functions that specify `*_with_continuous()` (long form of, the function names, the default unmeasured confounder is Normally distributed)

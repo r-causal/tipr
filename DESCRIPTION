@@ -1,7 +1,7 @@
 Package: tipr
 Type: Package
 Title: Tipping Point Analyses
-Version: 0.4.1
+Version: 0.4.2
 Author: Lucy D'Agostino McGowan
 Maintainer: Lucy D'Agostino McGowan <lucydagostino@gmail.com>
 Description: The strength of evidence provided by epidemiological and observational 
@@ -17,6 +17,7 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 RoxygenNote: 7.1.2
 Roxygen: list(markdown = TRUE)
+BugReports: https://github.com/LucyMcGowan/tipr/issues
 Suggests:
     testthat,
     broom,

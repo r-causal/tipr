@@ -122,8 +122,8 @@ tip_one <- function(b, smd, outcome_association, verbose, correction_factor) {
     }
   }
   o <- tibble::tibble(
-    adjusted_effect = 1,
-    observed_effect = b,
+    effect_adjusted = 1,
+    effect_observed = b,
     smd = smd,
     outcome_association = outcome_association,
     n_unmeasured_confounders = n_unmeasured_confounders
@@ -132,7 +132,7 @@ tip_one <- function(b, smd, outcome_association, verbose, correction_factor) {
     if (all(o$n_unmeasured_confounders == 0)) {
       o_notip <- o[o$n_unmeasured_confounders == 0,]
       message_glue(
-        "The observed effect ({round(o_notip$observed_effect, 2)}) ",
+        "The observed effect ({round(o_notip$effect_observed, 2)}) ",
         "cannot be tipped by an unmeasured confounder\nwith the ",
         "following specifications:",
         "\n  * estimated difference in scaled means between the ",
@@ -144,7 +144,7 @@ tip_one <- function(b, smd, outcome_association, verbose, correction_factor) {
     } else if (any(o$n_unmeasured_confounders == 0)) {
       o_notip <- o[o$n_unmeasured_confounders == 0,]
       message_glue(
-        "The observed effect ({round(o_notip$observed_effect, 2)}) ",
+        "The observed effect ({round(o_notip$effect_observed, 2)}) ",
         "cannot be tipped by an unmeasured confounder\nwith the ",
         "following specifications:",
         "\n  * estimated difference in scaled means between the ",
@@ -156,7 +156,7 @@ tip_one <- function(b, smd, outcome_association, verbose, correction_factor) {
 
       o_tip <- o[o$n_unmeasured_confounders != 0,]
       message_glue(
-        "The observed effect ({round(o_tip$observed_effect, 2)}) WOULD ",
+        "The observed effect ({round(o_tip$effect_observed, 2)}) WOULD ",
         "be tipped by {round(o$n_unmeasured_confounders)} ",
         "unmeasured confounder{ifelse(o_tip$n_unmeasured_confounders > 1, 's', '')}\n",
         "with the following specifications:",
@@ -168,7 +168,7 @@ tip_one <- function(b, smd, outcome_association, verbose, correction_factor) {
       )
     } else {
       message_glue(
-        "The observed effect ({round(o$observed_effect, 2)}) WOULD ",
+        "The observed effect ({round(o$effect_observed, 2)}) WOULD ",
         "be tipped by {round(o$n_unmeasured_confounders)} ",
         "unmeasured confounder{ifelse(o$n_unmeasured_confounders > 1, 's', '')}\n",
         "with the following specifications:",
