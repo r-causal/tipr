@@ -60,7 +60,7 @@ Suppose we are concerned that there are many small, independent, continuous, unm
 tip(1.2, smd = 0.25, outcome_effect = 1.05)
 ```
 
-It would take about `15` independent unmeasured confounders with a scaled mean difference between exposure groups of 0.25 to and a relationship with the outcome of 1.05 tip the observed analysis at the 5% level, rendering it inconclusive.
+It would take about `15` independent standardized Normal unmeasured confounders with a mean difference between exposure groups of 0.25 to and a relationship with the outcome of 1.05 tip the observed analysis at the 5% level, rendering it inconclusive.
 
 ## Integration with broom
 
