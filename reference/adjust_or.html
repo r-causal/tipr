@@ -57,18 +57,12 @@ confounder</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">adjust_or</span><span class="op">(</span></span>
-<span>  <span class="va">effect</span>,</span>
-<span>  <span class="va">smd</span>,</span>
-<span>  <span class="va">outcome_association</span>,</span>
-<span>  verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  or_correction <span class="op">=</span> <span class="cn">FALSE</span></span>
-<span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">adjust_or</span><span class="op">(</span><span class="va">effect</span>, <span class="va">smd</span>, <span class="va">outcome_effect</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span>, or_correction <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">adjust_or_with_continuous</span><span class="op">(</span></span>
 <span>  <span class="va">effect</span>,</span>
 <span>  <span class="va">smd</span>,</span>
-<span>  <span class="va">outcome_association</span>,</span>
+<span>  <span class="va">outcome_effect</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  or_correction <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -87,8 +81,8 @@ confidence bound.</p></dd>
 unmeasured confounder in the exposed population and unexposed population</p></dd>
 
 
-<dt>outcome_association</dt>
-<dd><p>Numeric. Estimated association
+<dt>outcome_effect</dt>
+<dd><p>Numeric. Estimated relationship
 between the unmeasured confounder and the outcome.</p></dd>
 
 
@@ -117,11 +111,11 @@ set this to <code>TRUE</code>. Default: <code>FALSE</code>.</p></dd>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">adjust_or</span><span class="op">(</span><span class="fl">1.2</span>, <span class="fl">0.9</span>, <span class="fl">1.3</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> The observed effect (OR: 1.2) is updated to OR: 0.95 by a confounder with the following specifications:</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   * estimated difference in scaled means: 0.9</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   * estimated association (OR) between the unmeasured confounder and the outcome: 1.3</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   * estimated relationship (OR) between the unmeasured confounder and the outcome: 1.3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 4</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   or_adjusted or_observed   smd outcome_association</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>       0.948         1.2   0.9                 1.3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   or_adjusted or_observed   smd outcome_effect</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>       0.948         1.2   0.9            1.3</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
