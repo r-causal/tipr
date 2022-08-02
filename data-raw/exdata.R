@@ -26,22 +26,21 @@ usethis::use_data(exdata_continuous)
 
 ## Relative risk ----
 
+set.seed(930)
+
 exdata_rr <- tibble(
   .unmeasured_confounder = c(rnorm(n), rnorm(n, 0.5)),
   measured_confounder = c(rnorm(n), rnorm(n, 0.5)),
   exposure = rep(c(0, 1), each = n),
-  outcome = log(100 + measured_confounder + .unmeasured_confounder + rnorm(n * 2))
+  outcome = rbinom(n * 2, 1,
+            pmin(exp((-4 + measured_confounder + .unmeasured_confounder)), 1)
+  )
 )
 
+sum(exdata_rr$outcome)
 
-# effect_observed
-#lm(y ~ t + z)
-# outcome_confounder_effect = outcome_association
-#lm(y ~ t + z + u)
+glm(outcome ~ exposure + measured_confounder, data = exdata_rr, family = poisson(link = "log"))
+glm(outcome ~ exposure + measured_confounder + .unmeasured_confounder, data = exdata_rr, family = poisson(link = "log"))
 
-# confounder_exposure_effect = smd
-# difference in means between exposure groups
-#lm(u ~ t + z)
+usethis::use_data(exdata_rr, overwrite = TRUE)
 
-#confounder_exposed_prev
-#confounder_unexposed_prev

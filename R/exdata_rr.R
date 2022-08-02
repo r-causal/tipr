@@ -1,4 +1,4 @@
-#' Example Data (Continuous Outcome)
+#' Example Data (Relative Risk)
 #'
 #' A data set simulated with two Normally distributed confounders, one
 #' "measured" and one "unmeasured", an exposure, and outcome. The "true" causal
@@ -11,4 +11,4 @@
 #'  * `exposure`
 #'  * `outcome`
 #'
-"exdata_continuous"
+"exdata_rr"
