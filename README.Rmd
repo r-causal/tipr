@@ -13,6 +13,14 @@ output: github_document
 
 ## Installation
 
+Install the CRAN version
+
+```{r, eval = FALSE}
+install.packages("tipr")
+```
+
+Or install the development version from GitHub:
+
 ```{r, eval = FALSE}
 # install.packages(devtools)
 devtools::install_github("lucymcgowan/tipr")

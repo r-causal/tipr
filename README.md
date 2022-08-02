@@ -12,6 +12,14 @@ McGowan](https://www.lucymcgowan.com/)<br/> **License:**
 
 ## Installation
 
+Install the CRAN version
+
+``` r
+install.packages("tipr")
+```
+
+Or install the development version from GitHub:
+
 ``` r
 # install.packages(devtools)
 devtools::install_github("lucymcgowan/tipr")
@@ -120,10 +128,10 @@ tip(1.2, smd = 0.25, outcome_effect = 1.05)
     ##             <dbl>           <dbl> <dbl>          <dbl>                    <dbl>
     ## 1               1             1.2  0.25           1.05                     14.9
 
-It would take about `15` independent unmeasured confounders with a
-scaled mean difference between exposure groups of 0.25 to and a
-relationship with the outcome of 1.05 tip the observed analysis at the
-5% level, rendering it inconclusive.
+It would take about `15` independent standardized Normal unmeasured
+confounders with a mean difference between exposure groups of 0.25 to
+and a relationship with the outcome of 1.05 tip the observed analysis at
+the 5% level, rendering it inconclusive.
 
 ## Integration with broom
 
