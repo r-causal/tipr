@@ -153,3 +153,10 @@ if (requireNamespace("broom", quietly = TRUE) &&  requireNamespace("dplyr", quie
     ##   effect_adjusted effect_observed   smd outcome_association n_unmeasured_confou…
     ##             <dbl>           <dbl> <dbl>               <dbl>                <dbl>
     ## 1               1            1.13 0.133                 2.5                    1
+
+## Code of Conduct
+
+Please note that the tipr project is released with a [Contributor Code
+of
+Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html).
+By contributing to this project, you agree to abide by its terms.
