@@ -3,8 +3,10 @@
 
 # tipr: R tools for tipping point sensitivity analyses
 
-[![Build
-Status](https://travis-ci.org/LucyMcGowan/tipr.svg?branch=master)](https://travis-ci.org/LucyMcGowan/tipr)
+<!-- badges: start -->
+
+[![R-CMD-check](https://github.com/LucyMcGowan/tipr/workflows/R-CMD-check/badge.svg)](https://github.com/LucyMcGowan/tipr/actions)
+<!-- badges: end -->
 
 **Authors:** [Lucy D’Agostino
 McGowan](https://www.lucymcgowan.com/)<br/> **License:**
