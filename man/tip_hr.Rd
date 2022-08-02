@@ -8,7 +8,7 @@
 tip_hr(
   effect,
   smd = NULL,
-  outcome_association = NULL,
+  outcome_effect = NULL,
   verbose = TRUE,
   hr_correction = FALSE
 )
@@ -16,7 +16,7 @@ tip_hr(
 tip_hr_with_continuous(
   effect,
   smd = NULL,
-  outcome_association = NULL,
+  outcome_effect = NULL,
   verbose = TRUE,
   hr_correction = FALSE
 )
@@ -29,7 +29,7 @@ confidence bound.}
 \item{smd}{Numeric. Estimated difference in scaled means between the
 unmeasured confounder in the exposed population and unexposed population}
 
-\item{outcome_association}{Numeric positive value. Estimated association
+\item{outcome_effect}{Numeric positive value. Estimated relationship
 between the unmeasured confounder and the outcome}
 
 \item{verbose}{Logical. Indicates whether to print informative message.
@@ -48,16 +48,16 @@ Data frame.
 choose one of the following, and the other will be estimated:
 \itemize{
 \item \code{smd}
-\item \code{outcome_association}
+\item \code{outcome_effect}
 }
 }
 \examples{
-## to estimate the association between an unmeasured confounder and outcome
+## to estimate the relationship between an unmeasured confounder and outcome
 ## needed to tip analysis
 tip_hr(1.2, smd = -2)
 
 ## to estimate the number of unmeasured confounders specified needed to tip
 ## the analysis
-tip_hr(1.2, smd = -2, outcome_association = .99)
+tip_hr(1.2, smd = -2, outcome_effect = .99)
 
 }

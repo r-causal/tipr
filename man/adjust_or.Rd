@@ -6,18 +6,12 @@
 \title{Adjust an observed odds ratio for a normally distributed
 confounder}
 \usage{
-adjust_or(
-  effect,
-  smd,
-  outcome_association,
-  verbose = TRUE,
-  or_correction = FALSE
-)
+adjust_or(effect, smd, outcome_effect, verbose = TRUE, or_correction = FALSE)
 
 adjust_or_with_continuous(
   effect,
   smd,
-  outcome_association,
+  outcome_effect,
   verbose = TRUE,
   or_correction = FALSE
 )
@@ -30,7 +24,7 @@ confidence bound.}
 \item{smd}{Numeric. Estimated difference in scaled means between the
 unmeasured confounder in the exposed population and unexposed population}
 
-\item{outcome_association}{Numeric. Estimated association
+\item{outcome_effect}{Numeric. Estimated relationship
 between the unmeasured confounder and the outcome.}
 
 \item{verbose}{Logical. Indicates whether to print informative message.

@@ -4,7 +4,7 @@
 #' Choose two of the following three to specify, and the third will be estimated:
 #' * `exposed_p`
 #' * `unexposed_p`
-#' * `outcome_association`
+#' * `outcome_effect`
 #'
 #' Alternatively, specify all three and the function will return the number of unmeasured
 #' confounders specified needed to tip the analysis.
@@ -18,7 +18,7 @@
 #'    unmeasured confounder in the exposed population
 #' @param unexposed_p Numeric between 0 and 1. Estimated prevalence of the
 #'    unmeasured confounder in the unexposed population
-#' @param outcome_association Numeric positive value. Estimated association
+#' @param outcome_effect Numeric positive value. Estimated relationship
 #'    between the unmeasured confounder and the outcome
 #' @param verbose Logical. Indicates whether to print informative message.
 #'    Default: `TRUE`
@@ -31,7 +31,7 @@
 #'   set this to "none" (default).
 #'
 #' @examples
-#' ## to estimate the association between an unmeasured confounder and outcome
+#' ## to estimate the relationship between an unmeasured confounder and outcome
 #' ## needed to tip analysis
 #' tip_with_binary(1.2, exposed_p = 0.5, unexposed_p = 0)
 #'
@@ -40,7 +40,7 @@
 #' tip_with_binary(1.2,
 #'   exposed_p = 0.5,
 #'   unexposed_p = 0,
-#'   outcome_association = 1.1)
+#'   outcome_effect = 1.1)
 #'
 #' ## Example with broom
 #' if (requireNamespace("broom", quietly = TRUE) &&
@@ -49,24 +49,24 @@
 #'    broom::tidy(conf.int = TRUE, exponentiate = TRUE) %>%
 #'    dplyr::filter(term == "mpg") %>%
 #'    dplyr::pull(conf.low) %>%
-#'    tip_with_binary(exposed_p = 1, outcome_association = 1.15)
+#'    tip_with_binary(exposed_p = 1, outcome_effect = 1.15)
 #'}
 #' @export
 tip_with_binary <- function(effect,
                             exposed_p = NULL,
                             unexposed_p = NULL,
-                            outcome_association = NULL,
+                            outcome_effect = NULL,
                             verbose = TRUE,
                             correction_factor = "none") {
   exposed_p <- exposed_p %||% list(NULL)
   unexposed_p <- unexposed_p %||% list(NULL)
-  outcome_association <- outcome_association %||% list(NULL)
+  outcome_effect <- outcome_effect %||% list(NULL)
 
   o <- purrr::pmap(
     list(b = effect,
          exposed_p = exposed_p,
          unexposed_p = unexposed_p,
-         outcome_association = outcome_association,
+         outcome_effect = outcome_effect,
          verbose = verbose,
          correction_factor = correction_factor),
     tip_with_binary_one
@@ -77,7 +77,7 @@ tip_with_binary <- function(effect,
 tip_with_binary_one <- function(b,
                                 exposed_p,
                                 unexposed_p,
-                                outcome_association,
+                                outcome_effect,
                                 verbose,
                                 correction_factor) {
 
@@ -86,25 +86,25 @@ tip_with_binary_one <- function(b,
   correction <- ""
   if (correction_factor == "hr") {
     b <- hr_transform(b)
-    outcome_association <- hr_transform(outcome_association)
+    outcome_effect <- hr_transform(outcome_effect)
     correction <- 'You opted to use the hazard ratio correction to convert your hazard ratios to approximate risk ratios.\nThis is a good idea if the outcome is common (>15%).'
   }
 
   if (correction_factor == "or") {
     b <- or_transform(b)
-    outcome_association <- or_transform(outcome_association)
+    outcome_effect <- or_transform(outcome_effect)
     correction <- 'You opted to use the odds ratio correction to convert your odds ratios to approximate risk ratios.\nThis is a good idea if the outcome is common (>15%).'
   }
 
-  if (is.null(outcome_association)) {
-    outcome_association <- tip_gamma(unexposed_p, exposed_p, b)
+  if (is.null(outcome_effect)) {
+    outcome_effect <- tip_gamma(unexposed_p, exposed_p, b)
   } else if (is.null(unexposed_p)) {
-    unexposed_p <- tip_p0(exposed_p, outcome_association, b)
+    unexposed_p <- tip_p0(exposed_p, outcome_effect, b)
   } else if (is.null(exposed_p)) {
-    exposed_p <- tip_p1(unexposed_p, outcome_association, b)
+    exposed_p <- tip_p1(unexposed_p, outcome_effect, b)
   } else {
     n_unmeasured_confounders <-
-      tip_n(unexposed_p, exposed_p, outcome_association, b)
+      tip_n(unexposed_p, exposed_p, outcome_effect, b)
 
     if (any(n_unmeasured_confounders < 0)) {
       if (length(unexposed_p) > 1) {
@@ -117,17 +117,17 @@ tip_with_binary_one <- function(b,
       } else {
         exposed_ps <- exposed_p
       }
-      if (length(outcome_association) > 1) {
-        outcome_associations <- outcome_association[n_unmeasured_confounders < 0]
+      if (length(outcome_effect) > 1) {
+        outcome_effects <- outcome_effect[n_unmeasured_confounders < 0]
       } else {
-        outcome_associations <- outcome_association
+        outcome_effects <- outcome_effect
       }
 
       warning_glue(
         "The observed effect {b} would not tip with the unmeasured confounder given:",
         "\n  * `exposed_p`: {exposed_ps}",
         "\n  * `unexposed_p`: {unexposed_ps}",
-        "\n  * `outcome_association`: {outcome_associations}\n\n"
+        "\n  * `outcome_effect`: {outcome_effects}\n\n"
       )
       n_unmeasured_confounders <- max(0, n_unmeasured_confounders)
     }
@@ -144,16 +144,16 @@ tip_with_binary_one <- function(b,
       } else {
         exposed_ps <- exposed_p
       }
-      if (length(outcome_association) > 1) {
-        outcome_associations <- outcome_association[too_small]
+      if (length(outcome_effect) > 1) {
+        outcome_effects <- outcome_effect[too_small]
       } else {
-        outcome_associations <- outcome_association
+        outcome_effects <- outcome_effect
       }
       warning_glue(
         "The observed effect {b} would tip with < 1 of the given unmeasured confounders:",
         "\n  * `exposed_p`: {exposed_ps}",
         "\n  * `unexposed_p`: {unexposed_ps}",
-        "\n  * `outcome_association`: {outcome_associations}\n\n"
+        "\n  * `outcome_effect`: {outcome_effects}\n\n"
       )
     }
   }
@@ -162,7 +162,7 @@ tip_with_binary_one <- function(b,
     effect_observed = b,
     exposed_p = exposed_p,
     unexposed_p = unexposed_p,
-    outcome_association = outcome_association,
+    outcome_effect = outcome_effect,
     n_unmeasured_confounders = n_unmeasured_confounders
   )
   if (verbose) {
@@ -176,8 +176,8 @@ tip_with_binary_one <- function(b,
         "\n  * estimated prevalence of the unmeasured confounder ",
         "in the exposed population: {round(o_notip$exposed_p, 2)}\n  * estimated prevalence of ",
         "the unmeasured confounder in the unexposed population: {round(o_notip$unexposed_p, 2)}",
-        "\n  * estimated association between the unmeasured confounder and the ",
-        "outcome: {round(o_notip$outcome_association, 2)}\n\n{correction}"
+        "\n  * estimated relationship between the unmeasured confounder and the ",
+        "outcome: {round(o_notip$outcome_effect, 2)}\n\n{correction}"
       )
     } else if (any(o$n_unmeasured_confounders == 0)) {
       o_notip <- o[o$n_unmeasured_confounders == 0,]
@@ -188,8 +188,8 @@ tip_with_binary_one <- function(b,
         "\n  * estimated prevalence of the unmeasured confounder ",
         "in the exposed population: {round(o_notip$exposed_p, 2)}\n  * estimated prevalence of ",
         "the unmeasured confounder in the unexposed population: {round(o_notip$unexposed_p, 2)}",
-        "\n  * estimated association between the unmeasured confounder and the ",
-        "outcome: {round(o_notip$outcome_association, 2)}\n\n{correction}"
+        "\n  * estimated relationship between the unmeasured confounder and the ",
+        "outcome: {round(o_notip$outcome_effect, 2)}\n\n{correction}"
       )
 
       o_tip <- o[o$n_unmeasured_confounders != 0,]
@@ -201,8 +201,8 @@ tip_with_binary_one <- function(b,
         "specifications:\n  * estimated prevalence of the unmeasured confounder ",
         "in the exposed population: {round(o_tip$exposed_p, 2)}\n  * estimated prevalence of ",
         "the unmeasured confounder in the unexposed population: {round(o_tip$unexposed_p, 2)}",
-        "\n  * estimated association between the unmeasured confounder and the ",
-        "outcome: {round(o_tip$outcome_association, 2)}\n\n{correction}"
+        "\n  * estimated relationship between the unmeasured confounder and the ",
+        "outcome: {round(o_tip$outcome_effect, 2)}\n\n{correction}"
       )
     } else {
       message_glue(
@@ -213,8 +213,8 @@ tip_with_binary_one <- function(b,
         "specifications:\n  * estimated prevalence of the unmeasured confounder ",
         "in the exposed population: {round(o$exposed_p, 2)}\n  * estimated prevalence of ",
         "the unmeasured confounder in the unexposed population: {round(o$unexposed_p, 2)}",
-        "\n  * estimated association between the unmeasured confounder and the ",
-        "outcome: {round(o$outcome_association, 2)}\n\n{correction}"
+        "\n  * estimated relationship between the unmeasured confounder and the ",
+        "outcome: {round(o$outcome_effect, 2)}\n\n{correction}"
       )
     }
   }
@@ -227,7 +227,7 @@ tip_with_binary_one <- function(b,
 #' Choose two of the following three to specify, and the third will be estimated:
 #' * `exposed_p`
 #' * `unexposed_p`
-#' * `outcome_association`
+#' * `outcome_effect`
 #'
 #' Alternatively, specify all three and the function will return the number of unmeasured
 #' confounders specified needed to tip the analysis.
@@ -238,13 +238,13 @@ tip_with_binary_one <- function(b,
 #'    unmeasured confounder in the exposed population
 #' @param unexposed_p Numeric between 0 and 1. Estimated prevalence of the
 #'    unmeasured confounder in the unexposed population
-#' @param outcome_association Numeric positive value. Estimated association
+#' @param outcome_effect Numeric positive value. Estimated relationship
 #'    between the unmeasured confounder and the outcome
 #' @param verbose Logical. Indicates whether to print informative message.
 #'    Default: `TRUE`
 
-tip_rr_with_binary <- function(effect, exposed_p = NULL, unexposed_p = NULL, outcome_association = NULL, verbose = TRUE) {
-  tip_with_binary(effect, exposed_p = exposed_p, unexposed_p = unexposed_p, outcome_association = outcome_association, verbose = verbose)
+tip_rr_with_binary <- function(effect, exposed_p = NULL, unexposed_p = NULL, outcome_effect = NULL, verbose = TRUE) {
+  tip_with_binary(effect, exposed_p = exposed_p, unexposed_p = unexposed_p, outcome_effect = outcome_effect, verbose = verbose)
 }
 
 #' Tip an observed hazard ratio with a binary confounder.
@@ -253,7 +253,7 @@ tip_rr_with_binary <- function(effect, exposed_p = NULL, unexposed_p = NULL, out
 #' Choose two of the following three to specify, and the third will be estimated:
 #' * `exposed_p`
 #' * `unexposed_p`
-#' * `outcome_association`
+#' * `outcome_effect`
 #'
 #' Alternatively, specify all three and the function will return the number of unmeasured
 #' confounders specified needed to tip the analysis.
@@ -264,7 +264,7 @@ tip_rr_with_binary <- function(effect, exposed_p = NULL, unexposed_p = NULL, out
 #'    unmeasured confounder in the exposed population
 #' @param unexposed_p Numeric between 0 and 1. Estimated prevalence of the
 #'    unmeasured confounder in the unexposed population
-#' @param outcome_association Numeric positive value. Estimated association
+#' @param outcome_effect Numeric positive value. Estimated relationship
 #'    between the unmeasured confounder and the outcome
 #' @param verbose Logical. Indicates whether to print informative message.
 #'    Default: `TRUE`
@@ -280,9 +280,9 @@ tip_rr_with_binary <- function(effect, exposed_p = NULL, unexposed_p = NULL, out
 #' @examples
 #' tip_hr_with_binary(0.9, 0.9, 0.1)
 
-tip_hr_with_binary <- function(effect, exposed_p = NULL, unexposed_p = NULL, outcome_association = NULL, verbose = TRUE, hr_correction = FALSE) {
+tip_hr_with_binary <- function(effect, exposed_p = NULL, unexposed_p = NULL, outcome_effect = NULL, verbose = TRUE, hr_correction = FALSE) {
   correction_factor <- ifelse(hr_correction, "hr", "none")
-  tip_with_binary(effect, exposed_p = exposed_p, unexposed_p = unexposed_p, outcome_association = outcome_association, verbose = verbose, correction_factor = correction_factor)
+  tip_with_binary(effect, exposed_p = exposed_p, unexposed_p = unexposed_p, outcome_effect = outcome_effect, verbose = verbose, correction_factor = correction_factor)
 }
 
 #' Tip an observed odds ratio with a binary confounder.
@@ -291,7 +291,7 @@ tip_hr_with_binary <- function(effect, exposed_p = NULL, unexposed_p = NULL, out
 #' Choose two of the following three to specify, and the third will be estimated:
 #' * `exposed_p`
 #' * `unexposed_p`
-#' * `outcome_association`
+#' * `outcome_effect`
 #'
 #' Alternatively, specify all three and the function will return the number of unmeasured
 #' confounders specified needed to tip the analysis.
@@ -302,7 +302,7 @@ tip_hr_with_binary <- function(effect, exposed_p = NULL, unexposed_p = NULL, out
 #'    unmeasured confounder in the exposed population
 #' @param unexposed_p Numeric between 0 and 1. Estimated prevalence of the
 #'    unmeasured confounder in the unexposed population
-#' @param outcome_association Numeric positive value. Estimated association
+#' @param outcome_effect Numeric positive value. Estimated relationship
 #'    between the unmeasured confounder and the outcome
 #' @param verbose Logical. Indicates whether to print informative message.
 #'    Default: `TRUE`
@@ -318,9 +318,9 @@ tip_hr_with_binary <- function(effect, exposed_p = NULL, unexposed_p = NULL, out
 #' @examples
 #' tip_or_with_binary(0.9, 0.9, 0.1)
 
-tip_or_with_binary <- function(effect, exposed_p = NULL, unexposed_p = NULL, outcome_association = NULL, verbose = TRUE, or_correction = FALSE) {
+tip_or_with_binary <- function(effect, exposed_p = NULL, unexposed_p = NULL, outcome_effect = NULL, verbose = TRUE, or_correction = FALSE) {
   correction_factor <- ifelse(or_correction, "or", "none")
-  tip_with_binary(effect, exposed_p = exposed_p, unexposed_p = unexposed_p, outcome_association = outcome_association, verbose = verbose, correction_factor = correction_factor)
+  tip_with_binary(effect, exposed_p = exposed_p, unexposed_p = unexposed_p, outcome_effect = outcome_effect, verbose = verbose, correction_factor = correction_factor)
 }
 
 #' @rdname tip_with_binary

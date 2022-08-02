@@ -9,7 +9,7 @@ tip_with_binary(
   effect,
   exposed_p = NULL,
   unexposed_p = NULL,
-  outcome_association = NULL,
+  outcome_effect = NULL,
   verbose = TRUE,
   correction_factor = "none"
 )
@@ -18,7 +18,7 @@ tip_b(
   effect,
   exposed_p = NULL,
   unexposed_p = NULL,
-  outcome_association = NULL,
+  outcome_effect = NULL,
   verbose = TRUE,
   correction_factor = "none"
 )
@@ -35,7 +35,7 @@ unmeasured confounder in the exposed population}
 \item{unexposed_p}{Numeric between 0 and 1. Estimated prevalence of the
 unmeasured confounder in the unexposed population}
 
-\item{outcome_association}{Numeric positive value. Estimated association
+\item{outcome_effect}{Numeric positive value. Estimated relationship
 between the unmeasured confounder and the outcome}
 
 \item{verbose}{Logical. Indicates whether to print informative message.
@@ -54,7 +54,7 @@ Choose two of the following three to specify, and the third will be estimated:
 \itemize{
 \item \code{exposed_p}
 \item \code{unexposed_p}
-\item \code{outcome_association}
+\item \code{outcome_effect}
 }
 
 Alternatively, specify all three and the function will return the number of unmeasured
@@ -64,7 +64,7 @@ confounders specified needed to tip the analysis.
 \code{\link[=tip_b]{tip_b()}} is an alias for \code{\link[=tip_with_binary]{tip_with_binary()}}.
 }
 \examples{
-## to estimate the association between an unmeasured confounder and outcome
+## to estimate the relationship between an unmeasured confounder and outcome
 ## needed to tip analysis
 tip_with_binary(1.2, exposed_p = 0.5, unexposed_p = 0)
 
@@ -73,7 +73,7 @@ tip_with_binary(1.2, exposed_p = 0.5, unexposed_p = 0)
 tip_with_binary(1.2,
   exposed_p = 0.5,
   unexposed_p = 0,
-  outcome_association = 1.1)
+  outcome_effect = 1.1)
 
 ## Example with broom
 if (requireNamespace("broom", quietly = TRUE) &&
@@ -82,6 +82,6 @@ if (requireNamespace("broom", quietly = TRUE) &&
    broom::tidy(conf.int = TRUE, exponentiate = TRUE) \%>\%
    dplyr::filter(term == "mpg") \%>\%
    dplyr::pull(conf.low) \%>\%
-   tip_with_binary(exposed_p = 1, outcome_association = 1.15)
+   tip_with_binary(exposed_p = 1, outcome_effect = 1.15)
 }
 }

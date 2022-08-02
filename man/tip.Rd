@@ -9,7 +9,7 @@
 tip(
   effect,
   smd = NULL,
-  outcome_association = NULL,
+  outcome_effect = NULL,
   verbose = TRUE,
   correction_factor = "none"
 )
@@ -17,7 +17,7 @@ tip(
 tip_with_continuous(
   effect,
   smd = NULL,
-  outcome_association = NULL,
+  outcome_effect = NULL,
   verbose = TRUE,
   correction_factor = "none"
 )
@@ -25,7 +25,7 @@ tip_with_continuous(
 tip_c(
   effect,
   smd = NULL,
-  outcome_association = NULL,
+  outcome_effect = NULL,
   verbose = TRUE,
   correction_factor = "none"
 )
@@ -39,7 +39,7 @@ bound, or upper confidence bound.}
 \item{smd}{Numeric. Estimated difference in scaled means between the
 unmeasured confounder in the exposed population and unexposed population}
 
-\item{outcome_association}{Numeric positive value. Estimated association
+\item{outcome_effect}{Numeric positive value. Estimated relationship
 between the unmeasured confounder and the outcome}
 
 \item{verbose}{Logical. Indicates whether to print informative message.
@@ -60,17 +60,17 @@ Data frame.
 choose one of the following, and the other will be estimated:
 \itemize{
 \item \code{smd}
-\item \code{outcome_association}
+\item \code{outcome_effect}
 }
 }
 \examples{
-## to estimate the association between an unmeasured confounder and outcome
+## to estimate the relationship between an unmeasured confounder and outcome
 ## needed to tip analysis
 tip(1.2, smd = -2)
 
 ## to estimate the number of unmeasured confounders specified needed to tip
 ## the analysis
-tip(1.2, smd = -2, outcome_association = .99)
+tip(1.2, smd = -2, outcome_effect = .99)
 
 ## Example with broom
 if (requireNamespace("broom", quietly = TRUE) &&
@@ -79,6 +79,6 @@ if (requireNamespace("broom", quietly = TRUE) &&
    broom::tidy(conf.int = TRUE, exponentiate = TRUE) \%>\%
    dplyr::filter(term == "mpg") \%>\%
    dplyr::pull(conf.low) \%>\%
-   tip(outcome_association = 2.5)
+   tip(outcome_effect = 2.5)
 }
 }

@@ -6,9 +6,9 @@
 \title{Adjust an observed relative risk for a normally distributed
 confounder}
 \usage{
-adjust_rr(effect, smd, outcome_association, verbose = TRUE)
+adjust_rr(effect, smd, outcome_effect, verbose = TRUE)
 
-adjust_rr_with_continuous(effect, smd, outcome_association, verbose = TRUE)
+adjust_rr_with_continuous(effect, smd, outcome_effect, verbose = TRUE)
 }
 \arguments{
 \item{effect}{Numeric positive value. Observed exposure - outcome relative risk.
@@ -18,7 +18,7 @@ confidence bound.}
 \item{smd}{Numeric. Estimated difference in scaled means between the
 unmeasured confounder in the exposed population and unexposed population}
 
-\item{outcome_association}{Numeric. Estimated association
+\item{outcome_effect}{Numeric. Estimated relationship
 between the unmeasured confounder and the outcome.}
 
 \item{verbose}{Logical. Indicates whether to print informative message.

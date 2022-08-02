@@ -8,7 +8,7 @@ tip_or_with_binary(
   effect,
   exposed_p = NULL,
   unexposed_p = NULL,
-  outcome_association = NULL,
+  outcome_effect = NULL,
   verbose = TRUE,
   or_correction = FALSE
 )
@@ -24,7 +24,7 @@ unmeasured confounder in the exposed population}
 \item{unexposed_p}{Numeric between 0 and 1. Estimated prevalence of the
 unmeasured confounder in the unexposed population}
 
-\item{outcome_association}{Numeric positive value. Estimated association
+\item{outcome_effect}{Numeric positive value. Estimated relationship
 between the unmeasured confounder and the outcome}
 
 \item{verbose}{Logical. Indicates whether to print informative message.
@@ -44,7 +44,7 @@ Choose two of the following three to specify, and the third will be estimated:
 \itemize{
 \item \code{exposed_p}
 \item \code{unexposed_p}
-\item \code{outcome_association}
+\item \code{outcome_effect}
 }
 
 Alternatively, specify all three and the function will return the number of unmeasured

@@ -4,7 +4,7 @@
 \alias{lm_tip}
 \title{Deprecated}
 \usage{
-lm_tip(effect, smd = NULL, outcome_association = NULL, verbose = TRUE)
+lm_tip(effect, smd = NULL, outcome_effect = NULL, verbose = TRUE)
 }
 \arguments{
 \item{effect}{Numeric. Observed exposure - outcome effect from a regression
@@ -15,7 +15,7 @@ coefficient.}
 \item{smd}{Numeric. Estimated scaled mean difference between the
 unmeasured confounder in the exposed population and unexposed population}
 
-\item{outcome_association}{Numeric positive value. Estimated association
+\item{outcome_effect}{Numeric positive value. Estimated relationship
 between the unmeasured confounder and the outcome}
 
 \item{verbose}{Logical. Indicates whether to print informative message.

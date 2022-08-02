@@ -67,9 +67,9 @@ get_limiting_bound_adj <- function(b = NULL,
 check_gamma <- function(gamma = NULL) {
   if (!is.null(gamma) && gamma < 0) {
     stop_glue(
-      "You input:\n * `outcome_association`: {gamma}\n",
+      "You input:\n * `outcome_effect`: {gamma}\n",
       "We are expecting a relative risk, odds ratio, or hazard ratio,\n",
-      "therefore `outcome_association` should not be less than 0."
+      "therefore `outcome_effect` should not be less than 0."
     )
   }
 }
@@ -114,7 +114,7 @@ tip_gamma <- function(p0 = NULL,
                       b = NULL) {
   if (is.null(p1) || is.null(p0)) {
     stop(
-      "Please input at least 2 of the following:\n * `unexposed_p`\n * `exposed_p`\n * `outcome_association`",
+      "Please input at least 2 of the following:\n * `unexposed_p`\n * `exposed_p`\n * `outcome_effect`",
       call. = FALSE
     )
   }
@@ -351,7 +351,7 @@ check_r2 <- function(r2, exposure = FALSE, effect, se, df) {
                      b = NULL) {
     if (is.null(p1) || is.null(gamma)) {
       stop(
-        "Please input at least 2 of the following:\n * `unexposed_p`\n * `exposed_p`\n * `outcome_association`.",
+        "Please input at least 2 of the following:\n * `unexposed_p`\n * `exposed_p`\n * `outcome_effect`.",
         call. = FALSE
       )
     }
@@ -363,7 +363,7 @@ check_r2 <- function(r2, exposure = FALSE, effect, se, df) {
 
     if (p0 > 1 | p0 < 0) {
       stop_glue(
-        "Given these parameters:\n * `exposed_p`: {p1}\n * `outcome_association`: {gamma}\n",
+        "Given these parameters:\n * `exposed_p`: {p1}\n * `outcome_effect`: {gamma}\n",
         "There does not exist an unmeasured confounder that could tip this."
       )
     }
@@ -376,7 +376,7 @@ check_r2 <- function(r2, exposure = FALSE, effect, se, df) {
                      b = NULL) {
     if (is.null(p0) || is.null(gamma)) {
       stop(
-        "Please input at least 2 of the following:\n * `unexposed_p`\n * `exposed_p`\n * `outcome_association`.",
+        "Please input at least 2 of the following:\n * `unexposed_p`\n * `exposed_p`\n * `outcome_effect`.",
         call. = FALSE
       )
     }
@@ -388,7 +388,7 @@ check_r2 <- function(r2, exposure = FALSE, effect, se, df) {
 
     if (p1 > 1 | p1 < 0) {
       stop_glue(
-        "Given these parameters:\n * `unexposed_p`: {p0}\n * `outcome_association`: {gamma}\n",
+        "Given these parameters:\n * `unexposed_p`: {p0}\n * `outcome_effect`: {gamma}\n",
         "There does not exist an unmeasured confounder that could tip this."
       )
     }

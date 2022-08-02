@@ -8,7 +8,7 @@ adjust_or_with_binary(
   effect,
   exposed_p,
   unexposed_p,
-  outcome_association,
+  outcome_effect,
   verbose = TRUE,
   or_correction = FALSE
 )
@@ -24,7 +24,7 @@ unmeasured confounder in the exposed population}
 \item{unexposed_p}{Numeric between 0 and 1. Estimated prevalence of the
 unmeasured confounder in the unexposed population}
 
-\item{outcome_association}{Numeric positive value. Estimated association
+\item{outcome_effect}{Numeric positive value. Estimated relationship
 between the unmeasured confounder and the outcome}
 
 \item{verbose}{Logical. Indicates whether to print informative message.

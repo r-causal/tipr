@@ -1,3 +1,7 @@
+# tipr 0.5.0
+
+* Change `outcome_association` -> `outcome_effect` to better describe the quantity being estimated
+
 # tipr 0.4.2
 
 * Make the output tibble names consistent (`adjusted_effect` -> `effect_adjusted`)

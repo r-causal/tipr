@@ -7,7 +7,7 @@
 #'    coefficient.
 #' @param smd Numeric. Estimated difference in scaled means between the
 #'    unmeasured confounder in the exposed population and unexposed population
-#' @param outcome_association Numeric. Estimated association
+#' @param outcome_effect Numeric. Estimated relationship
 #'    between the unmeasured confounder and the outcome.
 #' @param verbose Logical. Indicates whether to print informative message.
 #'    Default: `TRUE`
@@ -20,13 +20,13 @@
 #' ## with a difference in scaled means between exposure groups of 0.2
 #' ## and coefficient of 0.3
 #' adjust_coef(0.5, 0.2, 0.3)
-adjust_coef <- function(effect, smd, outcome_association, verbose = TRUE) {
-  effect_adj <- effect - outcome_association * smd
+adjust_coef <- function(effect, smd, outcome_effect, verbose = TRUE) {
+  effect_adj <- effect - outcome_effect * smd
   o <- tibble::tibble(
     effect_adjusted = effect_adj,
     effect_observed = effect,
     smd = smd,
-    outcome_association = outcome_association
+    outcome_effect = outcome_effect
   )
   if (verbose) {
         message_glue(
@@ -34,8 +34,8 @@ adjust_coef <- function(effect, smd, outcome_association, verbose = TRUE) {
           "is updated to {round(effect_adj, 2)} ",
           "by a confounder with the following specifications:",
           "\n  * estimated difference in scaled means: {smd}",
-          "\n  * estimated association between the unmeasured confounder and the ",
-          "outcome: {outcome_association}\n"
+          "\n  * estimated relationship between the unmeasured confounder and the ",
+          "outcome: {outcome_effect}\n"
         )
   }
   return(o)
@@ -51,7 +51,7 @@ adjust_coef <- function(effect, smd, outcome_association, verbose = TRUE) {
 #'    unmeasured confounder in the exposed population
 #' @param unexposed_p Numeric between 0 and 1. Estimated prevalence of the
 #'    unmeasured confounder in the unexposed population
-#' @param outcome_association Numeric. Estimated association
+#' @param outcome_effect Numeric. Estimated relationship
 #'    between the unmeasured confounder and the outcome.
 #' @param verbose Logical. Indicates whether to print informative message.
 #'    Default: `TRUE`
@@ -61,12 +61,12 @@ adjust_coef <- function(effect, smd, outcome_association, verbose = TRUE) {
 #'
 #' @examples
 #' adjust_coef_with_binary(1.1, 0.5, 0.3, 1.3)
-adjust_coef_with_binary <- function(effect, exposed_p, unexposed_p, outcome_association, verbose = TRUE) {
+adjust_coef_with_binary <- function(effect, exposed_p, unexposed_p, outcome_effect, verbose = TRUE) {
   check_prevalences(unexposed_p, exposed_p)
 
   confounding_factor <- log(
-    (exp(outcome_association) * exposed_p + (1 - exposed_p)) /
-      (exp(outcome_association) * unexposed_p + (1 - unexposed_p))
+    (exp(outcome_effect) * exposed_p + (1 - exposed_p)) /
+      (exp(outcome_effect) * unexposed_p + (1 - unexposed_p))
   )
 
   effect_adj <- effect - confounding_factor
@@ -75,7 +75,7 @@ adjust_coef_with_binary <- function(effect, exposed_p, unexposed_p, outcome_asso
     effect_observed = effect,
     exposed_p = exposed_p,
     unexposed_p = unexposed_p,
-    outcome_association = outcome_association
+    outcome_effect = outcome_effect
   )
   if (verbose) {
     message_glue(
@@ -85,8 +85,8 @@ adjust_coef_with_binary <- function(effect, exposed_p, unexposed_p, outcome_asso
       "\n  * estimated prevalence of the unmeasured confounder ",
       "in the exposed population: {round(exposed_p, 2)}\n  * estimated prevalence of ",
       "the unmeasured confounder in the unexposed population: {round(unexposed_p, 2)}",
-      "\n  * estimated association between the unmeasured confounder and the ",
-      "outcome: {round(outcome_association, 2)}\n"
+      "\n  * estimated relationship between the unmeasured confounder and the ",
+      "outcome: {round(outcome_effect, 2)}\n"
     )
   }
   return(o)
@@ -99,7 +99,7 @@ adjust_coef_with_binary <- function(effect, exposed_p, unexposed_p, outcome_asso
 #'    confidence bound.
 #' @param smd Numeric. Estimated difference in scaled means between the
 #'    unmeasured confounder in the exposed population and unexposed population
-#' @param outcome_association Numeric. Estimated association
+#' @param outcome_effect Numeric. Estimated relationship
 #'    between the unmeasured confounder and the outcome.
 #' @param verbose Logical. Indicates whether to print informative message.
 #'    Default: `TRUE`
@@ -109,17 +109,17 @@ adjust_coef_with_binary <- function(effect, exposed_p, unexposed_p, outcome_asso
 #'
 #' @examples
 #' adjust_rr(1.2, 0.5, 1.1)
-adjust_rr <- function(effect, smd, outcome_association, verbose  = TRUE) {
+adjust_rr <- function(effect, smd, outcome_effect, verbose  = TRUE) {
   rr <- effect
-  check_gamma(outcome_association)
+  check_gamma(outcome_effect)
   check_effect(rr)
-  rr_adj <- rr / (outcome_association^smd)
+  rr_adj <- rr / (outcome_effect^smd)
 
   o <- tibble::tibble(
     rr_adjusted = rr_adj,
     rr_observed = rr,
     smd = smd,
-    outcome_association = outcome_association
+    outcome_effect = outcome_effect
   )
   if (verbose) {
     message_glue(
@@ -127,8 +127,8 @@ adjust_rr <- function(effect, smd, outcome_association, verbose  = TRUE) {
       "is updated to RR: {round(rr_adj, 2)} ",
       "by a confounder with the following specifications:",
       "\n  * estimated difference in scaled means: {smd}",
-      "\n  * estimated association (RR) between the unmeasured confounder and the ",
-      "outcome: {round(outcome_association, 2)}\n"
+      "\n  * estimated relationship (RR) between the unmeasured confounder and the ",
+      "outcome: {round(outcome_effect, 2)}\n"
     )
   }
   return(o)
@@ -142,7 +142,7 @@ adjust_rr <- function(effect, smd, outcome_association, verbose  = TRUE) {
 #'    confidence bound.
 #' @param smd Numeric. Estimated difference in scaled means between the
 #'    unmeasured confounder in the exposed population and unexposed population
-#' @param outcome_association Numeric. Estimated association
+#' @param outcome_effect Numeric. Estimated relationship
 #'    between the unmeasured confounder and the outcome.
 #' @param verbose Logical. Indicates whether to print informative message.
 #'    Default: `TRUE`
@@ -157,13 +157,13 @@ adjust_rr <- function(effect, smd, outcome_association, verbose  = TRUE) {
 #'
 #' @examples
 #' adjust_hr(0.9, -0.9, 1.3)
-adjust_hr <- function(effect, smd, outcome_association, verbose = TRUE, hr_correction = FALSE) {
+adjust_hr <- function(effect, smd, outcome_effect, verbose = TRUE, hr_correction = FALSE) {
   hr <- effect
   if (hr_correction) {
     hr <- hr_transform(hr)
-    outcome_association <- hr_transform(outcome_association)
+    outcome_effect <- hr_transform(outcome_effect)
   }
-  o <- adjust_rr(hr, smd, outcome_association, verbose = FALSE)
+  o <- adjust_rr(hr, smd, outcome_effect, verbose = FALSE)
 
   output_type <- ifelse(hr_correction, 'RR', 'HR')
 
@@ -174,8 +174,8 @@ adjust_hr <- function(effect, smd, outcome_association, verbose = TRUE, hr_corre
       "is updated to {output_type}: {round(o$rr_adjusted, 2)} ",
       "by a confounder with the following specifications:",
       "\n  * estimated difference in scaled means: {smd}",
-      "\n  * estimated association ({output_type}) between the unmeasured confounder and the ",
-      "outcome: {round(outcome_association, 2)}\n",
+      "\n  * estimated relationship ({output_type}) between the unmeasured confounder and the ",
+      "outcome: {round(outcome_effect, 2)}\n",
       "{ifelse(hr_correction, 'You opted to use the hazard ratio correction to convert your hazard ratios to approximate risk ratios.\nThis is a good idea if the outcome is common (>15%).',
       '')}",
 
@@ -197,7 +197,7 @@ adjust_hr <- function(effect, smd, outcome_association, verbose = TRUE, hr_corre
 #'    confidence bound.
 #' @param smd Numeric. Estimated difference in scaled means between the
 #'    unmeasured confounder in the exposed population and unexposed population
-#' @param outcome_association Numeric. Estimated association
+#' @param outcome_effect Numeric. Estimated relationship
 #'    between the unmeasured confounder and the outcome.
 #' @param verbose Logical. Indicates whether to print informative message.
 #'    Default: `TRUE`
@@ -212,13 +212,13 @@ adjust_hr <- function(effect, smd, outcome_association, verbose = TRUE, hr_corre
 #'
 #' @examples
 #' adjust_or(1.2, 0.9, 1.3)
-adjust_or <- function(effect, smd, outcome_association, verbose = TRUE, or_correction = FALSE) {
+adjust_or <- function(effect, smd, outcome_effect, verbose = TRUE, or_correction = FALSE) {
   or <- effect
   if (or_correction) {
     or <- or_transform(or)
-    outcome_association <- or_transform(outcome_association)
+    outcome_effect <- or_transform(outcome_effect)
   }
-  o <- adjust_rr(or, smd, outcome_association, verbose = FALSE)
+  o <- adjust_rr(or, smd, outcome_effect, verbose = FALSE)
 
   output_type <- ifelse(or_correction, 'RR', 'OR')
 
@@ -228,8 +228,8 @@ adjust_or <- function(effect, smd, outcome_association, verbose = TRUE, or_corre
       "is updated to {output_type}: {round(o$rr_adjusted, 2)} ",
       "by a confounder with the following specifications:",
       "\n  * estimated difference in scaled means: {smd}",
-      "\n  * estimated association ({output_type}) between the unmeasured confounder and the ",
-      "outcome: {round(outcome_association, 2)}\n",
+      "\n  * estimated relationship ({output_type}) between the unmeasured confounder and the ",
+      "outcome: {round(outcome_effect, 2)}\n",
       "{ifelse(or_correction, 'You opted to use the odds ratio correction to convert your odds ratios to approximate risk ratios.\nThis is a good idea if the outcome is common (>15%).',
       '')}"
     )
@@ -252,7 +252,7 @@ adjust_or <- function(effect, smd, outcome_association, verbose = TRUE, or_corre
 #'    unmeasured confounder in the exposed population
 #' @param unexposed_p Numeric between 0 and 1. Estimated prevalence of the
 #'    unmeasured confounder in the unexposed population
-#' @param outcome_association Numeric positive value. Estimated association
+#' @param outcome_effect Numeric positive value. Estimated relationship
 #'    between the unmeasured confounder and the outcome
 #' @param verbose Logical. Indicates whether to print informative message.
 #'    Default: `TRUE`
@@ -262,12 +262,12 @@ adjust_or <- function(effect, smd, outcome_association, verbose = TRUE, or_corre
 #'
 #' @examples
 #' adjust_rr_with_binary(1.1, 0.5, 0.3, 1.3)
-adjust_rr_with_binary <- function(effect, exposed_p, unexposed_p, outcome_association, verbose = TRUE) {
+adjust_rr_with_binary <- function(effect, exposed_p, unexposed_p, outcome_effect, verbose = TRUE) {
   rr <- effect
   check_prevalences(unexposed_p, exposed_p)
 
-  confounding_factor <- (outcome_association * exposed_p + (1 - exposed_p)) /
-    ((outcome_association * unexposed_p) + (1 - unexposed_p))
+  confounding_factor <- (outcome_effect * exposed_p + (1 - exposed_p)) /
+    ((outcome_effect * unexposed_p) + (1 - unexposed_p))
 
   rr_adj <- rr / confounding_factor
   o <- tibble::tibble(
@@ -275,7 +275,7 @@ adjust_rr_with_binary <- function(effect, exposed_p, unexposed_p, outcome_associ
     rr_observed = rr,
     exposed_p = exposed_p,
     unexposed_p = unexposed_p,
-    outcome_association = outcome_association
+    outcome_effect = outcome_effect
   )
   if (verbose) {
     message_glue(
@@ -285,8 +285,8 @@ adjust_rr_with_binary <- function(effect, exposed_p, unexposed_p, outcome_associ
       "\n  * estimated prevalence of the unmeasured confounder ",
       "in the exposed population: {round(exposed_p, 2)}\n  * estimated prevalence of ",
       "the unmeasured confounder in the unexposed population: {round(unexposed_p, 2)}",
-      "\n  * estimated association between the unmeasured confounder and the ",
-      "outcome: {round(outcome_association, 2)}\n"
+      "\n  * estimated relationship between the unmeasured confounder and the ",
+      "outcome: {round(outcome_effect, 2)}\n"
     )
   }
   return(o)
@@ -300,7 +300,7 @@ adjust_rr_with_binary <- function(effect, exposed_p, unexposed_p, outcome_associ
 #'    unmeasured confounder in the exposed population
 #' @param unexposed_p Numeric between 0 and 1. Estimated prevalence of the
 #'    unmeasured confounder in the unexposed population
-#' @param outcome_association Numeric positive value. Estimated association
+#' @param outcome_effect Numeric positive value. Estimated relationship
 #'    between the unmeasured confounder and the outcome
 #' @param verbose Logical. Indicates whether to print informative message.
 #'    Default: `TRUE`
@@ -315,13 +315,13 @@ adjust_rr_with_binary <- function(effect, exposed_p, unexposed_p, outcome_associ
 #'
 #' @examples
 #' adjust_hr_with_binary(0.8, 0.1, 0.5, 1.8)
-adjust_hr_with_binary <- function(effect, exposed_p, unexposed_p, outcome_association, verbose = TRUE, hr_correction = FALSE) {
+adjust_hr_with_binary <- function(effect, exposed_p, unexposed_p, outcome_effect, verbose = TRUE, hr_correction = FALSE) {
   hr <- effect
   if (hr_correction) {
     hr <- hr_transform(hr)
-    outcome_association <- hr_transform(outcome_association)
+    outcome_effect <- hr_transform(outcome_effect)
   }
-  o <- adjust_rr_with_binary(hr, exposed_p, unexposed_p, outcome_association, verbose = FALSE)
+  o <- adjust_rr_with_binary(hr, exposed_p, unexposed_p, outcome_effect, verbose = FALSE)
 
   output_type <- ifelse(hr_correction, 'RR', 'HR')
 
@@ -333,8 +333,8 @@ adjust_hr_with_binary <- function(effect, exposed_p, unexposed_p, outcome_associ
       "\n  * estimated prevalence of the unmeasured confounder ",
       "in the exposed population: {round(exposed_p, 2)}\n  * estimated prevalence of ",
       "the unmeasured confounder in the unexposed population: {round(unexposed_p, 2)}",
-      "\n  * estimated association between the unmeasured confounder and the ",
-      "outcome: {round(outcome_association, 2)}\n",
+      "\n  * estimated relationship between the unmeasured confounder and the ",
+      "outcome: {round(outcome_effect, 2)}\n",
       "{ifelse(hr_correction, 'You opted to use the hazard ratio correction to convert your hazard ratios to approximate risk ratios.\nThis is a good idea if the outcome is common (>15%).',
       '')}"
     )
@@ -357,7 +357,7 @@ adjust_hr_with_binary <- function(effect, exposed_p, unexposed_p, outcome_associ
 #'    unmeasured confounder in the exposed population
 #' @param unexposed_p Numeric between 0 and 1. Estimated prevalence of the
 #'    unmeasured confounder in the unexposed population
-#' @param outcome_association Numeric positive value. Estimated association
+#' @param outcome_effect Numeric positive value. Estimated relationship
 #'    between the unmeasured confounder and the outcome
 #' @param verbose Logical. Indicates whether to print informative message.
 #'    Default: `TRUE`
@@ -373,13 +373,13 @@ adjust_hr_with_binary <- function(effect, exposed_p, unexposed_p, outcome_associ
 #' @examples
 #' adjust_or_with_binary(3, 1, 0, 3)
 #' adjust_or_with_binary(3, 1, 0, 3, or_correction = TRUE)
-adjust_or_with_binary <- function(effect, exposed_p, unexposed_p, outcome_association, verbose = TRUE, or_correction = FALSE) {
+adjust_or_with_binary <- function(effect, exposed_p, unexposed_p, outcome_effect, verbose = TRUE, or_correction = FALSE) {
   or <- effect
   if (or_correction) {
     or <- or_transform(or)
-    outcome_association <- or_transform(outcome_association)
+    outcome_effect <- or_transform(outcome_effect)
   }
-  o <- adjust_rr_with_binary(or, exposed_p, unexposed_p, outcome_association, verbose = FALSE)
+  o <- adjust_rr_with_binary(or, exposed_p, unexposed_p, outcome_effect, verbose = FALSE)
 
   output_type <- ifelse(or_correction, 'RR', 'OR')
 
@@ -391,8 +391,8 @@ adjust_or_with_binary <- function(effect, exposed_p, unexposed_p, outcome_associ
       "\n  * estimated prevalence of the unmeasured confounder ",
       "in the exposed population: {round(exposed_p, 2)}\n  * estimated prevalence of ",
       "the unmeasured confounder in the unexposed population: {round(unexposed_p, 2)}",
-      "\n  * estimated association between the unmeasured confounder and the ",
-      "outcome: {round(outcome_association, 2)}\n",
+      "\n  * estimated relationship between the unmeasured confounder and the ",
+      "outcome: {round(outcome_effect, 2)}\n",
       "{ifelse(or_correction, 'You opted to use the odds ratio correction to convert your odds ratios to approximate risk ratios.\nThis is a good idea if the outcome is common (>15%).',
       '')}"
     )
