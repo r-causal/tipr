@@ -17,6 +17,7 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 RoxygenNote: 7.1.2
 Roxygen: list(markdown = TRUE)
+BugReports: https://github.com/LucyMcGowan/tipr/issues
 Suggests:
     testthat,
     broom,
