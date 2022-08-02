@@ -2,8 +2,10 @@ Package: tipr
 Type: Package
 Title: Tipping Point Analyses
 Version: 0.5.0
-Author: Lucy D'Agostino McGowan
-Maintainer: Lucy D'Agostino McGowan <lucydagostino@gmail.com>
+Authors@R: c(
+    person("Lucy", "D'Agostino McGowan", , "lucydagostino@gmail.com", 
+    role = c("aut", "cre"), comment = c(ORCID = "0000-0002-6983-2759"))
+           )
 Description: The strength of evidence provided by epidemiological and observational 
             studies is inherently limited by the potential for unmeasured confounding. 
             We focus on three key quantities: the observed bound of the confidence interval
