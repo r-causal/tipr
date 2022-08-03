@@ -73,6 +73,7 @@ The functions in the `tipr` package follow a unified grammar. The function names
 
 
 **Table 1**. Grammar of `tipr` functions.
+
 +----------+--------------------+----------------------------------------------+
 | category | Function term      | Use                                          |
 +==========+====================+==============================================+
