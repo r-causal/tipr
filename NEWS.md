@@ -1,3 +1,17 @@
+# tipr 1.0.0
+
+**Breaking changes**. The names of several arguments were changed for increased clarity:
+
+* `effect` -> `effect_observed`
+* `outcome_association` -> `confounder_outcome_effect`
+* `smd` -> `exposure_confounder_effect`
+* `exposed_p` -> `exposed_confounder_prev`
+* `unexposed_p` -> `exposed_confounder_prev`
+* `exposure_r2` -> `confounder_exposure_r2`
+* `outcome_r2` -> `confounder_outcome_r2`
+
+* Added two new example datasets: `exdata_continuous` and `exdata_rr`
+
 # tipr 0.4.2
 
 * Make the output tibble names consistent (`adjusted_effect` -> `effect_adjusted`)

@@ -6,20 +6,30 @@
 \title{Adjust an observed regression coefficient for a normally distributed
 confounder}
 \usage{
-adjust_coef(effect, smd, outcome_association, verbose = TRUE)
+adjust_coef(
+  effect_observed,
+  exposure_confounder_effect,
+  confounder_outcome_effect,
+  verbose = TRUE
+)
 
-adjust_coef_with_continuous(effect, smd, outcome_association, verbose = TRUE)
+adjust_coef_with_continuous(
+  effect_observed,
+  exposure_confounder_effect,
+  confounder_outcome_effect,
+  verbose = TRUE
+)
 }
 \arguments{
-\item{effect}{Numeric. Observed exposure - outcome effect from a regression
+\item{effect_observed}{Numeric. Observed exposure - outcome effect from a regression
 model. This can be the beta coefficient, the lower confidence bound of
 the beta coefficient, or the upper confidence bound of the beta
 coefficient.}
 
-\item{smd}{Numeric. Estimated difference in scaled means between the
+\item{exposure_confounder_effect}{Numeric. Estimated difference in scaled means between the
 unmeasured confounder in the exposed population and unexposed population}
 
-\item{outcome_association}{Numeric. Estimated association
+\item{confounder_outcome_effect}{Numeric. Estimated relationship
 between the unmeasured confounder and the outcome.}
 
 \item{verbose}{Logical. Indicates whether to print informative message.

@@ -67,9 +67,9 @@ get_limiting_bound_adj <- function(b = NULL,
 check_gamma <- function(gamma = NULL) {
   if (!is.null(gamma) && gamma < 0) {
     stop_glue(
-      "You input:\n * `outcome_association`: {gamma}\n",
+      "You input:\n * `outcome_effect`: {gamma}\n",
       "We are expecting a relative risk, odds ratio, or hazard ratio,\n",
-      "therefore `outcome_association` should not be less than 0."
+      "therefore `outcome_effect` should not be less than 0."
     )
   }
 }
@@ -114,7 +114,7 @@ tip_gamma <- function(p0 = NULL,
                       b = NULL) {
   if (is.null(p1) || is.null(p0)) {
     stop(
-      "Please input at least 2 of the following:\n * `unexposed_p`\n * `exposed_p`\n * `outcome_association`",
+      "Please input at least 2 of the following:\n * `unexposed_p`\n * `exposed_p`\n * `outcome_effect`",
       call. = FALSE
     )
   }
@@ -141,26 +141,50 @@ check_r2 <- function(r2, exposure = FALSE, effect, se, df) {
   }
   if (exposure) {
     if (any(r2 == 1)) {
-      stop_glue("You input:\n * `exposure_r2`: {r2}\n",
-                "This means 100% of the residual variation in the exposure ",
-                "is explained by the unmeasured confounder, meaning regardless ",
-                "of the unmeasured confounder - outcome relationship, this ",
-                "will be \"tipped\".")
+      stop_glue(
+        "You input:\n * `exposure_r2`: {r2}\n",
+        "This means 100% of the residual variation in the exposure ",
+        "is explained by the unmeasured confounder, meaning regardless ",
+        "of the unmeasured confounder - outcome relationship, this ",
+        "will be \"tipped\"."
+      )
     }
     limit <- sensemakr::partial_r2(effect / se, df)
     if (any(r2 < limit)) {
-      stop_glue("You input:\n * `exposure_r2`: {r2[r2 < limit]}\n",
-                "It is not possible to tip this result with any unmeasured ",
-                "confounder - outcome relationship. In fact, if your ",
-                "unmeasured confounder explained 100% of the residual ",
-                "variation in your outcome, the partial R2 for the unmeasured ",
-                "confounder - exposure relationship would have to be ",
-                "{round(limit, 3)} for the exposure - outcome relationship ",
-                "to be explained away.")
+      stop_glue(
+        "You input:\n * `exposure_r2`: {r2[r2 < limit]}\n",
+        "It is not possible to tip this result with any unmeasured ",
+        "confounder - outcome relationship. In fact, if your ",
+        "unmeasured confounder explained 100% of the residual ",
+        "variation in your outcome, the partial R2 for the unmeasured ",
+        "confounder - exposure relationship would have to be ",
+        "{round(limit, 3)} for the exposure - outcome relationship ",
+        "to be explained away."
+      )
     }
   }
+}
+tip_exposure_r2 <- function(effect, se, df, outcome_r2) {
+  if (is.null(outcome_r2)) {
+    stop(
+      "Please input at least one of the following:\n * `exposure_r2`\n * `outcome_r2`",
+      call. = FALSE
+    )
   }
-  tip_exposure_r2 <- function(effect, se, df, outcome_r2) {
+  check_r2(outcome_r2)
+
+  exposure_r2 <-
+    effect ^ 2 / (effect ^ 2 + se ^ 2 * df * outcome_r2)
+  if (any(exposure_r2 > 1)) {
+    stop_glue(
+      "Given the input:\n * `effect`: {effect}\n * `outcome_r2`: {outcome_r2[exposure_r2 > 1]}\n",
+      "There does not exist an unmeasured confounder that could tip this.\n",
+    )
+  }
+  as.numeric(exposure_r2)
+}
+tip_exposure_r2_bound <-
+  function(effect, se, df, outcome_r2, alpha) {
     if (is.null(outcome_r2)) {
       stop(
         "Please input at least one of the following:\n * `exposure_r2`\n * `outcome_r2`",
@@ -169,120 +193,113 @@ check_r2 <- function(r2, exposure = FALSE, effect, se, df) {
     }
     check_r2(outcome_r2)
 
+    t_star <- stats::qt(alpha / 2, df = df, lower.tail = F)
+    lb <- effect - t_star * se
+    ub <- effect + t_star * se
+
+    y <- outcome_r2
+    a <- effect
+    b <- se
+    c <- df
+    d <- t_star
     exposure_r2 <-
-      effect ^ 2 / (effect ^ 2 + se ^ 2 * df * outcome_r2)
-    if (any(exposure_r2 > 1)) {
+      (
+        2 * a ^ 4 - (2 * a ^ 2 * b ^ 2 * d ^ 2 * y) / (1 - c) + (2 * a ^ 2 * b ^
+                                                                   2 * d ^ 2) / (1 - c) +
+          2 * a ^ 2 * b ^ 2 * c * y + 2 * a ^ 2 * b ^ 2 * d ^
+          2 * y - 2 * a ^ 2 * b ^ 2 * d ^ 2 -
+          sqrt((
+            -2 * a ^ 4 + (2 * a ^ 2 * b ^ 2 * d ^ 2 * y) / (1 - c) -
+              (2 * a ^ 2 * b ^ 2 * d ^ 2) / (1 - c) -
+              2 * a ^ 2 * b ^ 2 * c * y - 2 * a ^ 2 * b ^
+              2 * d ^ 2 * y +
+              2 * a ^ 2 * b ^ 2 * d ^ 2 + 2 * b ^ 4 * c * d ^
+              2 * y ^ 2 -
+              (2 * b ^ 4 * d ^ 2 * y ^ 2) / (1 - c) - 2 * b ^
+              4 * c * d ^ 2 * y +
+              (2 * b ^ 4 * d ^ 2 * y) / (1 - c) + 2 * b ^
+              4 * d ^ 2 * y ^ 2 -
+              2 * b ^ 4 * d ^ 2 * y
+          ) ^ 2 - 4 * (a ^ 4 + 2 * a ^ 2 * b ^ 2 * c * y +
+                         b ^ 4 * c ^
+                         2 * y ^ 2) *
+            (
+              a ^ 4 - (2 * a ^ 2 * b ^ 2 * d ^ 2 * y) / (1 - c) +
+                (2 * a ^ 2 * b ^ 2 * d ^ 2) / (1 - c) +
+                2 * a ^ 2 * b ^ 2 * d ^ 2 * y - 2 * a ^
+                2 * b ^ 2 * d ^ 2 -
+                (2 * b ^ 4 * d ^ 4 * y ^ 2) / (1 - c) +
+                (b ^ 4 * d ^ 4 * y ^ 2) / (1 - c) ^ 2 +
+                (4 * b ^ 4 * d ^ 4 * y) / (1 - c) -
+                (2 * b ^ 4 * d ^ 4 * y) / (1 - c) ^ 2 -
+                (2 * b ^ 4 * d ^ 4) / (1 - c) + (b ^ 4 * d ^
+                                                   4) / (1 - c) ^ 2 +
+                b ^ 4 * d ^ 4 * y ^ 2 - 2 * b ^ 4 * d ^
+                4 * y + b ^ 4 *  d ^ 4
+            )
+          ) -
+          2 * b ^ 4 * c * d ^ 2 * y ^ 2 + (2 * b ^ 4 * d ^
+                                             2 * y ^ 2) / (1 - c) +
+          2 * b ^ 4 * c * d ^ 2 * y - (2 * b ^ 4 * d ^ 2 * y) /
+          (1 - c) -
+          2 * b ^ 4 * d ^ 2 * y ^ 2 + 2 * b ^ 4 * d ^ 2 * y
+      ) /
+      (2 * (a ^ 4 + 2 * a ^ 2 * b ^ 2 * c * y + b ^ 4 * c ^ 2 * y ^ 2))
+    if (exposure_r2 > 1) {
       stop_glue(
-        "Given the input:\n * `effect`: {effect}\n * `outcome_r2`: {outcome_r2[exposure_r2 > 1]}\n",
-        "There does not exist an unmeasured confounder that could tip this.\n",
+        "Given the inputs:\n * `effect`: {effect}\n * `se`: {se}\n * `df`: {df}\n",
+        "The observed confidence bounds would be {lb}, {ub}. Given the inputs:",
+        "\n * observed bounds: {lb}, {ub} \n * outcome_r2`: {outcome_r2}\n",
+        "There does not exist an unmeasured confounder that could tip",
+        "the bound.\n",
       )
     }
     as.numeric(exposure_r2)
   }
-  tip_exposure_r2_bound <-
-    function(effect, se, df, outcome_r2, alpha) {
-      if (is.null(outcome_r2)) {
-        stop(
-          "Please input at least one of the following:\n * `exposure_r2`\n * `outcome_r2`",
-          call. = FALSE
-        )
-      }
-      check_r2(outcome_r2)
-
-      t_star <- stats::qt(alpha / 2, df = df, lower.tail = F)
-      lb <- effect - t_star * se
-      ub <- effect + t_star * se
-
-      y <- outcome_r2
-      a <- effect
-      b <- se
-      c <- df
-      d <- t_star
-      exposure_r2 <-
-        (
-          2 * a ^ 4 - (2 * a ^ 2 * b ^ 2 * d ^ 2 * y) / (1 - c) + (2 * a ^ 2 * b ^
-                                                                     2 * d ^ 2) / (1 - c) +
-            2 * a ^ 2 * b ^ 2 * c * y + 2 * a ^ 2 * b ^ 2 * d ^
-            2 * y - 2 * a ^ 2 * b ^ 2 * d ^ 2 -
-            sqrt((
-              -2 * a ^ 4 + (2 * a ^ 2 * b ^ 2 * d ^ 2 * y) / (1 - c) -
-                (2 * a ^ 2 * b ^ 2 * d ^ 2) / (1 - c) -
-                2 * a ^ 2 * b ^ 2 * c * y - 2 * a ^ 2 * b ^
-                2 * d ^ 2 * y +
-                2 * a ^ 2 * b ^ 2 * d ^ 2 + 2 * b ^ 4 * c * d ^
-                2 * y ^ 2 -
-                (2 * b ^ 4 * d ^ 2 * y ^ 2) / (1 - c) - 2 * b ^
-                4 * c * d ^ 2 * y +
-                (2 * b ^ 4 * d ^ 2 * y) / (1 - c) + 2 * b ^
-                4 * d ^ 2 * y ^ 2 -
-                2 * b ^ 4 * d ^ 2 * y
-            ) ^ 2 - 4 * (a ^ 4 + 2 * a ^ 2 * b ^ 2 * c * y +
-                           b ^ 4 * c ^
-                           2 * y ^ 2) *
-              (
-                a ^ 4 - (2 * a ^ 2 * b ^ 2 * d ^ 2 * y) / (1 - c) +
-                  (2 * a ^ 2 * b ^ 2 * d ^ 2) / (1 - c) +
-                  2 * a ^ 2 * b ^ 2 * d ^ 2 * y - 2 * a ^
-                  2 * b ^ 2 * d ^ 2 -
-                  (2 * b ^ 4 * d ^ 4 * y ^ 2) / (1 - c) +
-                  (b ^ 4 * d ^ 4 * y ^ 2) / (1 - c) ^ 2 +
-                  (4 * b ^ 4 * d ^ 4 * y) / (1 - c) -
-                  (2 * b ^ 4 * d ^ 4 * y) / (1 - c) ^ 2 -
-                  (2 * b ^ 4 * d ^ 4) / (1 - c) + (b ^ 4 * d ^
-                                                     4) / (1 - c) ^ 2 +
-                  b ^ 4 * d ^ 4 * y ^ 2 - 2 * b ^ 4 * d ^
-                  4 * y + b ^ 4 *  d ^ 4
-              )
-            ) -
-            2 * b ^ 4 * c * d ^ 2 * y ^ 2 + (2 * b ^ 4 * d ^
-                                               2 * y ^ 2) / (1 - c) +
-            2 * b ^ 4 * c * d ^ 2 * y - (2 * b ^ 4 * d ^ 2 * y) /
-            (1 - c) -
-            2 * b ^ 4 * d ^ 2 * y ^ 2 + 2 * b ^ 4 * d ^ 2 * y
-        ) /
-        (2 * (a ^ 4 + 2 * a ^ 2 * b ^ 2 * c * y + b ^ 4 * c ^ 2 * y ^ 2))
-      if (exposure_r2 > 1) {
-        stop_glue(
-          "Given the inputs:\n * `effect`: {effect}\n * `se`: {se}\n * `df`: {df}\n",
-          "The observed confidence bounds would be {lb}, {ub}. Given the inputs:",
-          "\n * observed bounds: {lb}, {ub} \n * outcome_r2`: {outcome_r2}\n",
-          "There does not exist an unmeasured confounder that could tip",
-          "the bound.\n",
-        )
-      }
-      as.numeric(exposure_r2)
-    }
 
 
 
-  tip_outcome_r2 <- function(effect, se, df, exposure_r2) {
-    if (is.null(exposure_r2)) {
-      stop(
-        "Please input at least one of the following:\n * `exposure_r2`\n * `outcome_r2`",
-        call. = FALSE
-      )
-    }
-    check_r2(exposure_r2, exposure = TRUE, effect = effect, se = se, df = df)
-
-    outcome_r2 <-
-      (effect ^ 2 - effect ^ 2 * exposure_r2) / (se ^ 2 * df * exposure_r2)
-    if (any(outcome_r2 > 1)) {
-      stop_glue(
-        "Given the input:\n * `effect`: {effect}\n * `exposure_r2`: {exposure_r2[outcome_r2 > 1]}\n",
-        "There does not exist an unmeasured confounder that could tip this.\n",
-      )
-    }
-    as.numeric(outcome_r2)
+tip_outcome_r2 <- function(effect, se, df, exposure_r2) {
+  if (is.null(exposure_r2)) {
+    stop(
+      "Please input at least one of the following:\n * `exposure_r2`\n * `outcome_r2`",
+      call. = FALSE
+    )
   }
+  check_r2(
+    exposure_r2,
+    exposure = TRUE,
+    effect = effect,
+    se = se,
+    df = df
+  )
 
-  tip_outcome_r2_bound <- function(effect, se, df, exposure_r2, alpha) {
+  outcome_r2 <-
+    (effect ^ 2 - effect ^ 2 * exposure_r2) / (se ^ 2 * df * exposure_r2)
+  if (any(outcome_r2 > 1)) {
+    stop_glue(
+      "Given the input:\n * `effect`: {effect}\n * `exposure_r2`: {exposure_r2[outcome_r2 > 1]}\n",
+      "There does not exist an unmeasured confounder that could tip this.\n",
+    )
+  }
+  as.numeric(outcome_r2)
+}
+
+tip_outcome_r2_bound <-
+  function(effect, se, df, exposure_r2, alpha) {
     if (is.null(exposure_r2)) {
       stop(
         "Please input at least one of the following:\n * `exposure_r2`\n * `outcome_r2`",
         call. = FALSE
       )
     }
-    check_r2(exposure_r2, exposure = TRUE, effect = effect, se = se, df = df)
+    check_r2(
+      exposure_r2,
+      exposure = TRUE,
+      effect = effect,
+      se = se,
+      df = df
+    )
 
     t_star <- stats::qt(alpha / 2, df = df, lower.tail = F)
     lb <- effect - t_star * se
@@ -346,85 +363,85 @@ check_r2 <- function(r2, exposure = FALSE, effect, se, df) {
 
 
 
-  tip_p0 <- function(p1 = NULL,
-                     gamma = NULL,
-                     b = NULL) {
-    if (is.null(p1) || is.null(gamma)) {
-      stop(
-        "Please input at least 2 of the following:\n * `unexposed_p`\n * `exposed_p`\n * `outcome_association`.",
-        call. = FALSE
-      )
-    }
-
-    check_prevalences(p1 = p1)
-    check_gamma(gamma)
-
-    p0 <- (p1 * (gamma - 1) - b + 1) / (b * (gamma - 1))
-
-    if (p0 > 1 | p0 < 0) {
-      stop_glue(
-        "Given these parameters:\n * `exposed_p`: {p1}\n * `outcome_association`: {gamma}\n",
-        "There does not exist an unmeasured confounder that could tip this."
-      )
-    }
-    as.numeric(p0)
+tip_p0 <- function(p1 = NULL,
+                   gamma = NULL,
+                   b = NULL) {
+  if (is.null(p1) || is.null(gamma)) {
+    stop(
+      "Please input at least 2 of the following:\n * `unexposed_p`\n * `exposed_p`\n * `outcome_effect`.",
+      call. = FALSE
+    )
   }
 
+  check_prevalences(p1 = p1)
+  check_gamma(gamma)
 
-  tip_p1 <- function(p0 = NULL,
-                     gamma = NULL,
-                     b = NULL) {
-    if (is.null(p0) || is.null(gamma)) {
-      stop(
-        "Please input at least 2 of the following:\n * `unexposed_p`\n * `exposed_p`\n * `outcome_association`.",
-        call. = FALSE
-      )
-    }
+  p0 <- (p1 * (gamma - 1) - b + 1) / (b * (gamma - 1))
 
-    check_prevalences(p0 = p0)
-    check_gamma(gamma)
+  if (p0 > 1 | p0 < 0) {
+    stop_glue(
+      "Given these parameters:\n * `exposed_p`: {p1}\n * `outcome_effect`: {gamma}\n",
+      "There does not exist an unmeasured confounder that could tip this."
+    )
+  }
+  as.numeric(p0)
+}
 
-    p1 <- ((b - 1) / (gamma - 1)) + b * p0
 
-    if (p1 > 1 | p1 < 0) {
-      stop_glue(
-        "Given these parameters:\n * `unexposed_p`: {p0}\n * `outcome_association`: {gamma}\n",
-        "There does not exist an unmeasured confounder that could tip this."
-      )
-    }
-    as.numeric(p1)
+tip_p1 <- function(p0 = NULL,
+                   gamma = NULL,
+                   b = NULL) {
+  if (is.null(p0) || is.null(gamma)) {
+    stop(
+      "Please input at least 2 of the following:\n * `unexposed_p`\n * `exposed_p`\n * `outcome_effect`.",
+      call. = FALSE
+    )
   }
 
-  tip_n <- function(p0, p1, gamma, b) {
-    check_prevalences(p0, p1)
-    check_gamma(gamma)
+  check_prevalences(p0 = p0)
+  check_gamma(gamma)
 
-    n <-
-      -log(b) / (log(gamma * p0 + (1 - p0)) - log(gamma * p1 + (1 - p1)))
-    if (n < 0) {
-      n <- 0
-      warning_glue("The observed effect {b} would not tip with the unmeasured confounder given.")
-    } else if (n < 1) {
-      warning_glue("The observed effect {b} would tip with < 1 of the given unmeasured confounders.")
-    }
+  p1 <- ((b - 1) / (gamma - 1)) + b * p0
 
-    as.numeric(n)
+  if (p1 > 1 | p1 < 0) {
+    stop_glue(
+      "Given these parameters:\n * `unexposed_p`: {p0}\n * `outcome_effect`: {gamma}\n",
+      "There does not exist an unmeasured confounder that could tip this."
+    )
+  }
+  as.numeric(p1)
+}
+
+tip_n <- function(p0, p1, gamma, b) {
+  check_prevalences(p0, p1)
+  check_gamma(gamma)
+
+  n <-
+    -log(b) / (log(gamma * p0 + (1 - p0)) - log(gamma * p1 + (1 - p1)))
+  if (n < 0) {
+    n <- 0
+    warning_glue("The observed effect {b} would not tip with the unmeasured confounder given.")
+  } else if (n < 1) {
+    warning_glue("The observed effect {b} would tip with < 1 of the given unmeasured confounders.")
   }
 
-  # e_value <- function(lb, ub) {
-  #   observed_covariate_e_value(lb, ub, 1, 1)
-  # }
+  as.numeric(n)
+}
 
-  hr_transform <- function(hr) {
-    if (is.null(hr)) {
-      return(NULL)
-    }
-    (1 - (0.5 ^ sqrt(hr))) / (1 - (0.5 ^ sqrt(1 / hr)))
-  }
+# e_value <- function(lb, ub) {
+#   observed_covariate_e_value(lb, ub, 1, 1)
+# }
 
-  or_transform <- function(or) {
-    if (is.null(or)) {
-      return(NULL)
-    }
-    sqrt(or)
+hr_transform <- function(hr) {
+  if (is.null(hr)) {
+    return(NULL)
   }
+  (1 - (0.5 ^ sqrt(hr))) / (1 - (0.5 ^ sqrt(1 / hr)))
+}
+
+or_transform <- function(or) {
+  if (is.null(or)) {
+    return(NULL)
+  }
+  sqrt(or)
+}

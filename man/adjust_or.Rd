@@ -7,30 +7,30 @@
 confounder}
 \usage{
 adjust_or(
-  effect,
-  smd,
-  outcome_association,
+  effect_observed,
+  exposure_confounder_effect,
+  confounder_outcome_effect,
   verbose = TRUE,
   or_correction = FALSE
 )
 
 adjust_or_with_continuous(
-  effect,
-  smd,
-  outcome_association,
+  effect_observed,
+  exposure_confounder_effect,
+  confounder_outcome_effect,
   verbose = TRUE,
   or_correction = FALSE
 )
 }
 \arguments{
-\item{effect}{Numeric positive value. Observed exposure - outcome odds ratio.
+\item{effect_observed}{Numeric positive value. Observed exposure - outcome odds ratio.
 This can be the point estimate, lower confidence bound, or upper
 confidence bound.}
 
-\item{smd}{Numeric. Estimated difference in scaled means between the
+\item{exposure_confounder_effect}{Numeric. Estimated difference in scaled means between the
 unmeasured confounder in the exposed population and unexposed population}
 
-\item{outcome_association}{Numeric. Estimated association
+\item{confounder_outcome_effect}{Numeric. Estimated relationship
 between the unmeasured confounder and the outcome.}
 
 \item{verbose}{Logical. Indicates whether to print informative message.

@@ -6,36 +6,36 @@
 \title{Tip a result with a binary confounder.}
 \usage{
 tip_with_binary(
-  effect,
-  exposed_p = NULL,
-  unexposed_p = NULL,
-  outcome_association = NULL,
+  effect_observed,
+  exposed_confounder_prev = NULL,
+  unexposed_confounder_prev = NULL,
+  confounder_outcome_effect = NULL,
   verbose = TRUE,
   correction_factor = "none"
 )
 
 tip_b(
-  effect,
-  exposed_p = NULL,
-  unexposed_p = NULL,
-  outcome_association = NULL,
+  effect_observed,
+  exposed_confounder_prev = NULL,
+  unexposed_confounder_prev = NULL,
+  confounder_outcome_effect = NULL,
   verbose = TRUE,
   correction_factor = "none"
 )
 }
 \arguments{
-\item{effect}{Numeric positive value. Observed exposure - outcome effect
+\item{effect_observed}{Numeric positive value. Observed exposure - outcome effect
 (assumed to be the exponentiated coefficient, so a relative risk, odds
 ratio, or hazard ratio). This can be the point estimate, lower confidence
 bound, or upper confidence bound.}
 
-\item{exposed_p}{Numeric between 0 and 1. Estimated prevalence of the
+\item{exposed_confounder_prev}{Numeric between 0 and 1. Estimated prevalence of the
 unmeasured confounder in the exposed population}
 
-\item{unexposed_p}{Numeric between 0 and 1. Estimated prevalence of the
+\item{unexposed_confounder_prev}{Numeric between 0 and 1. Estimated prevalence of the
 unmeasured confounder in the unexposed population}
 
-\item{outcome_association}{Numeric positive value. Estimated association
+\item{confounder_outcome_effect}{Numeric positive value. Estimated relationship
 between the unmeasured confounder and the outcome}
 
 \item{verbose}{Logical. Indicates whether to print informative message.
@@ -52,9 +52,9 @@ set this to "none" (default).}
 \description{
 Choose two of the following three to specify, and the third will be estimated:
 \itemize{
-\item \code{exposed_p}
-\item \code{unexposed_p}
-\item \code{outcome_association}
+\item \code{exposed_confounder_prev}
+\item \code{unexposed_confounder_prev}
+\item \code{confounder_outcome_effect}
 }
 
 Alternatively, specify all three and the function will return the number of unmeasured
@@ -64,16 +64,16 @@ confounders specified needed to tip the analysis.
 \code{\link[=tip_b]{tip_b()}} is an alias for \code{\link[=tip_with_binary]{tip_with_binary()}}.
 }
 \examples{
-## to estimate the association between an unmeasured confounder and outcome
+## to estimate the relationship between an unmeasured confounder and outcome
 ## needed to tip analysis
-tip_with_binary(1.2, exposed_p = 0.5, unexposed_p = 0)
+tip_with_binary(1.2, exposed_confounder_prev = 0.5, unexposed_confounder_prev = 0)
 
 ## to estimate the number of unmeasured confounders specified needed to tip
 ## the analysis
 tip_with_binary(1.2,
-  exposed_p = 0.5,
-  unexposed_p = 0,
-  outcome_association = 1.1)
+  exposed_confounder_prev = 0.5,
+  unexposed_confounder_prev = 0,
+  confounder_outcome_effect = 1.1)
 
 ## Example with broom
 if (requireNamespace("broom", quietly = TRUE) &&
@@ -82,6 +82,6 @@ if (requireNamespace("broom", quietly = TRUE) &&
    broom::tidy(conf.int = TRUE, exponentiate = TRUE) \%>\%
    dplyr::filter(term == "mpg") \%>\%
    dplyr::pull(conf.low) \%>\%
-   tip_with_binary(exposed_p = 1, outcome_association = 1.15)
+   tip_with_binary(exposed_confounder_prev = 1, confounder_outcome_effect = 1.15)
 }
 }

@@ -1,16 +1,16 @@
 #' Tip a result with a normally distributed confounder.
 #'
 #' choose one of the following, and the other will be estimated:
-#' * `smd`
-#' * `outcome_association`
+#' * `exposure_confounder_effect`
+#' * `confounder_outcome_effect`
 #'
-#' @param effect Numeric positive value. Observed exposure - outcome effect
+#' @param effect_observed Numeric positive value. Observed exposure - outcome effect
 #'    (assumed to be the exponentiated coefficient, so a relative risk, odds
 #'    ratio, or hazard ratio). This can be the point estimate, lower confidence
 #'    bound, or upper confidence bound.
-#' @param smd Numeric. Estimated difference in scaled means between the
+#' @param exposure_confounder_effect Numeric. Estimated difference in scaled means between the
 #'    unmeasured confounder in the exposed population and unexposed population
-#' @param outcome_association Numeric positive value. Estimated association
+#' @param confounder_outcome_effect Numeric positive value. Estimated relationship
 #'    between the unmeasured confounder and the outcome
 #' @param verbose Logical. Indicates whether to print informative message.
 #'    Default: `TRUE`
@@ -26,13 +26,13 @@
 #' @return Data frame.
 #'
 #' @examples
-#' ## to estimate the association between an unmeasured confounder and outcome
+#' ## to estimate the relationship between an unmeasured confounder and outcome
 #' ## needed to tip analysis
-#' tip(1.2, smd = -2)
+#' tip(1.2, exposure_confounder_effect = -2)
 #'
 #' ## to estimate the number of unmeasured confounders specified needed to tip
 #' ## the analysis
-#' tip(1.2, smd = -2, outcome_association = .99)
+#' tip(1.2, exposure_confounder_effect = -2, confounder_outcome_effect = .99)
 #'
 #' ## Example with broom
 #' if (requireNamespace("broom", quietly = TRUE) &&
@@ -41,19 +41,19 @@
 #'    broom::tidy(conf.int = TRUE, exponentiate = TRUE) %>%
 #'    dplyr::filter(term == "mpg") %>%
 #'    dplyr::pull(conf.low) %>%
-#'    tip(outcome_association = 2.5)
+#'    tip(confounder_outcome_effect = 2.5)
 #'}
 #' @export
-tip <- function(effect, smd = NULL, outcome_association = NULL,
+tip <- function(effect_observed, exposure_confounder_effect = NULL, confounder_outcome_effect = NULL,
                 verbose = TRUE, correction_factor = "none") {
 
-  smd <- smd %||% list(NULL)
-  outcome_association <- outcome_association %||% list(NULL)
+  exposure_confounder_effect <- exposure_confounder_effect %||% list(NULL)
+  confounder_outcome_effect <- confounder_outcome_effect %||% list(NULL)
 
   o <- purrr::pmap(
-    list(b = effect,
-         smd = smd,
-         outcome_association = outcome_association,
+    list(b = effect_observed,
+         exposure_confounder_effect = exposure_confounder_effect,
+         confounder_outcome_effect = confounder_outcome_effect,
          verbose = verbose,
          correction_factor = correction_factor),
     tip_one
@@ -61,71 +61,71 @@ tip <- function(effect, smd = NULL, outcome_association = NULL,
   do.call(rbind, o)
 }
 
-tip_one <- function(b, smd, outcome_association, verbose, correction_factor) {
+tip_one <- function(b, exposure_confounder_effect, confounder_outcome_effect, verbose, correction_factor) {
   check_effect(b)
-  check_gamma(outcome_association)
+  check_gamma(confounder_outcome_effect)
 
   correction <- ""
   if (correction_factor == "hr") {
     b <- hr_transform(b)
-    outcome_association <- hr_transform(outcome_association)
+    confounder_outcome_effect <- hr_transform(confounder_outcome_effect)
     correction <- 'You opted to use the hazard ratio correction to convert your hazard ratios to approximate risk ratios.\nThis is a good idea if the outcome is common (>15%).'
   }
 
   if (correction_factor == "or") {
     b <- or_transform(b)
-    outcome_association <- or_transform(outcome_association)
+    confounder_outcome_effect <- or_transform(confounder_outcome_effect)
     correction <- 'You opted to use the odds ratio correction to convert your odds ratios to approximate risk ratios.\nThis is a good idea if the outcome is common (>15%).'
   }
 
   n_unmeasured_confounders <- 1
 
-  if (is.null(outcome_association)) {
-    outcome_association <- b ^ (1 / smd)
-  } else if (is.null(smd)) {
-    smd <- log(b) / log(outcome_association)
+  if (is.null(confounder_outcome_effect)) {
+    confounder_outcome_effect <- b ^ (1 / exposure_confounder_effect)
+  } else if (is.null(exposure_confounder_effect)) {
+    exposure_confounder_effect <- log(b) / log(confounder_outcome_effect)
   } else {
     n_unmeasured_confounders <-
-      log(b) / (smd * log(outcome_association))
+      log(b) / (exposure_confounder_effect * log(confounder_outcome_effect))
     if (any(n_unmeasured_confounders < 0)) {
-      if (length(smd) > 1) {
-        smds <- smd[n_unmeasured_confounders < 0]
+      if (length(exposure_confounder_effect) > 1) {
+        exposure_confounder_effects <- exposure_confounder_effect[n_unmeasured_confounders < 0]
       } else {
-        smds <- smd
+        exposure_confounder_effects <- exposure_confounder_effect
       }
-      if (length(outcome_association) > 1) {
-        outcome_associations <- outcome_association[n_unmeasured_confounders < 0]
+      if (length(confounder_outcome_effect) > 1) {
+        confounder_outcome_effects <- confounder_outcome_effect[n_unmeasured_confounders < 0]
       } else {
-        outcome_associations <- outcome_association
+        confounder_outcome_effects <- confounder_outcome_effect
       }
 
       warning_glue(
         "The observed effect {b} would not tip with the unmeasured confounder given:",
-        "\n  * `smd`: {smds}",
-        "\n  * `outcome_association`: {outcome_associations}\n\n"
+        "\n  * `exposure_confounder_effect`: {exposure_confounder_effects}",
+        "\n  * `confounder_outcome_effect`: {confounder_outcome_effects}\n\n"
       )
       n_unmeasured_confounders <- max(0, n_unmeasured_confounders)
     }
     too_small <-
       n_unmeasured_confounders < 1 & n_unmeasured_confounders > 0
     if (any(too_small)) {
-      smds <- ifelse(length(smd) > 1, smd[too_small], smd)
-      outcome_associations <-
-        ifelse(length(outcome_association) > 1,
-               outcome_association[too_small],
-               outcome_association)
+      exposure_confounder_effects <- ifelse(length(exposure_confounder_effect) > 1, exposure_confounder_effect[too_small], exposure_confounder_effect)
+      confounder_outcome_effects <-
+        ifelse(length(confounder_outcome_effect) > 1,
+               confounder_outcome_effect[too_small],
+               confounder_outcome_effect)
       warning_glue(
         "The observed effect {b} would tip with < 1 of the given unmeasured confounders:",
-        "\n  * `smd`: {smds}",
-        "\n  * `outcome_association`: {outcome_associations}\n\n"
+        "\n  * `exposure_confounder_effect`: {exposure_confounder_effects}",
+        "\n  * `confounder_outcome_effect`: {confounder_outcome_effects}\n\n"
       )
     }
   }
   o <- tibble::tibble(
     effect_adjusted = 1,
     effect_observed = b,
-    smd = smd,
-    outcome_association = outcome_association,
+    exposure_confounder_effect = exposure_confounder_effect,
+    confounder_outcome_effect = confounder_outcome_effect,
     n_unmeasured_confounders = n_unmeasured_confounders
   )
   if (verbose) {
@@ -137,9 +137,9 @@ tip_one <- function(b, smd, outcome_association, verbose, correction_factor) {
         "following specifications:",
         "\n  * estimated difference in scaled means between the ",
         "unmeasured confounder\n     in the exposed population and ",
-        "unexposed population: {round(o_notip$smd, 2)}",
-        "\n  * estimated association between the unmeasured confounder and the ",
-        "outcome: {round(o_notip$outcome_association, 2)}\n\n{correction}"
+        "unexposed population: {round(o_notip$exposure_confounder_effect, 2)}",
+        "\n  * estimated relationship between the unmeasured confounder and the ",
+        "outcome: {round(o_notip$confounder_outcome_effect, 2)}\n\n{correction}"
       )
     } else if (any(o$n_unmeasured_confounders == 0)) {
       o_notip <- o[o$n_unmeasured_confounders == 0,]
@@ -149,9 +149,9 @@ tip_one <- function(b, smd, outcome_association, verbose, correction_factor) {
         "following specifications:",
         "\n  * estimated difference in scaled means between the ",
         "unmeasured confounder\n     in the exposed population and ",
-        "unexposed population: {round(o_notip$smd, 2)}",
-        "\n  * estimated association between the unmeasured confounder and the ",
-        "outcome: {round(o_notip$outcome_association, 2)}\n\n{correction}"
+        "unexposed population: {round(o_notip$exposure_confounder_effect, 2)}",
+        "\n  * estimated relationship between the unmeasured confounder and the ",
+        "outcome: {round(o_notip$confounder_outcome_effect, 2)}\n\n{correction}"
       )
 
       o_tip <- o[o$n_unmeasured_confounders != 0,]
@@ -162,9 +162,9 @@ tip_one <- function(b, smd, outcome_association, verbose, correction_factor) {
         "with the following specifications:",
         "\n  * estimated difference in scaled means between the ",
         "unmeasured confounder\n    in the exposed population and ",
-        "unexposed population: {round(o_tip$smd, 2)}",
-        "\n  * estimated association between the unmeasured confounder and the ",
-        "outcome: {round(o_tip$outcome_association, 2)}\n\n{correction}"
+        "unexposed population: {round(o_tip$exposure_confounder_effect, 2)}",
+        "\n  * estimated relationship between the unmeasured confounder and the ",
+        "outcome: {round(o_tip$confounder_outcome_effect, 2)}\n\n{correction}"
       )
     } else {
       message_glue(
@@ -174,9 +174,9 @@ tip_one <- function(b, smd, outcome_association, verbose, correction_factor) {
         "with the following specifications:",
         "\n  * estimated difference in scaled means between the ",
         "unmeasured confounder\n    in the exposed population and ",
-        "unexposed population: {round(o$smd, 2)}",
-        "\n  * estimated association between the unmeasured confounder and the ",
-        "outcome: {round(o$outcome_association, 2)}\n\n{correction}"
+        "unexposed population: {round(o$exposure_confounder_effect, 2)}",
+        "\n  * estimated relationship between the unmeasured confounder and the ",
+        "outcome: {round(o$confounder_outcome_effect, 2)}\n\n{correction}"
       )
     }
   }
@@ -186,15 +186,15 @@ tip_one <- function(b, smd, outcome_association, verbose, correction_factor) {
 #' Tip an observed relative risk with a normally distributed confounder.
 #'
 #' choose one of the following, and the other will be estimated:
-#' * `smd`
-#' * `outcome_association`
+#' * `exposure_confounder_effect`
+#' * `confounder_outcome_effect`
 #'
-#' @param effect Numeric positive value. Observed exposure - outcome relative risk.
-#'    This can be the point estimate, lower confidence bound, or upper
-#'    confidence bound.
-#' @param smd Numeric. Estimated difference in scaled means between the
+#' @param effect_observed Numeric positive value. Observed exposure - outcome
+#'    relative risk. This can be the point estimate, lower confidence bound,
+#'    or upper confidence bound.
+#' @param exposure_confounder_effect Numeric. Estimated difference in scaled means between the
 #'    unmeasured confounder in the exposed population and unexposed population
-#' @param outcome_association Numeric positive value. Estimated association
+#' @param confounder_outcome_effect Numeric positive value. Estimated relationship
 #'    between the unmeasured confounder and the outcome
 #' @param verbose Logical. Indicates whether to print informative message.
 #'    Default: `TRUE`
@@ -203,32 +203,32 @@ tip_one <- function(b, smd, outcome_association, verbose, correction_factor) {
 #' @return Data frame.
 #'
 #' @examples
-#' ## to estimate the association between an unmeasured confounder and outcome
+#' ## to estimate the relationship between an unmeasured confounder and outcome
 #' ## needed to tip analysis
-#' tip_rr(1.2, smd = -2)
+#' tip_rr(1.2, exposure_confounder_effect = -2)
 #'
 #' ## to estimate the number of unmeasured confounders specified needed to tip
 #' ## the analysis
-#' tip_rr(1.2, smd = -2, outcome_association = .99)
+#' tip_rr(1.2, exposure_confounder_effect = -2, confounder_outcome_effect = .99)
 #'
 #' @export
-tip_rr <- function(effect, smd = NULL, outcome_association = NULL, verbose = TRUE) {
-  tip(effect, smd = smd, outcome_association = outcome_association, verbose = verbose)
+tip_rr <- function(effect_observed, exposure_confounder_effect = NULL, confounder_outcome_effect = NULL, verbose = TRUE) {
+  tip(effect_observed, exposure_confounder_effect = exposure_confounder_effect, confounder_outcome_effect = confounder_outcome_effect, verbose = verbose)
 }
 
 
 #' Tip an observed hazard ratio with a normally distributed confounder.
 #'
 #' choose one of the following, and the other will be estimated:
-#' * `smd`
-#' * `outcome_association`
+#' * `exposure_confounder_effect`
+#' * `confounder_outcome_effect`
 #'
-#' @param effect Numeric positive value. Observed exposure - outcome hazard ratio.
+#' @param effect_observed Numeric positive value. Observed exposure - outcome hazard ratio.
 #'    This can be the point estimate, lower confidence bound, or upper
 #'    confidence bound.
-#' @param smd Numeric. Estimated difference in scaled means between the
+#' @param exposure_confounder_effect Numeric. Estimated difference in scaled means between the
 #'    unmeasured confounder in the exposed population and unexposed population
-#' @param outcome_association Numeric positive value. Estimated association
+#' @param confounder_outcome_effect Numeric positive value. Estimated relationship
 #'    between the unmeasured confounder and the outcome
 #' @param verbose Logical. Indicates whether to print informative message.
 #'    Default: `TRUE`
@@ -241,32 +241,32 @@ tip_rr <- function(effect, smd = NULL, outcome_association = NULL, verbose = TRU
 #' @return Data frame.
 #'
 #' @examples
-#' ## to estimate the association between an unmeasured confounder and outcome
+#' ## to estimate the relationship between an unmeasured confounder and outcome
 #' ## needed to tip analysis
-#' tip_hr(1.2, smd = -2)
+#' tip_hr(1.2, exposure_confounder_effect = -2)
 #'
 #' ## to estimate the number of unmeasured confounders specified needed to tip
 #' ## the analysis
-#' tip_hr(1.2, smd = -2, outcome_association = .99)
+#' tip_hr(1.2, exposure_confounder_effect = -2, confounder_outcome_effect = .99)
 #'
 #' @export
-tip_hr <- function(effect, smd = NULL, outcome_association = NULL, verbose = TRUE, hr_correction = FALSE) {
+tip_hr <- function(effect_observed, exposure_confounder_effect = NULL, confounder_outcome_effect = NULL, verbose = TRUE, hr_correction = FALSE) {
   correction_factor <- ifelse(hr_correction, "hr", "none")
-  tip(effect, smd = smd, outcome_association = outcome_association, verbose = verbose, correction_factor = correction_factor)
+  tip(effect_observed, exposure_confounder_effect = exposure_confounder_effect, confounder_outcome_effect = confounder_outcome_effect, verbose = verbose, correction_factor = correction_factor)
 }
 
 #' Tip an observed odds ratio with a normally distributed confounder.
 #'
 #' choose one of the following, and the other will be estimated:
-#' * `smd`
-#' * `outcome_association`
+#' * `exposure_confounder_effect`
+#' * `confounder_outcome_effect`
 #'
-#' @param effect Numeric positive value. Observed exposure - outcome odds ratio.
+#' @param effect_observed Numeric positive value. Observed exposure - outcome odds ratio.
 #'    This can be the point estimate, lower confidence bound, or upper
 #'    confidence bound.
-#' @param smd Numeric. Estimated difference in scaled means between the
+#' @param exposure_confounder_effect Numeric. Estimated difference in scaled means between the
 #'    unmeasured confounder in the exposed population and unexposed population
-#' @param outcome_association Numeric positive value. Estimated association
+#' @param confounder_outcome_effect Numeric positive value. Estimated relationship
 #'    between the unmeasured confounder and the outcome
 #' @param verbose Logical. Indicates whether to print informative message.
 #'    Default: `TRUE`
@@ -279,13 +279,13 @@ tip_hr <- function(effect, smd = NULL, outcome_association = NULL, verbose = TRU
 #' @return Data frame.
 #'
 #' @examples
-#' ## to estimate the association between an unmeasured confounder and outcome
+#' ## to estimate the relationship between an unmeasured confounder and outcome
 #' ## needed to tip analysis
-#' tip_or(1.2, smd = -2)
+#' tip_or(1.2, exposure_confounder_effect = -2)
 #'
 #' ## to estimate the number of unmeasured confounders specified needed to tip
 #' ## the analysis
-#' tip_or(1.2, smd = -2, outcome_association = .99)
+#' tip_or(1.2, exposure_confounder_effect = -2, confounder_outcome_effect = .99)
 #'
 #' ## Example with broom
 #' if (requireNamespace("broom", quietly = TRUE) &&
@@ -294,12 +294,12 @@ tip_hr <- function(effect, smd = NULL, outcome_association = NULL, verbose = TRU
 #'    broom::tidy(conf.int = TRUE, exponentiate = TRUE) %>%
 #'    dplyr::filter(term == "mpg") %>%
 #'    dplyr::pull(conf.low) %>%
-#'    tip_or(outcome_association = 2.5, or_correction = TRUE)
+#'    tip_or(confounder_outcome_effect = 2.5, or_correction = TRUE)
 #'}
 #' @export
-tip_or <- function(effect, smd = NULL, outcome_association = NULL, verbose = TRUE, or_correction = FALSE) {
+tip_or <- function(effect_observed, exposure_confounder_effect = NULL, confounder_outcome_effect = NULL, verbose = TRUE, or_correction = FALSE) {
   correction_factor <- ifelse(or_correction, "or", "none")
-  tip(effect, smd = smd, outcome_association = outcome_association, verbose = verbose, correction_factor = correction_factor)
+  tip(effect_observed, exposure_confounder_effect = exposure_confounder_effect, confounder_outcome_effect = confounder_outcome_effect, verbose = verbose, correction_factor = correction_factor)
 }
 
 #' @rdname tip_rr

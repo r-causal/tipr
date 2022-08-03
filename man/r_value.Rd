@@ -4,13 +4,13 @@
 \alias{r_value}
 \title{Robustness value}
 \usage{
-r_value(effect, se, df, ...)
+r_value(effect_observed, se, df, ...)
 }
 \arguments{
-\item{effect}{Numeric. Observed exposure - outcome effect from a regression
-model. This is the point estimate (beta coefficient)}
+\item{effect_observed}{Numeric. Observed exposure - outcome effect from a
+regression model. This is the point estimate (beta coefficient)}
 
-\item{se}{Numeric. Standard error of the \code{effect} in the previous parameter.}
+\item{se}{Numeric. Standard error of the \code{effect_observed} in the previous parameter.}
 
 \item{df}{Numeric positive value. Residual degrees of freedom for the model
 used to estimate the observed exposure - outcome effect. This is the total

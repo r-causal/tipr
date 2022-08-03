@@ -3,14 +3,24 @@
 
 # tipr: R tools for tipping point sensitivity analyses
 
-[![Build
-Status](https://travis-ci.org/LucyMcGowan/tipr.svg?branch=master)](https://travis-ci.org/LucyMcGowan/tipr)
+<!-- badges: start -->
+
+[![R-CMD-check](https://github.com/LucyMcGowan/tipr/workflows/R-CMD-check/badge.svg)](https://github.com/LucyMcGowan/tipr/actions)
+<!-- badges: end -->
 
 **Authors:** [Lucy D’Agostino
 McGowan](https://www.lucymcgowan.com/)<br/> **License:**
 [MIT](https://opensource.org/licenses/MIT)
 
 ## Installation
+
+Install the CRAN version
+
+``` r
+install.packages("tipr")
+```
+
+Or install the development version from GitHub:
 
 ``` r
 # install.packages(devtools)
@@ -25,13 +35,14 @@ library(tipr)
 
 After fitting your model, you can determine the unmeasured confounder
 needed to tip your analysis. This unmeasured confounder is determined by
-two quantities, the association between the exposure and the unmeasured
+two quantities, the relationship between the exposure and the unmeasured
 confounder (if the unmeasured confounder is continuous, this is
-indicated with `smd`, if binary, with `exposed_p` and `unexposed_p`),
-and the association between the unmeasured confounder and outcome
-`outcome_association`. Using this 📦, we can fix one of these and solve
-for the other. Alternatively, we can fix both and solve for `n`, that
-is, how many unmeasured confounders of this magnitude would tip the
+indicated with `exposure_confounder_effect`, if binary, with
+`exposed_confounder_prev` and `unexposed_confounder_prev`), and the
+relationship between the unmeasured confounder and outcome
+`confounder_outcome_effect`. Using this 📦, we can fix one of these and
+solve for the other. Alternatively, we can fix both and solve for `n`,
+that is, how many unmeasured confounders of this magnitude would tip the
 analysis.
 
 In this example, a model was fit and the exposure-outcome relationship
@@ -40,30 +51,33 @@ was 1.5 (95% CI: 1.2, 1.8).
 ## Continuous unmeasured confounder example
 
 We are interested in a continuous unmeasured confounder, so we will use
-the `tip_with_continuous()` function.
+the `tip_with_continuous()` function. The package comes with an example
+data set simulated for this scenario, `exdata_continuous`.
 
 Let’s assume the relationship between the unmeasured confounder and
-outcome is 1.5 (`outcome_association = 1.5`), let’s solve for the
-association between the exposure and unmeasured confounder needed to tip
-the analysis (in this case, we are solving for `smd`, the mean
-difference needed between the exposed and unexposed).
+outcome is 1.5 (`confounder_outcome_effect = 1.5`), let’s solve for the
+relationship between the exposure and unmeasured confounder needed to
+tip the analysis (in this case, we are solving for
+`exposure_confounder_effect`, the mean difference needed between the
+exposed and unexposed).
 
 ``` r
-tip(1.2, outcome_association = 1.5)
+tip(effect_observed = 1.2, confounder_outcome_effect = 1.5)
 ```
 
     ## The observed effect (1.2) WOULD be tipped by 1 unmeasured confounder
     ## with the following specifications:
     ##   * estimated difference in scaled means between the unmeasured confounder
     ##     in the exposed population and unexposed population: 0.45
-    ##   * estimated association between the unmeasured confounder and the outcome: 1.5
+    ##   * estimated relationship between the unmeasured confounder and the outcome: 1.5
 
     ## # A tibble: 1 × 5
-    ##   effect_adjusted effect_observed   smd outcome_association n_unmeasured_confou…
-    ##             <dbl>           <dbl> <dbl>               <dbl>                <dbl>
-    ## 1               1             1.2 0.450                 1.5                    1
+    ##   effect_adjusted effect_observed exposure_confounder_effect confounder_outcome…
+    ##             <dbl>           <dbl>                      <dbl>               <dbl>
+    ## 1               1             1.2                      0.450                 1.5
+    ## # … with 1 more variable: n_unmeasured_confounders <dbl>
 
-A hypothetical unobserved continuous confounder that has an association
+A hypothetical unobserved continuous confounder that has a relationship
 of 1.5 with the outcome would need a scaled mean difference between
 exposure groups of `0.45` to tip this analysis at the 5% level,
 rendering it inconclusive.
@@ -74,30 +88,33 @@ Now we are interested in the binary unmeasured confounder, so we will
 use the `tip_with_binary()` function.
 
 Let’s assume the unmeasured confounder is prevalent in 25% of the
-exposed population (`exposed_p = 0.25`) and in 10% of the unexposed
-population (`unexposed_p = 0.10`) – let’s solve for the association
-between the unmeasured confounder and the outcome needed to tip the
-analysis (`outcome_association`).
+exposed population (`exposed_confounder_prev = 0.25`) and in 10% of the
+unexposed population (`unexposed_confounder_prev = 0.10`) – let’s solve
+for the relationship between the unmeasured confounder and the outcome
+needed to tip the analysis (`confounder_outcome_effect`).
 
 ``` r
-tip_with_binary(1.2, exposed_p = 0.25, unexposed_p = 0.10)
+tip_with_binary(effect_observed = 1.2, 
+                exposed_confounder_prev = 0.25, 
+                unexposed_confounder_prev = 0.10)
 ```
 
     ## The observed effect (1.2) WOULD be tipped by 1 unmeasured confounder
     ## with the following specifications:
     ##   * estimated prevalence of the unmeasured confounder in the exposed population: 0.25
     ##   * estimated prevalence of the unmeasured confounder in the unexposed population: 0.1
-    ##   * estimated association between the unmeasured confounder and the outcome: 2.54
+    ##   * estimated relationship between the unmeasured confounder and the outcome: 2.54
 
     ## # A tibble: 1 × 6
-    ##   effect_adjusted effect_observed exposed_p unexposed_p outcome_association
-    ##             <dbl>           <dbl>     <dbl>       <dbl>               <dbl>
-    ## 1               1             1.2      0.25         0.1                2.54
-    ## # … with 1 more variable: n_unmeasured_confounders <dbl>
+    ##   effect_adjusted effect_observed exposed_confounder_prev unexposed_confounder_…
+    ##             <dbl>           <dbl>                   <dbl>                  <dbl>
+    ## 1               1             1.2                    0.25                    0.1
+    ## # … with 2 more variables: confounder_outcome_effect <dbl>,
+    ## #   n_unmeasured_confounders <dbl>
 
 A hypothetical unobserved binary confounder that is prevalent in 10% of
 the unexposed population and 25% of the exposed population would need to
-have an association with the outcome of 2.5 to tip this analysis at the
+have a relationship with the outcome of 2.5 to tip this analysis at the
 5% level, rendering it inconclusive.
 
 ## Many unmeasured confounders
@@ -106,24 +123,27 @@ Suppose we are concerned that there are many small, independent,
 continuous, unmeasured confounders present.
 
 ``` r
-tip(1.2, smd = 0.25, outcome_association = 1.05)
+tip(effect_observed = 1.2, 
+    exposure_confounder_effect = 0.25, 
+    confounder_outcome_effect = 1.05)
 ```
 
     ## The observed effect (1.2) WOULD be tipped by 15 unmeasured confounders
     ## with the following specifications:
     ##   * estimated difference in scaled means between the unmeasured confounder
     ##     in the exposed population and unexposed population: 0.25
-    ##   * estimated association between the unmeasured confounder and the outcome: 1.05
+    ##   * estimated relationship between the unmeasured confounder and the outcome: 1.05
 
     ## # A tibble: 1 × 5
-    ##   effect_adjusted effect_observed   smd outcome_association n_unmeasured_confou…
-    ##             <dbl>           <dbl> <dbl>               <dbl>                <dbl>
-    ## 1               1             1.2  0.25                1.05                 14.9
+    ##   effect_adjusted effect_observed exposure_confounder_effect confounder_outcome…
+    ##             <dbl>           <dbl>                      <dbl>               <dbl>
+    ## 1               1             1.2                       0.25                1.05
+    ## # … with 1 more variable: n_unmeasured_confounders <dbl>
 
-It would take about `15` independent unmeasured confounders with a
-scaled mean difference between exposure groups of 0.25 to and an
-association with the outcome of 1.05 tip the observed analysis at the 5%
-level, rendering it inconclusive.
+It would take about `15` independent standardized Normal unmeasured
+confounders with a mean difference between exposure groups of 0.25 to
+and a relationship with the outcome of 1.05 tip the observed analysis at
+the 5% level, rendering it inconclusive.
 
 ## Integration with broom
 
@@ -139,7 +159,7 @@ if (requireNamespace("broom", quietly = TRUE) &&  requireNamespace("dplyr", quie
     broom::tidy(conf.int = TRUE, exponentiate = TRUE) %>%
     dplyr::filter(term == "mpg") %>%
     dplyr::pull(conf.low) %>%
-    tip(outcome_association = 2.5)
+    tip(confounder_outcome_effect = 2.5)
 }
 ```
 
@@ -147,12 +167,13 @@ if (requireNamespace("broom", quietly = TRUE) &&  requireNamespace("dplyr", quie
     ## with the following specifications:
     ##   * estimated difference in scaled means between the unmeasured confounder
     ##     in the exposed population and unexposed population: 0.13
-    ##   * estimated association between the unmeasured confounder and the outcome: 2.5
+    ##   * estimated relationship between the unmeasured confounder and the outcome: 2.5
 
     ## # A tibble: 1 × 5
-    ##   effect_adjusted effect_observed   smd outcome_association n_unmeasured_confou…
-    ##             <dbl>           <dbl> <dbl>               <dbl>                <dbl>
-    ## 1               1            1.13 0.133                 2.5                    1
+    ##   effect_adjusted effect_observed exposure_confounder_effect confounder_outcome…
+    ##             <dbl>           <dbl>                      <dbl>               <dbl>
+    ## 1               1            1.13                      0.133                 2.5
+    ## # … with 1 more variable: n_unmeasured_confounders <dbl>
 
 ## Code of Conduct
 
