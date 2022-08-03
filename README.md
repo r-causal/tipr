@@ -47,7 +47,7 @@ analysis.
 
 This package comes with a few example data sets. For this example, we
 will use `exdata_rr`. This data set was simulated such that there are
-two confounders, one that was “measured” (and thus useable in the main
+two confounders, one that was “measured” (and thus usable in the main
 analysis, this is called `measured_confounder`) and one that is
 “unmeasured” (we have access to it because this is simulated data, but
 ordinarily we would not, this variable is called
@@ -79,7 +79,7 @@ CI: 1.09, 2.08).
 We are interested in a continuous unmeasured confounder, so we will use
 the `tip_with_continuous()` function.
 
-Let’s assume the unmeaured confounder is normally distributed with a
+Let’s assume the unmeasured confounder is normally distributed with a
 mean of 0.5 in the exposed group and 0 in the unexposed (and unit
 variance in both), resulting in a mean difference of 0.5
 (`exposure_confounder_effect = 0.5`), let’s solve for the relationship

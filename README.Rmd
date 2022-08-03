@@ -36,7 +36,7 @@ library(tipr)
 
 After fitting your model, you can determine the unmeasured confounder needed to tip your analysis. This unmeasured confounder is determined by two quantities, the relationship between the exposure and the unmeasured confounder (if the unmeasured confounder is continuous, this is indicated with `exposure_confounder_effect`, if binary, with `exposed_confounder_prev` and `unexposed_confounder_prev`), and the relationship between the unmeasured confounder and outcome `confounder_outcome_effect`. Using this `r emo::ji("package")`, we can fix one of these and solve for the other. Alternatively, we can fix both and solve for `n`, that is, how many unmeasured confounders of this magnitude would tip the analysis. 
 
-This package comes with a few example data sets. For this example, we will use `exdata_rr`. This data set was simulated such that there are two confounders, one that was "measured" (and thus useable in the main analysis, this is called `measured_confounder`) and one that is "unmeasured" (we have access to it because this is simulated data, but ordinarily we would not, this variable is called `.unmeasured_confounder`). 
+This package comes with a few example data sets. For this example, we will use `exdata_rr`. This data set was simulated such that there are two confounders, one that was "measured" (and thus usable in the main analysis, this is called `measured_confounder`) and one that is "unmeasured" (we have access to it because this is simulated data, but ordinarily we would not, this variable is called `.unmeasured_confounder`). 
 
 Using the example data `exdata_rr`, we can estimate the exposure-outcome relationship using the measured confounder as follows:
 
@@ -54,7 +54,7 @@ We see the above example, the exposure-outcome relationship is 1.5 (95% CI: 1.09
 
 We are interested in a continuous unmeasured confounder, so we will use the `tip_with_continuous()` function. 
 
-Let's assume the unmeaured confounder is normally distributed with a mean of 0.5 in the exposed group and 0 in the unexposed (and unit variance in both), resulting in a mean difference of 0.5 (`exposure_confounder_effect = 0.5`),  let's solve for the relationship between the unmeasured confounder and outcome needed to tip the analysis (in this case, we are solving for `confounder_outcome_effect`).
+Let's assume the unmeasured confounder is normally distributed with a mean of 0.5 in the exposed group and 0 in the unexposed (and unit variance in both), resulting in a mean difference of 0.5 (`exposure_confounder_effect = 0.5`),  let's solve for the relationship between the unmeasured confounder and outcome needed to tip the analysis (in this case, we are solving for `confounder_outcome_effect`).
 
 ```{r}
 tip(effect_observed = 1.5, exposure_confounder_effect = 0.5)
