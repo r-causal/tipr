@@ -80,40 +80,47 @@ The functions in the `tipr` package follow a unified grammar. The function names
 |          |                    | confounder-exposure relationship and         |
 |          |                    | unmeasured confounder-outcome relationship to|
 |          |                    | be specified.                                |
-|          |                    |                                              |
++----------+--------------------+----------------------------------------------+
++----------+--------------------+----------------------------------------------+
 |          | `tip`              | These functions tip observed effects. Only   |
 |          |                    | one relationship, either the unmeasured      |
 |          |                    | confounder-exposure relationship or          |
 |          |                    | unmeasured confounder-outcome relationship   |
 |          |                    | needs to be specified.                       |
 +----------+--------------------+----------------------------------------------+
++----------+--------------------+----------------------------------------------+
 |**effect**| `coef`             | These functions specify an observed          |
 |          |                    | coefficient from a linear, log-linear,       |
 |          |                    | logistic, or Cox proportional hazards model  |
-|          |                    | 
++----------+--------------------+----------------------------------------------+
++----------+--------------------+----------------------------------------------+
 |          | `rr`               | These functions specify an observed          |
 |          |                    | relative risk                                |
-|          |                    | 
++----------+--------------------+----------------------------------------------+
++----------+--------------------+----------------------------------------------+
 |          | `or`               | These functions specify an observed          |
 |          |                    | odds ratio                                   |
-|          |                    | 
++----------+--------------------+----------------------------------------------+
++----------+--------------------+----------------------------------------------+
 |          | `hr`               | These functions specify an observed          |
 |          |                    | hazard ratio                                 |
 |          |                    |  
++----------+--------------------+----------------------------------------------+
 +----------+--------------------+----------------------------------------------+
 |**what**  | `continuous`       | These functions specify an unmeasured 
 |          |                    | standardized Normally distributed confounder. 
 |          |                    | These functions will include the parameters
 |          |                    | `exposure_confounder_effect` and 
 |          |                    | `confounder_outcome_effect`
-|          |                    |
++----------+--------------------+----------------------------------------------+
++----------+--------------------+----------------------------------------------+
 |          | `binary`           | These functions specify an unmeasured binary
 |          |                    | confounder. These functions will include the 
 |          |                    | parameters `exposed_confounder_prev`, 
 |          |                    | `unexposed_confounder_prev`, and
 |          |                    | `confounder_outcome_effect`
-|          |                    |
-|          |                    |
++----------+--------------------+----------------------------------------------+
++----------+--------------------+----------------------------------------------+
 |          | `r2`               | These functions specify an unmeasured 
 |          |                    | parameterized by specifying the percent of 
 |          |                    | variation in the exposure / outcome explained 
