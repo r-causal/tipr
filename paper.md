@@ -78,7 +78,7 @@ The functions in the `tipr` package follow a unified grammar. The function names
 | category | Function term      | Use                                          |
 +==========+====================+==============================================+
 |**action**| `adjust`           | These functions adjust observed effects,     |
-|          |                    | requiring between both the unmeasured        |
+|          |                    | requiring both the unmeasured        |
 |          |                    | confounder-exposure relationship and         |
 |          |                    | unmeasured confounder-outcome relationship to|
 |          |                    | be specified.                                |
