@@ -185,13 +185,13 @@ tip(1.1, exposure_confounder_effect = 0.5)
     ##   * estimated difference in scaled means between the unmeasured 
     ##     confounder in the exposed population and unexposed population: 0.5
     ##   * estimated association between the unmeasured confounder and 
-    ##     the outcome: 1.5
+    ##     the outcome: 1.21
     ## 
     ## 
     ## # A tibble: 1 × 5
     ##   effect_adjusted effect_observed exposure_confound… confounder_outcome… 
     ##             <dbl>           <dbl>              <dbl>                <dbl>
-    ## 1               1             1.2                0.5                 1.21
+    ## 1               1             1.1                0.5                 1.21
     ## # … with 1 more variable: n_unmeasured_confounders <dbl>
 
 A hypothetical unobserved continuous confounder that has a effect
