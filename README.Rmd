@@ -72,12 +72,12 @@ Because this is simulated data, we can see what the *true* unmeasured confounder
 
 ```{r}
 exdata_rr %>%
-  group_by(exposure) %>%
-  summarise(m = mean(.unmeasured_confounder / sd(.unmeasured_confounder))) %>%
-  pivot_wider(names_from = exposure,
+  dplyr::group_by(exposure) %>%
+  dplyr::summarise(m = mean(.unmeasured_confounder / sd(.unmeasured_confounder))) %>%
+  tidyr::pivot_wider(names_from = exposure,
               values_from = m,
               names_prefix = "u_") %>%
-  summarise(estimate = u_1 - u_0)
+  dplyr::summarise(estimate = u_1 - u_0)
 ```
 
 Now we can refit the above model with this unmeasured confounder included. According to our tipping point result, as long as the relative risk of the unmeasured confounder and outcome in the model is greater than 2.25, the result that we observed will be "tipped" (the point estimate will cross the null).
@@ -118,7 +118,7 @@ tip(effect_observed = 1.09,
     confounder_outcome_effect = 1.05)
 ```
 
-It would take about `7` independent standardized Normal unmeasured confounders with a mean difference between exposure groups of 0.25 to and a relationship with the outcome of 1.05 tip the observed analysis at the 5% level, rendering it inconclusive.
+It would take about `7` independent standardized Normal unmeasured confounders with a mean difference between exposure groups of 0.25 and a relationship with the outcome of 1.05 tip the observed analysis at the 5% level, rendering it inconclusive.
 
 ## Integration with broom
 
