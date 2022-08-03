@@ -83,31 +83,25 @@ The functions in the `tipr` package follow a unified grammar. The function names
 |          |                    | unmeasured confounder-outcome relationship to|
 |          |                    | be specified.                                |
 +----------+--------------------+----------------------------------------------+
-+----------+--------------------+----------------------------------------------+
 |          | `tip`              | These functions tip observed effects. Only   |
 |          |                    | one relationship, either the unmeasured      |
 |          |                    | confounder-exposure relationship or          |
 |          |                    | unmeasured confounder-outcome relationship   |
 |          |                    | needs to be specified.                       |
 +----------+--------------------+----------------------------------------------+
-+----------+--------------------+----------------------------------------------+
 |**effect**| `coef`             | These functions specify an observed          |
 |          |                    | coefficient from a linear, log-linear,       |
 |          |                    | logistic, or Cox proportional hazards model  |
 +----------+--------------------+----------------------------------------------+
-+----------+--------------------+----------------------------------------------+
 |          | `rr`               | These functions specify an observed          |
 |          |                    | relative risk                                |
-+----------+--------------------+----------------------------------------------+
 +----------+--------------------+----------------------------------------------+
 |          | `or`               | These functions specify an observed          |
 |          |                    | odds ratio                                   |
 +----------+--------------------+----------------------------------------------+
-+----------+--------------------+----------------------------------------------+
 |          | `hr`               | These functions specify an observed          |
 |          |                    | hazard ratio                                 |
 |          |                    |  
-+----------+--------------------+----------------------------------------------+
 +----------+--------------------+----------------------------------------------+
 |**what**  | `continuous`       | These functions specify an unmeasured 
 |          |                    | standardized Normally distributed confounder. 
@@ -115,13 +109,11 @@ The functions in the `tipr` package follow a unified grammar. The function names
 |          |                    | `exposure_confounder_effect` and 
 |          |                    | `confounder_outcome_effect`
 +----------+--------------------+----------------------------------------------+
-+----------+--------------------+----------------------------------------------+
 |          | `binary`           | These functions specify an unmeasured binary
 |          |                    | confounder. These functions will include the 
 |          |                    | parameters `exposed_confounder_prev`, 
 |          |                    | `unexposed_confounder_prev`, and
 |          |                    | `confounder_outcome_effect`
-+----------+--------------------+----------------------------------------------+
 +----------+--------------------+----------------------------------------------+
 |          | `r2`               | These functions specify an unmeasured 
 |          |                    | parameterized by specifying the percent of 
@@ -160,7 +152,8 @@ Additionally, there are two function, `e_value`, and `r_value` that calculate si
 
 The package includes a few example data sets. `exdata_rr` contains data simulated such that there is a binary exposure, a binary outcome, and two Normally distributed confounders, one "measured" (so included in the analysis) and one "unmeasured". There is no true causal effect between the exposure and outcome. The true causal diagram is shown below.
 
-![Figure 1: Causal Diagram illustrating two confounders, one measured and one unmeasured](fig-1.png)*Figure 1: Causal Diagram illustrating two confounders, one measured and one unmeasured*
+![Figure 1: Causal Diagram illustrating two confounders, one measured and one unmeasured](fig-1.png)
+**Figure 1**: Causal Diagram illustrating two confounders, one measured and one unmeasured
 
 We can fit the observable model as follows:
 
