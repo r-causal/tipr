@@ -61,7 +61,7 @@ Informally, a confounder is a pre-exposure variable that is associated with both
 
 ## Unmeasured confounder - exposure relationship
 
-If quantifying the impact of a standardized Normally distributed confounder, the impact of the unmeasured confounder on the exposure is parameterized as a difference in means between the unmeasured confounder in the exposed population and the unexposed population. By "standardized Normally distributed" we mean that the unmeasured confounder is Normally distributed with mean $\mu_1$ for the exposed and $\mu_0$ for the unexposed and unit variance. (Note a standardized Normally distributed confounder can be created from a Normally distributed confounder by dividing by the variance). This is specified using the `exposure_confounder_effect` parameter. If quantifying the impact of a binary confounder, the impact is quantified using two parameters, `exposed_confounder_prev`: The estimated prevalence of the unmeasured confounder in the unexposed population and `unexposed_confounder_prev`: The estimated prevalence of the unmeasured confounder in the unexposed population. Finally, the user can choose to quantify the magnitude of the unmeasured confounder-exposure relationship in terms of the percent of variation in the exposure explained by the unmeasured confounder. This is specified using the `confounder_exposure_r2` parameter. 
+If quantifying the impact of a standardized Normally distributed confounder, the impact of the unmeasured confounder on the exposure is parameterized as a difference in means between the unmeasured confounder in the exposed population and the unexposed population. By "standardized Normally distributed" we mean that the unmeasured confounder is Normally distributed with mean $\mu_1$ for the exposed and $\mu_0$ for the unexposed and unit variance. (Note a standardized Normally distributed confounder can be created from a Normally distributed confounder by dividing by the variance). This is specified using the `exposure_confounder_effect` parameter. If quantifying the impact of a binary confounder, the impact is quantified using two parameters, `exposed_confounder_prev`: The estimated prevalence of the unmeasured confounder in the exposed population and `unexposed_confounder_prev`: The estimated prevalence of the unmeasured confounder in the unexposed population. Alternatively, the user can choose to quantify the magnitude of the unmeasured confounder-exposure relationship in terms of the percent of variation in the exposure explained by the unmeasured confounder. This is specified using the `confounder_exposure_r2` parameter. 
 
 ## Unmeasured confounder - outcome relationship
 
@@ -116,10 +116,10 @@ The functions in the `tipr` package follow a unified grammar. The function names
 |          |                    | `confounder_outcome_effect`
 +----------+--------------------+----------------------------------------------+
 |          | `r2`               | These functions specify an unmeasured 
-|          |                    | parameterized by specifying the percent of 
-|          |                    | variation in the exposure / outcome explained 
-|          |                    | by the unmeasured confounder. These functions 
-|          |                    | will include the parameters 
+|          |                    | confounder parameterized by specifying the  
+|          |                    | percent of variation in the exposure / outcome  
+|          |                    | explained by the unmeasured confounder. These  
+|          |                    | functions will include the parameters 
 |          |                    | `confounder_exposure_r2` and 
 |          |                    | `outcome_exposure_r2`
 +----------+--------------------+----------------------------------------------+
@@ -189,8 +189,8 @@ tip(1.1, exposure_confounder_effect = 0.5)
     ## 1               1             1.1                0.5                 1.21
     ## # … with 1 more variable: n_unmeasured_confounders <dbl>
 
-A hypothetical unobserved continuous confounder that has a effect
-of 1.1 with the outcome would need a relationship with the outcome of `1.21` to tip this analysis at the 5% level, rendering it inconclusive.
+A hypothetical unobserved continuous confounder that has a mean difference
+of `0.5` between the exposure groups would need a relationship with the outcome of `1.21` to tip this analysis at the 5% level, rendering it inconclusive.
 
 # Conclusion
 
