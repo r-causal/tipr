@@ -152,7 +152,7 @@ Additionally, there are two function, `e_value`, and `r_value` that calculate si
 
 The package includes a few example data sets. `exdata_rr` contains data simulated such that there is a binary exposure, a binary outcome, and two Normally distributed confounders, one "measured" (so included in the analysis) and one "unmeasured". There is no true causal effect between the exposure and outcome. The true causal diagram is shown below.
 
-![Figure 1: Causal Diagram illustrating two confounders, one measured and one unmeasured](fig-1.png)
+![Figure 1: Causal Diagram illustrating two confounders, one measured and one unmeasured](fig-1.png)  
 **Figure 1**: Causal Diagram illustrating two confounders, one measured and one unmeasured
 
 We can fit the observable model as follows:
