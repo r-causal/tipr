@@ -137,7 +137,7 @@ adjust_coef(effect_observed = 1.5,
 
     ## The observed effect (1.5) is updated to 1.4 by a confounder with the 
     ## following specifications:
-    ##  * estimated difference in scaled means: 0.1
+    ##  * estimated difference in means: 0.1
     ##  * estimated relationship between the unmeasured confounder and the 
     ##    outcome: 1
     ## # A tibble: 1 × 4
@@ -167,7 +167,7 @@ needed to tip your analysis. In this example, the exposure-outcome relationship 
 
 We are interested in a Normally distributed unmeasured confounder, so we can use the `tip_rr_with_continuous()` function. The function `tip()` is an alias for this function.
 
-Let’s assume the relationship between the unmeasured confounder and exposure is 0.5 (`exposure_confounder_effect = 0.5`, meaning the difference in means between the exposure groups after standardizing the confounder is `0.5`), let's solve for the relationship between unmeasured confounder and outcome needed to tip the analysis (in this case, we are solving for `confounder_outcome_effect`).
+Let’s assume the relationship between the unmeasured confounder and exposure is 0.5 (`exposure_confounder_effect = 0.5`, meaning the difference in means between the exposure groups is `0.5`), let's solve for the relationship between unmeasured confounder and outcome needed to tip the analysis (in this case, we are solving for `confounder_outcome_effect`).
 
 ``` r
 tip(1.1, exposure_confounder_effect = 0.5)
@@ -175,7 +175,7 @@ tip(1.1, exposure_confounder_effect = 0.5)
 
     ## The observed effect (1.1) WOULD be tipped by 1 unmeasured confounder
     ## with the following specifications:
-    ##   * estimated difference in scaled means between the unmeasured 
+    ##   * estimated difference in means between the unmeasured 
     ##     confounder in the exposed population and unexposed population: 0.5
     ##   * estimated association between the unmeasured confounder and 
     ##     the outcome: 1.21
