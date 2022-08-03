@@ -169,7 +169,7 @@ needed to tip your analysis. In this example, the exposure-outcome relationship 
 
 We are interested in a Normally distributed unmeasured confounder, so we can use the `tip_rr_with_continuous()` function. The function `tip()` is an alias for this function.
 
-Let’s assume the relationship between the unmeasured confounder and exposure is 0.5 (`exposure_confounder_effect = 0.5`), let's solve for the relationship between unmeasured confounder and outcome needed to tip the analysis (in this case, we are solving for `confounder_outcome_effect`).
+Let’s assume the relationship between the unmeasured confounder and exposure is 0.5 (`exposure_confounder_effect = 0.5`, meaning the difference in means between the exposure groups after standardizing the confounder is `0.5`), let's solve for the relationship between unmeasured confounder and outcome needed to tip the analysis (in this case, we are solving for `confounder_outcome_effect`).
 
 ``` r
 tip(1.1, exposure_confounder_effect = 0.5)
