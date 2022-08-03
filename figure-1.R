@@ -22,4 +22,4 @@ dagify(
   ggdag(use_labels = "label", text = FALSE) +
   theme_void()
 
-ggsave("fig-1.png")
+ggsave("fig-1.png", width = 4, height = 3)

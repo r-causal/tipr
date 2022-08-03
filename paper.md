@@ -72,6 +72,7 @@ If quantifying the impact of a standardized Normally distributed confounder or b
 The functions in the `tipr` package follow a unified grammar. The function names follow this form: `{action}_{effect}_with_{what}`. For example, to adjust (`action`) a coefficient (`effect`) with a binary unmeasured confounder (`what`), we use the function `adjust_coef_with_binary()`. The full list of `action`s `effect`s and `what`s is summarized in Table 1. The "default" function assumes the confounder type is Normally distributed, therefore `adjust_coef()` is equivalent to `adjust_coef_with_continuous()`.
 
 
+**Table 1**. Grammar of `tipr` functions.
 +----------+--------------------+----------------------------------------------+
 | category | Function term      | Use                                          |
 +==========+====================+==============================================+
