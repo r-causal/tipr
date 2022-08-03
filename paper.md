@@ -146,7 +146,7 @@ adjust_coef(effect_observed = 1.5,
     ##             1.4             1.5                        0.1                 1
 
 
-Additionally, there are two function, `e_value`, and `r_value` that calculate single number summaries of the sensitivity of a particular observed effect to unmeasured confounding,the E-value and Robustness value, respectively.
+Additionally, there are two function, `e_value`, and `r_value` that calculate single number summaries of the sensitivity of a particular observed effect to unmeasured confounding, the E-value and Robustness value, respectively.
 
 # Tipping Point Example
 
