@@ -21,7 +21,7 @@ bibliography: paper.bib
 
 # Summary
 
-The strength of evidence provided by epidemiological and observational studies is inherently limited by the potential for unmeasured confounding. We focus on three key quantities: the observed bound of the confidence interval closest to the null, the relationship between an unmeasured confounder and the outcome, for example a plausible residual effect size for an unmeasured continuous or binary confounder, and the relationship between an unmeasured confounder and the exposure, for example a realistic mean difference or prevalence difference for this hypothetical confounder between exposure groups. Building on the methods put forth by  @Cornfield, @Bross, @Schlesselman, @Rosenbaum:1983, @Lin, @lash2009applying, @rosenbaum1986dropping, @cinelli2020making, @VanderWeele:2017ki, and @Ding, we can use these quantities to assess how an unmeasured confounder may tip our result to insignificance, rendering the study inconclusive.
+The strength of evidence provided by epidemiological and observational studies is inherently limited by the potential for unmeasured confounding. We focus on three key quantities: the observed bound of the confidence interval closest to the null, the relationship between an unmeasured confounder and the outcome, for example a plausible residual effect size for an unmeasured continuous or binary confounder, and the relationship between an unmeasured confounder and the exposure, for example a realistic mean difference or prevalence difference for this hypothetical confounder between exposure groups. Building on the methods put forth by  @Cornfield, @Bross, @Schlesselman, @Rosenbaum:1983, @Lin, @lash2009applying, @rosenbaum1986dropping, @cinelli2020making, @VanderWeele:2017ki, and @Ding, we can use these quantities to assess how an unmeasured confounder may tip our result to insignificance.
 
 # Statement of need
 
@@ -32,7 +32,7 @@ When assessing the relationship between an exposure and an outcome, the "no unme
 The `tipr` R package [@rstats] allows the user to conduct sensitivity analyses for unmeasured confounding. The user provides an "observed effect" (that is, some effect between an exposure of interest and an outcome of interest after adjusting for any observed confounders), and the sensitivity analyses will quantify how sensitive the effect is to a potential unmeasured confounder.  The `tipr` functions fall into three categories:
 
 (1) Functions that calculate how an observed effects would change with a specified unmeasured confounder (`adjust` functions)
-(2) Functions that calculate the magnitude of an unmeasured confounder needed to tip an observed effect to cross the null, rendering it inconclusive (`tip` functions)
+(2) Functions that calculate the magnitude of an unmeasured confounder needed to tip an observed effect to cross the null (`tip` functions)
 (3) Functions that calculate single number summaries of an observed effect's "sensitivity", such as the E-value [@VanderWeele:2017ki] or Robustness value  [@cinelli2020making].
 
 `tipr` is available on [CRAN](https://github.com/lucymcgowan/tipr) and [Github](https://github.com/lucymcgowan/tipr). Documentation can be found at 
@@ -188,7 +188,7 @@ tip(1.1, exposure_confounder_effect = 0.5)
     ## # … with 1 more variable: n_unmeasured_confounders <dbl>
 
 A hypothetical unobserved continuous confounder that has a mean difference
-of `0.5` between the exposure groups would need a relationship with the outcome of `1.21` to tip this analysis at the 5% level, rendering it inconclusive.
+of `0.5` between the exposure groups would need a relationship with the outcome of `1.21` to tip this analysis at the 5% level.
 
 # Conclusion
 
