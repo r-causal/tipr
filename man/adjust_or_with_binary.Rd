@@ -6,8 +6,8 @@
 \usage{
 adjust_or_with_binary(
   effect_observed,
-  exposed_p,
-  unexposed_p,
+  exposed_confounder_prev,
+  unexposed_confounder_prev,
   confounder_outcome_effect,
   verbose = TRUE,
   or_correction = FALSE
@@ -18,10 +18,10 @@ adjust_or_with_binary(
 odds ratio. This can be the point estimate, lower confidence bound, or
 upper confidence bound.}
 
-\item{exposed_p}{Numeric between 0 and 1. Estimated prevalence of the
+\item{exposed_confounder_prev}{Numeric between 0 and 1. Estimated prevalence of the
 unmeasured confounder in the exposed population}
 
-\item{unexposed_p}{Numeric between 0 and 1. Estimated prevalence of the
+\item{unexposed_confounder_prev}{Numeric between 0 and 1. Estimated prevalence of the
 unmeasured confounder in the unexposed population}
 
 \item{confounder_outcome_effect}{Numeric positive value. Estimated relationship

@@ -6,8 +6,8 @@
 \usage{
 adjust_coef_with_binary(
   effect_observed,
-  exposed_p,
-  unexposed_p,
+  exposed_confounder_prev,
+  unexposed_confounder_prev,
   confounder_outcome_effect,
   verbose = TRUE
 )
@@ -18,10 +18,10 @@ model. This can be the beta coefficient, the lower confidence bound of
 the beta coefficient, or the upper confidence bound of the beta
 coefficient.}
 
-\item{exposed_p}{Numeric between 0 and 1. Estimated prevalence of the
+\item{exposed_confounder_prev}{Numeric between 0 and 1. Estimated prevalence of the
 unmeasured confounder in the exposed population}
 
-\item{unexposed_p}{Numeric between 0 and 1. Estimated prevalence of the
+\item{unexposed_confounder_prev}{Numeric between 0 and 1. Estimated prevalence of the
 unmeasured confounder in the unexposed population}
 
 \item{confounder_outcome_effect}{Numeric. Estimated relationship

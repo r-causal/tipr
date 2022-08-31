@@ -1,3 +1,7 @@
+# tipr 1.0.1
+
+* Fixed bug, functions based on the `adjust_coef_with_binary` function had the old parameter names (`exposed_p` and `unexposed_p`). These were changed to match the other new updates from version 1.0.0 to now be `exposed_confounder_prev` and `unexposed_confounder_prev`.
+
 # tipr 1.0.0
 
 **Breaking changes**. The names of several arguments were changed for increased clarity:
@@ -6,7 +10,7 @@
 * `outcome_association` -> `confounder_outcome_effect`
 * `smd` -> `exposure_confounder_effect`
 * `exposed_p` -> `exposed_confounder_prev`
-* `unexposed_p` -> `exposed_confounder_prev`
+* `unexposed_p` -> `unexposed_confounder_prev`
 * `exposure_r2` -> `confounder_exposure_r2`
 * `outcome_r2` -> `confounder_outcome_r2`
 

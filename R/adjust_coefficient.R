@@ -52,9 +52,9 @@ adjust_coef <-
 #'    model. This can be the beta coefficient, the lower confidence bound of
 #'    the beta coefficient, or the upper confidence bound of the beta
 #'    coefficient.
-#' @param exposed_p Numeric between 0 and 1. Estimated prevalence of the
+#' @param exposed_confounder_prev Numeric between 0 and 1. Estimated prevalence of the
 #'    unmeasured confounder in the exposed population
-#' @param unexposed_p Numeric between 0 and 1. Estimated prevalence of the
+#' @param unexposed_confounder_prev Numeric between 0 and 1. Estimated prevalence of the
 #'    unmeasured confounder in the unexposed population
 #' @param confounder_outcome_effect Numeric. Estimated relationship
 #'    between the unmeasured confounder and the outcome.
@@ -68,23 +68,23 @@ adjust_coef <-
 #' adjust_coef_with_binary(1.1, 0.5, 0.3, 1.3)
 adjust_coef_with_binary <-
   function(effect_observed,
-           exposed_p,
-           unexposed_p,
+           exposed_confounder_prev,
+           unexposed_confounder_prev,
            confounder_outcome_effect,
            verbose = TRUE) {
-    check_prevalences(unexposed_p, exposed_p)
+    check_prevalences(unexposed_confounder_prev, exposed_confounder_prev)
 
-    confounding_factor <- log((exp(confounder_outcome_effect) * exposed_p + (1 - exposed_p)) /
+    confounding_factor <- log((exp(confounder_outcome_effect) * exposed_confounder_prev + (1 - exposed_confounder_prev)) /
                                 (
-                                  exp(confounder_outcome_effect) * unexposed_p + (1 - unexposed_p)
+                                  exp(confounder_outcome_effect) * unexposed_confounder_prev + (1 - unexposed_confounder_prev)
                                 ))
 
     effect_adj <- effect_observed - confounding_factor
     o <- tibble::tibble(
       effect_adjusted = effect_adj,
       effect_observed = effect_observed,
-      exposed_p = exposed_p,
-      unexposed_p = unexposed_p,
+      exposed_confounder_prev = exposed_confounder_prev,
+      unexposed_confounder_prev = unexposed_confounder_prev,
       confounder_outcome_effect = confounder_outcome_effect
     )
     if (verbose) {
@@ -93,8 +93,8 @@ adjust_coef_with_binary <-
         "is updated to {round(effect_adj, 2)} ",
         "by an confounder with the following specifications:",
         "\n  * estimated prevalence of the unmeasured confounder ",
-        "in the exposed population: {round(exposed_p, 2)}\n  * estimated prevalence of ",
-        "the unmeasured confounder in the unexposed population: {round(unexposed_p, 2)}",
+        "in the exposed population: {round(exposed_confounder_prev, 2)}\n  * estimated prevalence of ",
+        "the unmeasured confounder in the unexposed population: {round(unexposed_confounder_prev, 2)}",
         "\n  * estimated relationship between the unmeasured confounder and the ",
         "outcome: {round(confounder_outcome_effect, 2)}\n"
       )
@@ -283,9 +283,9 @@ adjust_or <-
 #' @param effect_observed Numeric positive value. Observed exposure - outcome relative risk.
 #'    This can be the point estimate, lower confidence bound, or upper
 #'    confidence bound.
-#' @param exposed_p Numeric between 0 and 1. Estimated prevalence of the
+#' @param exposed_confounder_prev Numeric between 0 and 1. Estimated prevalence of the
 #'    unmeasured confounder in the exposed population
-#' @param unexposed_p Numeric between 0 and 1. Estimated prevalence of the
+#' @param unexposed_confounder_prev Numeric between 0 and 1. Estimated prevalence of the
 #'    unmeasured confounder in the unexposed population
 #' @param confounder_outcome_effect Numeric positive value. Estimated relationship
 #'    between the unmeasured confounder and the outcome
@@ -299,23 +299,23 @@ adjust_or <-
 #' adjust_rr_with_binary(1.1, 0.5, 0.3, 1.3)
 adjust_rr_with_binary <-
   function(effect_observed,
-           exposed_p,
-           unexposed_p,
+           exposed_confounder_prev,
+           unexposed_confounder_prev,
            confounder_outcome_effect,
            verbose = TRUE) {
     rr <- effect_observed
-    check_prevalences(unexposed_p, exposed_p)
+    check_prevalences(unexposed_confounder_prev, exposed_confounder_prev)
 
     confounding_factor <-
-      (confounder_outcome_effect * exposed_p + (1 - exposed_p)) /
-      ((confounder_outcome_effect * unexposed_p) + (1 - unexposed_p))
+      (confounder_outcome_effect * exposed_confounder_prev + (1 - exposed_confounder_prev)) /
+      ((confounder_outcome_effect * unexposed_confounder_prev) + (1 - unexposed_confounder_prev))
 
     rr_adj <- rr / confounding_factor
     o <- tibble::tibble(
       rr_adjusted = rr_adj,
       rr_observed = rr,
-      exposed_p = exposed_p,
-      unexposed_p = unexposed_p,
+      exposed_confounder_prev = exposed_confounder_prev,
+      unexposed_confounder_prev = unexposed_confounder_prev,
       confounder_outcome_effect = confounder_outcome_effect
     )
     if (verbose) {
@@ -324,8 +324,8 @@ adjust_rr_with_binary <-
         "is updated to {round(rr_adj, 2)} ",
         "by an confounder with the following specifications:",
         "\n  * estimated prevalence of the unmeasured confounder ",
-        "in the exposed population: {round(exposed_p, 2)}\n  * estimated prevalence of ",
-        "the unmeasured confounder in the unexposed population: {round(unexposed_p, 2)}",
+        "in the exposed population: {round(exposed_confounder_prev, 2)}\n  * estimated prevalence of ",
+        "the unmeasured confounder in the unexposed population: {round(unexposed_confounder_prev, 2)}",
         "\n  * estimated relationship between the unmeasured confounder and the ",
         "outcome: {round(confounder_outcome_effect, 2)}\n"
       )
@@ -337,9 +337,9 @@ adjust_rr_with_binary <-
 #' @param effect_observed Numeric positive value. Observed exposure - outcome hazard ratio.
 #'    This can be the point estimate, lower confidence bound, or upper
 #'    confidence bound.
-#' @param exposed_p Numeric between 0 and 1. Estimated prevalence of the
+#' @param exposed_confounder_prev Numeric between 0 and 1. Estimated prevalence of the
 #'    unmeasured confounder in the exposed population
-#' @param unexposed_p Numeric between 0 and 1. Estimated prevalence of the
+#' @param unexposed_confounder_prev Numeric between 0 and 1. Estimated prevalence of the
 #'    unmeasured confounder in the unexposed population
 #' @param confounder_outcome_effect Numeric positive value. Estimated relationship
 #'    between the unmeasured confounder and the outcome
@@ -358,8 +358,8 @@ adjust_rr_with_binary <-
 #' adjust_hr_with_binary(0.8, 0.1, 0.5, 1.8)
 adjust_hr_with_binary <-
   function(effect_observed,
-           exposed_p,
-           unexposed_p,
+           exposed_confounder_prev,
+           unexposed_confounder_prev,
            confounder_outcome_effect,
            verbose = TRUE,
            hr_correction = FALSE) {
@@ -371,8 +371,8 @@ adjust_hr_with_binary <-
     }
     o <-
       adjust_rr_with_binary(hr,
-                            exposed_p,
-                            unexposed_p,
+                            exposed_confounder_prev,
+                            unexposed_confounder_prev,
                             confounder_outcome_effect,
                             verbose = FALSE)
 
@@ -384,8 +384,8 @@ adjust_hr_with_binary <-
         "is updated to {output_type}: {round(o$rr_adjusted, 2)} ",
         "by an confounder with the following specifications:",
         "\n  * estimated prevalence of the unmeasured confounder ",
-        "in the exposed population: {round(exposed_p, 2)}\n  * estimated prevalence of ",
-        "the unmeasured confounder in the unexposed population: {round(unexposed_p, 2)}",
+        "in the exposed population: {round(exposed_confounder_prev, 2)}\n  * estimated prevalence of ",
+        "the unmeasured confounder in the unexposed population: {round(unexposed_confounder_prev, 2)}",
         "\n  * estimated relationship between the unmeasured confounder and the ",
         "outcome: {round(confounder_outcome_effect, 2)}\n",
         "{ifelse(hr_correction, 'You opted to use the hazard ratio correction to convert your hazard ratios to approximate risk ratios.\nThis is a good idea if the outcome is common (>15%).',
@@ -406,9 +406,9 @@ adjust_hr_with_binary <-
 #' @param effect_observed Numeric positive value. Observed exposure - outcome
 #'    odds ratio. This can be the point estimate, lower confidence bound, or
 #'     upper confidence bound.
-#' @param exposed_p Numeric between 0 and 1. Estimated prevalence of the
+#' @param exposed_confounder_prev Numeric between 0 and 1. Estimated prevalence of the
 #'    unmeasured confounder in the exposed population
-#' @param unexposed_p Numeric between 0 and 1. Estimated prevalence of the
+#' @param unexposed_confounder_prev Numeric between 0 and 1. Estimated prevalence of the
 #'    unmeasured confounder in the unexposed population
 #' @param confounder_outcome_effect Numeric positive value. Estimated relationship
 #'    between the unmeasured confounder and the outcome
@@ -428,8 +428,8 @@ adjust_hr_with_binary <-
 #' adjust_or_with_binary(3, 1, 0, 3, or_correction = TRUE)
 adjust_or_with_binary <-
   function(effect_observed,
-           exposed_p,
-           unexposed_p,
+           exposed_confounder_prev,
+           unexposed_confounder_prev,
            confounder_outcome_effect,
            verbose = TRUE,
            or_correction = FALSE) {
@@ -441,8 +441,8 @@ adjust_or_with_binary <-
     }
     o <-
       adjust_rr_with_binary(or,
-                            exposed_p,
-                            unexposed_p,
+                            exposed_confounder_prev,
+                            unexposed_confounder_prev,
                             confounder_outcome_effect,
                             verbose = FALSE)
 
@@ -454,8 +454,8 @@ adjust_or_with_binary <-
         "is updated to {output_type}: {round(o$rr_adjusted, 2)} ",
         "by an confounder with the following specifications:",
         "\n  * estimated prevalence of the unmeasured confounder ",
-        "in the exposed population: {round(exposed_p, 2)}\n  * estimated prevalence of ",
-        "the unmeasured confounder in the unexposed population: {round(unexposed_p, 2)}",
+        "in the exposed population: {round(exposed_confounder_prev, 2)}\n  * estimated prevalence of ",
+        "the unmeasured confounder in the unexposed population: {round(unexposed_confounder_prev, 2)}",
         "\n  * estimated relationship between the unmeasured confounder and the ",
         "outcome: {round(confounder_outcome_effect, 2)}\n",
         "{ifelse(or_correction, 'You opted to use the odds ratio correction to convert your odds ratios to approximate risk ratios.\nThis is a good idea if the outcome is common (>15%).',
