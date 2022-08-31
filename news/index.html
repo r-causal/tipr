@@ -45,13 +45,16 @@
     </div>
 
     <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.0.1" id="tipr-101">tipr 1.0.1<a class="anchor" aria-label="anchor" href="#tipr-101"></a></h2>
+<ul><li>Fixed bug, functions based on the <code>adjust_coef_with_binary</code> function had the old parameter names (<code>exposed_p</code> and <code>unexposed_p</code>). These were changed to match the other new updates from version 1.0.0 to now be <code>exposed_confounder_prev</code> and <code>unexposed_confounder_prev</code>.</li></ul></div>
+    <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.0.0" id="tipr-100">tipr 1.0.0<a class="anchor" aria-label="anchor" href="#tipr-100"></a></h2><p class="text-muted">CRAN release: 2022-08-06</p>
 <p><strong>Breaking changes</strong>. The names of several arguments were changed for increased clarity:</p>
 <ul><li><p><code>effect</code> -&gt; <code>effect_observed</code></p></li>
 <li><p><code>outcome_association</code> -&gt; <code>confounder_outcome_effect</code></p></li>
 <li><p><code>smd</code> -&gt; <code>exposure_confounder_effect</code></p></li>
 <li><p><code>exposed_p</code> -&gt; <code>exposed_confounder_prev</code></p></li>
-<li><p><code>unexposed_p</code> -&gt; <code>exposed_confounder_prev</code></p></li>
+<li><p><code>unexposed_p</code> -&gt; <code>unexposed_confounder_prev</code></p></li>
 <li><p><code>exposure_r2</code> -&gt; <code>confounder_exposure_r2</code></p></li>
 <li><p><code>outcome_r2</code> -&gt; <code>confounder_outcome_r2</code></p></li>
 <li><p>Added two new example datasets: <code>exdata_continuous</code> and <code>exdata_rr</code></p></li>
