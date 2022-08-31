@@ -24,7 +24,7 @@ exdata_continuous %>%
 
 usethis::use_data(exdata_continuous)
 
-## Relative risk ----
+## Risk ratio ----
 
 set.seed(930)
 

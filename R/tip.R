@@ -5,7 +5,7 @@
 #' * `confounder_outcome_effect`
 #'
 #' @param effect_observed Numeric positive value. Observed exposure - outcome effect
-#'    (assumed to be the exponentiated coefficient, so a relative risk, odds
+#'    (assumed to be the exponentiated coefficient, so a risk ratio, odds
 #'    ratio, or hazard ratio). This can be the point estimate, lower confidence
 #'    bound, or upper confidence bound.
 #' @param exposure_confounder_effect Numeric. Estimated difference in scaled means between the
@@ -16,7 +16,7 @@
 #'    Default: `TRUE`
 #' @param correction_factor Character string. Options are "none", "hr", "or".
 #'   For common outcomes (>15%), the odds ratio or hazard ratio is not a good
-#'   estimate for the relative risk. In these cases, we can apply a correction
+#'   estimate for the risk ratio. In these cases, we can apply a correction
 #'   factor. If you are supplying a hazard ratio for a common outcome, set
 #'   this to "hr"; if you are supplying an odds ratio for a common outcome, set
 #'   this to "or"; if you are supplying a risk ratio or your outcome is rare,
@@ -183,14 +183,14 @@ tip_one <- function(b, exposure_confounder_effect, confounder_outcome_effect, ve
   o
 }
 
-#' Tip an observed relative risk with a normally distributed confounder.
+#' Tip an observed risk ratio with a normally distributed confounder.
 #'
 #' choose one of the following, and the other will be estimated:
 #' * `exposure_confounder_effect`
 #' * `confounder_outcome_effect`
 #'
 #' @param effect_observed Numeric positive value. Observed exposure - outcome
-#'    relative risk. This can be the point estimate, lower confidence bound,
+#'    risk ratio. This can be the point estimate, lower confidence bound,
 #'    or upper confidence bound.
 #' @param exposure_confounder_effect Numeric. Estimated difference in scaled means between the
 #'    unmeasured confounder in the exposed population and unexposed population
@@ -233,8 +233,8 @@ tip_rr <- function(effect_observed, exposure_confounder_effect = NULL, confounde
 #' @param verbose Logical. Indicates whether to print informative message.
 #'    Default: `TRUE`
 #' @param hr_correction Logical. Indicates whether to use a correction factor.
-#'    The methods used for this function are based on relative risks. For rare
-#'    outcomes, a hazard ratio approximates a relative risk. For common outcomes,
+#'    The methods used for this function are based on risk ratios. For rare
+#'    outcomes, a hazard ratio approximates a risk ratio. For common outcomes,
 #'    a correction factor is needed. If you have a common outcome (>15%),
 #'    set this to `TRUE`. Default: `FALSE`.
 #'
@@ -271,8 +271,8 @@ tip_hr <- function(effect_observed, exposure_confounder_effect = NULL, confounde
 #' @param verbose Logical. Indicates whether to print informative message.
 #'    Default: `TRUE`
 #' @param or_correction Logical. Indicates whether to use a correction factor.
-#'    The methods used for this function are based on relative risks. For rare
-#'    outcomes, an odds ratio approximates a relative risk. For common outcomes,
+#'    The methods used for this function are based on risk ratios. For rare
+#'    outcomes, an odds ratio approximates a risk ratio. For common outcomes,
 #'    a correction factor is needed. If you have a common outcome (>15%),
 #'    set this to `TRUE`. Default: `FALSE`.
 #'

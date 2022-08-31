@@ -3,7 +3,7 @@
 \docType{data}
 \name{exdata_rr}
 \alias{exdata_rr}
-\title{Example Data (Relative Risk)}
+\title{Example Data (Risk Ratio)}
 \format{
 A data frame with 2,000 rows and 4 columns:
 \itemize{

@@ -3,7 +3,7 @@
 \name{tip_rr}
 \alias{tip_rr}
 \alias{tip_rr_with_continuous}
-\title{Tip an observed relative risk with a normally distributed confounder.}
+\title{Tip an observed risk ratio with a normally distributed confounder.}
 \usage{
 tip_rr(
   effect_observed,
@@ -21,7 +21,7 @@ tip_rr_with_continuous(
 }
 \arguments{
 \item{effect_observed}{Numeric positive value. Observed exposure - outcome
-relative risk. This can be the point estimate, lower confidence bound,
+risk ratio. This can be the point estimate, lower confidence bound,
 or upper confidence bound.}
 
 \item{exposure_confounder_effect}{Numeric. Estimated difference in scaled means between the

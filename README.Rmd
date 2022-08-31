@@ -80,7 +80,7 @@ exdata_rr %>%
   dplyr::summarise(estimate = u_1 - u_0)
 ```
 
-Now we can refit the above model with this unmeasured confounder included. According to our tipping point result, as long as the relative risk of the unmeasured confounder and outcome in the model is greater than 2.25, the result that we observed will be "tipped" (the point estimate will cross the null).
+Now we can refit the above model with this unmeasured confounder included. According to our tipping point result, as long as the risk ratio of the unmeasured confounder and outcome in the model is greater than 2.25, the result that we observed will be "tipped" (the point estimate will cross the null).
 
 ```{r}
 mod_true <- glm(

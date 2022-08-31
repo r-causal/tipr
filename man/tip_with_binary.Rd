@@ -25,7 +25,7 @@ tip_b(
 }
 \arguments{
 \item{effect_observed}{Numeric positive value. Observed exposure - outcome effect
-(assumed to be the exponentiated coefficient, so a relative risk, odds
+(assumed to be the exponentiated coefficient, so a risk ratio, odds
 ratio, or hazard ratio). This can be the point estimate, lower confidence
 bound, or upper confidence bound.}
 
@@ -43,7 +43,7 @@ Default: \code{TRUE}}
 
 \item{correction_factor}{Character string. Options are "none", "hr", "or".
 For common outcomes (>15\%), the odds ratio or hazard ratio is not a good
-estimate for the relative risk. In these cases, we can apply a correction
+estimate for the risk ratio. In these cases, we can apply a correction
 factor. If you are supplying a hazard ratio for a common outcome, set
 this to "hr"; if you are supplying an odds ratio for a common outcome, set
 this to "or"; if you are supplying a risk ratio or your outcome is rare,

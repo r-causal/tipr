@@ -8,7 +8,7 @@ get_limiting_bound <- function(lb = NULL, ub = NULL) {
   if (lb < 0 || ub < 0) {
     stop_glue(
       "You input: ({lb}, {ub})\n",
-      "We are expecting an odds ratio, hazard ratio, or relative risk,\n",
+      "We are expecting an odds ratio, hazard ratio, or risk ratio,\n",
       "therefore the bounds should not be less than 0."
     )
   }
@@ -52,7 +52,7 @@ get_limiting_bound_adj <- function(b = NULL,
   if (lb < 0 || ub < 0) {
     stop_glue(
       "You input: ({lb}, {ub})\n",
-      "We are expecting an odds ratio, hazard ratio, or relative risk,\n",
+      "We are expecting an odds ratio, hazard ratio, or risk ratio,\n",
       "therefore the lower or upper bounds in `d` should not be less than 0."
     )
   }
@@ -68,7 +68,7 @@ check_gamma <- function(gamma = NULL) {
   if (!is.null(gamma) && gamma < 0) {
     stop_glue(
       "You input:\n * `outcome_effect`: {gamma}\n",
-      "We are expecting a relative risk, odds ratio, or hazard ratio,\n",
+      "We are expecting a risk ratio, odds ratio, or hazard ratio,\n",
       "therefore `outcome_effect` should not be less than 0."
     )
   }
@@ -78,7 +78,7 @@ check_effect <- function(x) {
   if (x < 0) {
     stop_glue(
       "You input:\n * An observed effect of {x}\n",
-      "We are expecting a relative risk, odds ratio, or hazard ratio,\n",
+      "We are expecting a risk ratio, odds ratio, or hazard ratio,\n",
       "therefore your effect should not be less than 0."
     )
   }
@@ -88,20 +88,20 @@ check_effect <- function(x) {
 
 check_prevalences <- function(p0 = NULL, p1 = NULL) {
   if (is.null(p0)) {
-    if (p1 < 0 | p1 > 1) {
+    if (any(p1 < 0 | p1 > 1)) {
       stop_glue(
         "You input:\n * `exposed_confounder_prev`: {p1}\n",
         "The prevalences entered must be between 0 and 1."
       )
     }
   } else if (is.null(p1)) {
-    if (p0 < 0 | p0 > 1) {
+    if (any(p0 < 0 | p0 > 1)) {
       stop_glue(
         "You input:\n * `unexposed_confounder_prev`: {p0}\n",
         "The prevalences entered must be between 0 and 1."
       )
     }
-  } else if (p1 < 0 | p0 < 0 | p1 > 1 | p0 > 1) {
+  } else if (any(p1 < 0 | p0 < 0 | p1 > 1 | p0 > 1)) {
     stop_glue(
       "You input:\n * `unexposed_confounder_prev`: {p0}\n * `exposed_confounder_prev`: {p1}\n",
       "The prevalences entered must be between 0 and 1."

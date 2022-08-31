@@ -1,7 +1,7 @@
 #' Calculate an E-value
 #'
 #' @param effect_observed Numeric positive value. Observed exposure - outcome effect
-#'    (assumed to be the exponentiated coefficient, so a relative risk, odds
+#'    (assumed to be the exponentiated coefficient, so a risk ratio, odds
 #'    ratio, or hazard ratio). This can be the point estimate, lower confidence
 #'    bound, or upper confidence bound.
 #'

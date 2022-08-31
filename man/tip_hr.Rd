@@ -36,8 +36,8 @@ between the unmeasured confounder and the outcome}
 Default: \code{TRUE}}
 
 \item{hr_correction}{Logical. Indicates whether to use a correction factor.
-The methods used for this function are based on relative risks. For rare
-outcomes, a hazard ratio approximates a relative risk. For common outcomes,
+The methods used for this function are based on risk ratios. For rare
+outcomes, a hazard ratio approximates a risk ratio. For common outcomes,
 a correction factor is needed. If you have a common outcome (>15\%),
 set this to \code{TRUE}. Default: \code{FALSE}.}
 }

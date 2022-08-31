@@ -1,4 +1,4 @@
-#' Example Data (Relative Risk)
+#' Example Data (Risk Ratio)
 #'
 #' A data set simulated with two Normally distributed confounders, one
 #' "measured" and one "unmeasured", an exposure, and outcome. The "true" causal

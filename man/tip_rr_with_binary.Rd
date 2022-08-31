@@ -2,7 +2,7 @@
 % Please edit documentation in R/tip_with_binary.R
 \name{tip_rr_with_binary}
 \alias{tip_rr_with_binary}
-\title{Tip an observed relative risk with a binary confounder.}
+\title{Tip an observed risk ratio with a binary confounder.}
 \usage{
 tip_rr_with_binary(
   effect_observed,
@@ -13,7 +13,7 @@ tip_rr_with_binary(
 )
 }
 \arguments{
-\item{effect_observed}{Numeric positive value. Observed exposure - outcome relative risk.
+\item{effect_observed}{Numeric positive value. Observed exposure - outcome risk ratio.
 This can be the point estimate, lower confidence bound, or upper
 confidence bound.}
 

@@ -101,10 +101,10 @@ adjust_coef_with_binary <-
     }
     return(o)
   }
-#' Adjust an observed relative risk for a normally distributed
+#' Adjust an observed risk ratio for a normally distributed
 #' confounder
 #'
-#' @param effect_observed Numeric positive value. Observed exposure - outcome relative risk.
+#' @param effect_observed Numeric positive value. Observed exposure - outcome risk ratio.
 #'    This can be the point estimate, lower confidence bound, or upper
 #'    confidence bound.
 #' @param exposure_confounder_effect Numeric. Estimated difference in scaled means between the
@@ -162,8 +162,8 @@ adjust_rr <-
 #' @param verbose Logical. Indicates whether to print informative message.
 #'    Default: `TRUE`
 #' @param hr_correction Logical. Indicates whether to use a correction factor.
-#'    The methods used for this function are based on relative risks. For rare
-#'    outcomes, a hazard ratio approximates a relative risk. For common outcomes,
+#'    The methods used for this function are based on risk ratios. For rare
+#'    outcomes, a hazard ratio approximates a risk ratio. For common outcomes,
 #'    a correction factor is needed. If you have a common outcome (>15%),
 #'    set this to `TRUE`. Default: `FALSE`.
 #'
@@ -227,8 +227,8 @@ adjust_hr <-
 #' @param verbose Logical. Indicates whether to print informative message.
 #'    Default: `TRUE`
 #' @param or_correction Logical. Indicates whether to use a correction factor.
-#'    The methods used for this function are based on relative risks. For rare
-#'    outcomes, an odds ratio approximates a relative risk. For common outcomes,
+#'    The methods used for this function are based on risk ratios. For rare
+#'    outcomes, an odds ratio approximates a risk ratio. For common outcomes,
 #'    a correction factor is needed. If you have a common outcome (>15%),
 #'    set this to `TRUE`. Default: `FALSE`.
 #'
@@ -278,9 +278,9 @@ adjust_or <-
     return(o)
   }
 
-#' Adjust an observed relative risk with a binary confounder
+#' Adjust an observed risk ratio with a binary confounder
 #'
-#' @param effect_observed Numeric positive value. Observed exposure - outcome relative risk.
+#' @param effect_observed Numeric positive value. Observed exposure - outcome risk ratio.
 #'    This can be the point estimate, lower confidence bound, or upper
 #'    confidence bound.
 #' @param exposed_confounder_prev Numeric between 0 and 1. Estimated prevalence of the
@@ -346,8 +346,8 @@ adjust_rr_with_binary <-
 #' @param verbose Logical. Indicates whether to print informative message.
 #'    Default: `TRUE`
 #' @param hr_correction Logical. Indicates whether to use a correction factor.
-#'    The methods used for this function are based on relative risks. For rare
-#'    outcomes, a hazard ratio approximates a relative risk. For common outcomes,
+#'    The methods used for this function are based on risk ratios. For rare
+#'    outcomes, a hazard ratio approximates a risk ratio. For common outcomes,
 #'    a correction factor is needed. If you have a common outcome (>15%),
 #'    set this to `TRUE`. Default: `FALSE`.
 #'
@@ -415,8 +415,8 @@ adjust_hr_with_binary <-
 #' @param verbose Logical. Indicates whether to print informative message.
 #'    Default: `TRUE`
 #' @param or_correction Logical. Indicates whether to use a correction factor.
-#'    The methods used for this function are based on relative risks. For rare
-#'    outcomes, an odds ratio approximates a relative risk. For common outcomes,
+#'    The methods used for this function are based on risk ratios. For rare
+#'    outcomes, an odds ratio approximates a risk ratio. For common outcomes,
 #'    a correction factor is needed. If you have a common outcome (>15%),
 #'    set this to `TRUE`. Default: `FALSE`.
 #'

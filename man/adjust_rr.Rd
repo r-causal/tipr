@@ -3,7 +3,7 @@
 \name{adjust_rr}
 \alias{adjust_rr}
 \alias{adjust_rr_with_continuous}
-\title{Adjust an observed relative risk for a normally distributed
+\title{Adjust an observed risk ratio for a normally distributed
 confounder}
 \usage{
 adjust_rr(
@@ -21,7 +21,7 @@ adjust_rr_with_continuous(
 )
 }
 \arguments{
-\item{effect_observed}{Numeric positive value. Observed exposure - outcome relative risk.
+\item{effect_observed}{Numeric positive value. Observed exposure - outcome risk ratio.
 This can be the point estimate, lower confidence bound, or upper
 confidence bound.}
 
@@ -38,7 +38,7 @@ Default: \code{TRUE}}
 Data frame.
 }
 \description{
-Adjust an observed relative risk for a normally distributed
+Adjust an observed risk ratio for a normally distributed
 confounder
 }
 \examples{
