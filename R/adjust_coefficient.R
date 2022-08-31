@@ -91,7 +91,7 @@ adjust_coef_with_binary <-
       message_glue(
         "The observed effect ({round(effect_observed, 2)}) ",
         "is updated to {round(effect_adj, 2)} ",
-        "by an confounder with the following specifications:",
+        "by a confounder with the following specifications:",
         "\n  * estimated prevalence of the unmeasured confounder ",
         "in the exposed population: {round(exposed_confounder_prev, 2)}\n  * estimated prevalence of ",
         "the unmeasured confounder in the unexposed population: {round(unexposed_confounder_prev, 2)}",
@@ -322,7 +322,7 @@ adjust_rr_with_binary <-
       message_glue(
         "The observed effect ({round(rr, 2)}) ",
         "is updated to {round(rr_adj, 2)} ",
-        "by an confounder with the following specifications:",
+        "by a confounder with the following specifications:",
         "\n  * estimated prevalence of the unmeasured confounder ",
         "in the exposed population: {round(exposed_confounder_prev, 2)}\n  * estimated prevalence of ",
         "the unmeasured confounder in the unexposed population: {round(unexposed_confounder_prev, 2)}",
@@ -382,7 +382,7 @@ adjust_hr_with_binary <-
       message_glue(
         "The observed effect ({output_type}: {round(o$rr_observed, 2)}) ",
         "is updated to {output_type}: {round(o$rr_adjusted, 2)} ",
-        "by an confounder with the following specifications:",
+        "by a confounder with the following specifications:",
         "\n  * estimated prevalence of the unmeasured confounder ",
         "in the exposed population: {round(exposed_confounder_prev, 2)}\n  * estimated prevalence of ",
         "the unmeasured confounder in the unexposed population: {round(unexposed_confounder_prev, 2)}",
@@ -452,7 +452,7 @@ adjust_or_with_binary <-
       message_glue(
         "The observed effect ({output_type}: {round(o$rr_observed, 2)}) ",
         "is updated to {output_type}: {round(o$rr_adjusted, 2)} ",
-        "by an confounder with the following specifications:",
+        "by a confounder with the following specifications:",
         "\n  * estimated prevalence of the unmeasured confounder ",
         "in the exposed population: {round(exposed_confounder_prev, 2)}\n  * estimated prevalence of ",
         "the unmeasured confounder in the unexposed population: {round(unexposed_confounder_prev, 2)}",
