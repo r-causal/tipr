@@ -1,0 +1,11 @@
+bibentry(
+  "Article",
+  title = "tipr: An R package for sensitivity analyses for unmeasured confounders",
+  author = "Lucy D'Agostino McGowan",
+  year = 2022,
+  journal = "Journal of Open Source Software",
+  volume = 7,
+  number = 77,
+  pages = 4495,
+  doi = "10.21105/joss.04495"
+)
