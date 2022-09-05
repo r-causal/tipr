@@ -35,7 +35,7 @@ The `tipr` R package [@rstats] allows the user to conduct sensitivity analyses f
 (2) Functions that calculate the magnitude of an unmeasured confounder needed to tip an observed effect to cross the null (`tip` functions)
 (3) Functions that calculate single number summaries of an observed effect's "sensitivity", such as the E-value [@VanderWeele:2017ki] or Robustness value  [@cinelli2020making].
 
-`tipr` is available on [CRAN](https://github.com/lucymcgowan/tipr) and [Github](https://github.com/lucymcgowan/tipr). Documentation can be found at 
+`tipr` is available on [CRAN](https://github.com/lucymcgowan/tipr) and [GitHub](https://github.com/lucymcgowan/tipr). Documentation can be found at 
 https://lucymcgowan.github.io/tipr/. It can be installed from CRAN using the 
 following code:
 
@@ -43,7 +43,7 @@ following code:
 install.packages("tipr")
 ```
 
-The development version can be installed from Github using the following code:
+The development version can be installed from GitHub using the following code:
 
 ```{r}
 devtools::install_github("LucyMcGowan/tipr")
