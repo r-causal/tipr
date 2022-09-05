@@ -20,7 +20,7 @@ Description: The strength of evidence provided by epidemiological and observatio
             Lash et al. (2009), Rosenbaum (1986), Cinelli & Hazlett (2020), 
             VanderWeele & Ding (2017), and Ding & VanderWeele (2016), 
             we can use these quantities to assess how an unmeasured confounder
-            may tip our result to insignificance.<doi:10.21105/joss.04495>
+            may tip our result to insignificance.
 License: MIT + file LICENSE
 Encoding: UTF-8
 RoxygenNote: 7.1.2
