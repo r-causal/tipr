@@ -6,6 +6,7 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/LucyMcGowan/tipr/workflows/R-CMD-check/badge.svg)](https://github.com/LucyMcGowan/tipr/actions)
+[![DOI](https://joss.theoj.org/papers/10.21105/joss.04495/status.svg)](https://doi.org/10.21105/joss.04495)
 <!-- badges: end -->
 
 **Authors:** [Lucy D’Agostino
@@ -72,7 +73,12 @@ mod %>%
     ## 3 measured_confounder   2.43      0.0754     11.7  7.51e- 32   2.09      2.81
 
 We see the above example, the exposure-outcome relationship is 1.5 (95%
-CI: 1.09, 2.08).
+CI: 1.1, 2.1). Note, in practice when estimating the effect of an
+exposure on a binary outcome using a GLM with the Poisson distribution
+and log link function, it is important to use a sandwich estimator to
+appropriately estimate the variability (this can be done in R using the
+`sandwich` package), which in this case gives a very similar result (95%
+CI: 1.1, 2.0).
 
 ## Continuous unmeasured confounder example
 
@@ -147,8 +153,8 @@ exdata_rr %>%
     ## 1    0.494
 
 Now we can refit the above model with this unmeasured confounder
-included. According to our tipping point result, as long as the relative
-risk of the unmeasured confounder and outcome in the model is greater
+included. According to our tipping point result, as long as the risk
+ratio of the unmeasured confounder and outcome in the model is greater
 than 2.25, the result that we observed will be “tipped” (the point
 estimate will cross the null).
 
