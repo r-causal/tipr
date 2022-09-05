@@ -124,7 +124,7 @@
 <span id="cb5-4"><a href="#cb5-4"></a><span class="co">## 1 (Intercept)           0.0366    0.151     -21.9  2.56e-106   0.0269    0.0486</span></span>
 <span id="cb5-5"><a href="#cb5-5"></a><span class="co">## 2 exposure              1.49      0.166       2.43 1.52e-  2   1.09      2.08  </span></span>
 <span id="cb5-6"><a href="#cb5-6"></a><span class="co">## 3 measured_confounder   2.43      0.0754     11.7  7.51e- 32   2.09      2.81</span></span></code></pre></div>
-<p>We see the above example, the exposure-outcome relationship is 1.5 (95% CI: 1.09, 2.08).</p>
+<p>We see the above example, the exposure-outcome relationship is 1.5 (95% CI: 1.1, 2.1). Note, in practice when estimating the effect of an exposure on a binary outcome using a GLM with the Poisson distribution and log link function, it is important to use a sandwich estimator to appropriately estimate the variability (this can be done in R using the <code>sandwich</code> package), which in this case gives a very similar result (95% CI: 1.1, 2.0).</p>
 </div>
 <div class="section level2">
 <h2 id="continuous-unmeasured-confounder-example">Continuous unmeasured confounder example<a class="anchor" aria-label="anchor" href="#continuous-unmeasured-confounder-example"></a>
@@ -172,7 +172,7 @@
 <span id="cb11-2"><a href="#cb11-2"></a><span class="co">##   estimate</span></span>
 <span id="cb11-3"><a href="#cb11-3"></a><span class="co">##      &lt;dbl&gt;</span></span>
 <span id="cb11-4"><a href="#cb11-4"></a><span class="co">## 1    0.494</span></span></code></pre></div>
-<p>Now we can refit the above model with this unmeasured confounder included. According to our tipping point result, as long as the relative risk of the unmeasured confounder and outcome in the model is greater than 2.25, the result that we observed will be “tipped” (the point estimate will cross the null).</p>
+<p>Now we can refit the above model with this unmeasured confounder included. According to our tipping point result, as long as the risk ratio of the unmeasured confounder and outcome in the model is greater than 2.25, the result that we observed will be “tipped” (the point estimate will cross the null).</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mod_true</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></span><span class="op">(</span></span>
 <span>  <span class="va">outcome</span> <span class="op">~</span> <span class="va">exposure</span> <span class="op">+</span> <span class="va">measured_confounder</span> <span class="op">+</span> <span class="va">.unmeasured_confounder</span>, </span>
@@ -307,6 +307,7 @@
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://github.com/LucyMcGowan/tipr/actions" class="external-link"><img src="https://github.com/LucyMcGowan/tipr/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://doi.org/10.21105/joss.04495" class="external-link"><img src="https://joss.theoj.org/papers/10.21105/joss.04495/status.svg" alt="DOI"></a></li>
 </ul>
 </div>
 
