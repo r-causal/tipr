@@ -45,7 +45,7 @@
 #'}
 #' @export
 tip <- function(effect_observed, exposure_confounder_effect = NULL, confounder_outcome_effect = NULL,
-                verbose = TRUE, correction_factor = "none") {
+                verbose = getOption("tipr.verbose", TRUE), correction_factor = "none") {
 
   exposure_confounder_effect <- exposure_confounder_effect %||% list(NULL)
   confounder_outcome_effect <- confounder_outcome_effect %||% list(NULL)
@@ -212,7 +212,7 @@ tip_one <- function(b, exposure_confounder_effect, confounder_outcome_effect, ve
 #' tip_rr(1.2, exposure_confounder_effect = -2, confounder_outcome_effect = .99)
 #'
 #' @export
-tip_rr <- function(effect_observed, exposure_confounder_effect = NULL, confounder_outcome_effect = NULL, verbose = TRUE) {
+tip_rr <- function(effect_observed, exposure_confounder_effect = NULL, confounder_outcome_effect = NULL, verbose = getOption("tipr.verbose", TRUE)) {
   tip(effect_observed, exposure_confounder_effect = exposure_confounder_effect, confounder_outcome_effect = confounder_outcome_effect, verbose = verbose)
 }
 
@@ -250,7 +250,7 @@ tip_rr <- function(effect_observed, exposure_confounder_effect = NULL, confounde
 #' tip_hr(1.2, exposure_confounder_effect = -2, confounder_outcome_effect = .99)
 #'
 #' @export
-tip_hr <- function(effect_observed, exposure_confounder_effect = NULL, confounder_outcome_effect = NULL, verbose = TRUE, hr_correction = FALSE) {
+tip_hr <- function(effect_observed, exposure_confounder_effect = NULL, confounder_outcome_effect = NULL, verbose = getOption("tipr.verbose", TRUE), hr_correction = FALSE) {
   correction_factor <- ifelse(hr_correction, "hr", "none")
   tip(effect_observed, exposure_confounder_effect = exposure_confounder_effect, confounder_outcome_effect = confounder_outcome_effect, verbose = verbose, correction_factor = correction_factor)
 }
@@ -297,7 +297,7 @@ tip_hr <- function(effect_observed, exposure_confounder_effect = NULL, confounde
 #'    tip_or(confounder_outcome_effect = 2.5, or_correction = TRUE)
 #'}
 #' @export
-tip_or <- function(effect_observed, exposure_confounder_effect = NULL, confounder_outcome_effect = NULL, verbose = TRUE, or_correction = FALSE) {
+tip_or <- function(effect_observed, exposure_confounder_effect = NULL, confounder_outcome_effect = NULL, verbose = getOption("tipr.verbose", TRUE), or_correction = FALSE) {
   correction_factor <- ifelse(or_correction, "or", "none")
   tip(effect_observed, exposure_confounder_effect = exposure_confounder_effect, confounder_outcome_effect = confounder_outcome_effect, verbose = verbose, correction_factor = correction_factor)
 }

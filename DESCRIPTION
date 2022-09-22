@@ -23,7 +23,7 @@ Description: The strength of evidence provided by epidemiological and observatio
             may tip our result to insignificance.
 License: MIT + file LICENSE
 Encoding: UTF-8
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.1
 Roxygen: list(markdown = TRUE)
 BugReports: https://github.com/LucyMcGowan/tipr/issues
 Suggests:

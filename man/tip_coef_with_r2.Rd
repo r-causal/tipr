@@ -12,7 +12,7 @@ tip_coef_with_r2(
   df,
   confounder_exposure_r2 = NULL,
   confounder_outcome_r2 = NULL,
-  verbose = TRUE,
+  verbose = getOption("tipr.verbose", TRUE),
   alpha = 0.05,
   tip_bound = FALSE,
   ...

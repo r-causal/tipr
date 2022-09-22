@@ -9,7 +9,7 @@ tip_rr_with_binary(
   exposed_confounder_prev = NULL,
   unexposed_confounder_prev = NULL,
   confounder_outcome_effect = NULL,
-  verbose = TRUE
+  verbose = getOption("tipr.verbose", TRUE)
 )
 }
 \arguments{
