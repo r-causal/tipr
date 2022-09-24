@@ -83,8 +83,7 @@ adjust_coef_with_binary <-
                                     exp(confounder_outcome_effect) * unexposed_confounder_prev + (1 - unexposed_confounder_prev)
                                   ))
     } else {
-      confounding_factor <- (confounder_outcome_effect * exposed_confounder_prev + (1 - exposed_confounder_prev)) /
-        (confounder_outcome_effect * unexposed_confounder_prev + (1 - unexposed_confounder_prev))
+      confounding_factor <- (confounder_outcome_effect * (exposed_confounder_prev - unexposed_confounder_prev))
     }
 
     effect_adj <- effect_observed - confounding_factor
