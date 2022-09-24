@@ -62,13 +62,6 @@ adjust_coef <-
 #' @param loglinear Logical. Calculate the adjusted coefficient from a loglinear
 #'   model instead of a linear model (the default).
 #' @param verbose Logical. Indicates whether to print informative message.
-#' @param verbose Logical. Indicates whether to print informative message.
-#' @param verbose Logical. Indicates whether to print informative message.
-#' @param verbose Logical. Indicates whether to print informative message.
-#' @param verbose Logical. Indicates whether to print informative message.
-#' @param verbose Logical. Indicates whether to print informative message.
-#' @param verbose Logical. Indicates whether to print informative message.
-#' @param verbose Logical. Indicates whether to print informative message.
 #'   Default: `TRUE`
 #'
 #' @return Data frame.
