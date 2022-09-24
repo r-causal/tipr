@@ -2,18 +2,19 @@
 % Please edit documentation in R/adjust_coefficient.R
 \name{adjust_coef_with_binary}
 \alias{adjust_coef_with_binary}
-\title{Adjust an observed coefficient from a loglinear model with a binary confounder}
+\title{Adjust an observed coefficient from a regression model with a binary confounder}
 \usage{
 adjust_coef_with_binary(
   effect_observed,
   exposed_confounder_prev,
   unexposed_confounder_prev,
   confounder_outcome_effect,
+  loglinear = FALSE,
   verbose = TRUE
 )
 }
 \arguments{
-\item{effect_observed}{Numeric. Observed exposure - outcome effect from a loglinear
+\item{effect_observed}{Numeric. Observed exposure - outcome effect from a regression
 model. This can be the beta coefficient, the lower confidence bound of
 the beta coefficient, or the upper confidence bound of the beta
 coefficient.}
@@ -27,6 +28,9 @@ unmeasured confounder in the unexposed population}
 \item{confounder_outcome_effect}{Numeric. Estimated relationship
 between the unmeasured confounder and the outcome.}
 
+\item{loglinear}{Logical. Indicates whether the regression model is a loglinear
+model. Default: \code{FALSE}}
+
 \item{verbose}{Logical. Indicates whether to print informative message.
 Default: \code{TRUE}}
 }
@@ -34,7 +38,7 @@ Default: \code{TRUE}}
 Data frame.
 }
 \description{
-Adjust an observed coefficient from a loglinear model with a binary confounder
+Adjust an observed coefficient from a regression model with a binary confounder
 }
 \examples{
 adjust_coef_with_binary(1.1, 0.5, 0.3, 1.3)

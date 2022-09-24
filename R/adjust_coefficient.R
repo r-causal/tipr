@@ -46,9 +46,9 @@ adjust_coef <-
     return(o)
   }
 
-#' Adjust an observed coefficient from a loglinear model with a binary confounder
+#' Adjust an observed coefficient from a regression model with a binary confounder
 #'
-#' @param effect_observed Numeric. Observed exposure - outcome effect from a loglinear
+#' @param effect_observed Numeric. Observed exposure - outcome effect from a regression
 #'    model. This can be the beta coefficient, the lower confidence bound of
 #'    the beta coefficient, or the upper confidence bound of the beta
 #'    coefficient.
@@ -58,6 +58,8 @@ adjust_coef <-
 #'    unmeasured confounder in the unexposed population
 #' @param confounder_outcome_effect Numeric. Estimated relationship
 #'    between the unmeasured confounder and the outcome.
+#' @param loglinear Logical. Indicates whether the regression model is a loglinear
+#'    model. Default: `FALSE`
 #' @param verbose Logical. Indicates whether to print informative message.
 #'    Default: `TRUE`
 #'
@@ -71,13 +73,18 @@ adjust_coef_with_binary <-
            exposed_confounder_prev,
            unexposed_confounder_prev,
            confounder_outcome_effect,
+           loglinear = FALSE,
            verbose = TRUE) {
     check_prevalences(unexposed_confounder_prev, exposed_confounder_prev)
 
-    confounding_factor <- log((exp(confounder_outcome_effect) * exposed_confounder_prev + (1 - exposed_confounder_prev)) /
-                                (
-                                  exp(confounder_outcome_effect) * unexposed_confounder_prev + (1 - unexposed_confounder_prev)
-                                ))
+    confounding_factor <- (confounder_outcome_effect * exposed_confounder_prev + (1 - exposed_confounder_prev)) /
+                                (confounder_outcome_effect * unexposed_confounder_prev + (1 - unexposed_confounder_prev))
+    if (loglinear) {
+      confounding_factor <- log((exp(confounder_outcome_effect) * exposed_confounder_prev + (1 - exposed_confounder_prev)) /
+                                  (
+                                    exp(confounder_outcome_effect) * unexposed_confounder_prev + (1 - unexposed_confounder_prev)
+                                  ))
+    }
 
     effect_adj <- effect_observed - confounding_factor
     o <- tibble::tibble(
