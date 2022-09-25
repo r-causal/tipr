@@ -82,22 +82,28 @@ adjust_coef_with_binary <-
                                   (
                                     exp(confounder_outcome_effect) * unexposed_confounder_prev + (1 - unexposed_confounder_prev)
                                   ))
+      effect_adj <- effect_observed - confounding_factor
+      o <- tibble::tibble(
+        effect_adjusted = effect_adj,
+        effect_observed = effect_observed,
+        exposed_confounder_prev = exposed_confounder_prev,
+        unexposed_confounder_prev = unexposed_confounder_prev,
+        confounder_outcome_effect = confounder_outcome_effect
+      )
     } else {
-      confounding_factor <- (confounder_outcome_effect * (exposed_confounder_prev - unexposed_confounder_prev))
+      o <- adjust_coef(
+        effect_observed = effect_observed,
+        exposure_confounder_effect = exposed_confounder_prev - unexposed_confounder_prev,
+        confounder_outcome_effect = confounder_outcome_effect,
+        verbose = FALSE
+      )
     }
 
-    effect_adj <- effect_observed - confounding_factor
-    o <- tibble::tibble(
-      effect_adjusted = effect_adj,
-      effect_observed = effect_observed,
-      exposed_confounder_prev = exposed_confounder_prev,
-      unexposed_confounder_prev = unexposed_confounder_prev,
-      confounder_outcome_effect = confounder_outcome_effect
-    )
+
     if (verbose) {
       message_glue(
         "The observed effect ({round(effect_observed, 2)}) ",
-        "is updated to {round(effect_adj, 2)} ",
+        "is updated to {round(o$effect_adj, 2)} ",
         "by a confounder with the following specifications:",
         "\n  * estimated prevalence of the unmeasured confounder ",
         "in the exposed population: {round(exposed_confounder_prev, 2)}\n  * estimated prevalence of ",
