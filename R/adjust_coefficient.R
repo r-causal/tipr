@@ -60,7 +60,9 @@ adjust_coef <-
 #' @param confounder_outcome_effect Numeric. Estimated relationship between the
 #'   unmeasured confounder and the outcome.
 #' @param loglinear Logical. Calculate the adjusted coefficient from a loglinear
-#'   model instead of a linear model (the default).
+#'   model instead of a linear model (the default). When `loglinear = FALSE`,
+#'   `adjust_coef_with_binary()` is equivalent to `adjust_coef()` where
+#'   `exposure_confounder_effect` is the difference in prevalences.
 #' @param verbose Logical. Indicates whether to print informative message.
 #'   Default: `TRUE`
 #'

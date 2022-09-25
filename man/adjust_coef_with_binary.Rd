@@ -30,7 +30,9 @@ prevalence of the unmeasured confounder in the unexposed population}
 unmeasured confounder and the outcome.}
 
 \item{loglinear}{Logical. Calculate the adjusted coefficient from a loglinear
-model instead of a linear model (the default).}
+model instead of a linear model (the default). When \code{loglinear = FALSE},
+\code{adjust_coef_with_binary()} is equivalent to \code{adjust_coef()} where
+\code{exposure_confounder_effect} is the difference in prevalences.}
 
 \item{verbose}{Logical. Indicates whether to print informative message.
 Default: \code{TRUE}}
