@@ -105,7 +105,7 @@ adjust_coef_with_binary <-
     if (verbose) {
       message_glue(
         "The observed effect ({round(effect_observed, 2)}) ",
-        "is updated to {round(o$effect_adj, 2)} ",
+        "is updated to {round(o$effect_adjusted, 2)} ",
         "by a confounder with the following specifications:",
         "\n  * estimated prevalence of the unmeasured confounder ",
         "in the exposed population: {round(exposed_confounder_prev, 2)}\n  * estimated prevalence of ",
