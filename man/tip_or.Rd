@@ -9,7 +9,7 @@ tip_or(
   effect_observed,
   exposure_confounder_effect = NULL,
   confounder_outcome_effect = NULL,
-  verbose = TRUE,
+  verbose = getOption("tipr.verbose", TRUE),
   or_correction = FALSE
 )
 
@@ -17,7 +17,7 @@ tip_or_with_continuous(
   effect_observed,
   exposure_confounder_effect = NULL,
   confounder_outcome_effect = NULL,
-  verbose = TRUE,
+  verbose = getOption("tipr.verbose", TRUE),
   or_correction = FALSE
 )
 }

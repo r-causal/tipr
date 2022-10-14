@@ -10,14 +10,14 @@ adjust_coef(
   effect_observed,
   exposure_confounder_effect,
   confounder_outcome_effect,
-  verbose = TRUE
+  verbose = getOption("tipr.verbose", TRUE)
 )
 
 adjust_coef_with_continuous(
   effect_observed,
   exposure_confounder_effect,
   confounder_outcome_effect,
-  verbose = TRUE
+  verbose = getOption("tipr.verbose", TRUE)
 )
 }
 \arguments{

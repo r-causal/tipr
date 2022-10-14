@@ -10,7 +10,7 @@ tip(
   effect_observed,
   exposure_confounder_effect = NULL,
   confounder_outcome_effect = NULL,
-  verbose = TRUE,
+  verbose = getOption("tipr.verbose", TRUE),
   correction_factor = "none"
 )
 
@@ -18,7 +18,7 @@ tip_with_continuous(
   effect_observed,
   exposure_confounder_effect = NULL,
   confounder_outcome_effect = NULL,
-  verbose = TRUE,
+  verbose = getOption("tipr.verbose", TRUE),
   correction_factor = "none"
 )
 
@@ -26,7 +26,7 @@ tip_c(
   effect_observed,
   exposure_confounder_effect = NULL,
   confounder_outcome_effect = NULL,
-  verbose = TRUE,
+  verbose = getOption("tipr.verbose", TRUE),
   correction_factor = "none"
 )
 }

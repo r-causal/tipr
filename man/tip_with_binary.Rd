@@ -10,7 +10,7 @@ tip_with_binary(
   exposed_confounder_prev = NULL,
   unexposed_confounder_prev = NULL,
   confounder_outcome_effect = NULL,
-  verbose = TRUE,
+  verbose = getOption("tipr.verbose", TRUE),
   correction_factor = "none"
 )
 
@@ -19,7 +19,7 @@ tip_b(
   exposed_confounder_prev = NULL,
   unexposed_confounder_prev = NULL,
   confounder_outcome_effect = NULL,
-  verbose = TRUE,
+  verbose = getOption("tipr.verbose", TRUE),
   correction_factor = "none"
 )
 }

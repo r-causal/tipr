@@ -37,7 +37,7 @@
 #'    tip_coef(confounder_outcome_effect = 2.5)
 #'}
 #' @export
-tip_coef <- function(effect_observed, exposure_confounder_effect = NULL, confounder_outcome_effect = NULL, verbose = TRUE) {
+tip_coef <- function(effect_observed, exposure_confounder_effect = NULL, confounder_outcome_effect = NULL, verbose = getOption("tipr.verbose", TRUE)) {
 
   o <- purrr::map(
     effect_observed,

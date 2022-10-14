@@ -24,7 +24,7 @@ adjust_coef <-
   function(effect_observed,
            exposure_confounder_effect,
            confounder_outcome_effect,
-           verbose = TRUE) {
+           verbose = getOption("tipr.verbose", TRUE)) {
     effect_adj <-
       effect_observed - confounder_outcome_effect * exposure_confounder_effect
     o <- tibble::tibble(
@@ -71,7 +71,7 @@ adjust_coef_with_binary <-
            exposed_confounder_prev,
            unexposed_confounder_prev,
            confounder_outcome_effect,
-           verbose = TRUE) {
+           verbose = getOption("tipr.verbose", TRUE)) {
     check_prevalences(unexposed_confounder_prev, exposed_confounder_prev)
 
     confounding_factor <- log((exp(confounder_outcome_effect) * exposed_confounder_prev + (1 - exposed_confounder_prev)) /
@@ -176,7 +176,7 @@ adjust_hr <-
   function(effect_observed,
            exposure_confounder_effect,
            confounder_outcome_effect,
-           verbose = TRUE,
+           verbose = getOption("tipr.verbose", TRUE),
            hr_correction = FALSE) {
     hr <- effect_observed
     if (hr_correction) {
@@ -241,7 +241,7 @@ adjust_or <-
   function(effect_observed,
            exposure_confounder_effect,
            confounder_outcome_effect,
-           verbose = TRUE,
+           verbose = getOption("tipr.verbose", TRUE),
            or_correction = FALSE) {
     or <- effect_observed
     if (or_correction) {
@@ -302,7 +302,7 @@ adjust_rr_with_binary <-
            exposed_confounder_prev,
            unexposed_confounder_prev,
            confounder_outcome_effect,
-           verbose = TRUE) {
+           verbose = getOption("tipr.verbose", TRUE)) {
     rr <- effect_observed
     check_prevalences(unexposed_confounder_prev, exposed_confounder_prev)
 
@@ -361,7 +361,7 @@ adjust_hr_with_binary <-
            exposed_confounder_prev,
            unexposed_confounder_prev,
            confounder_outcome_effect,
-           verbose = TRUE,
+           verbose = getOption("tipr.verbose", TRUE),
            hr_correction = FALSE) {
     hr <- effect_observed
     if (hr_correction) {
@@ -431,7 +431,7 @@ adjust_or_with_binary <-
            exposed_confounder_prev,
            unexposed_confounder_prev,
            confounder_outcome_effect,
-           verbose = TRUE,
+           verbose = getOption("tipr.verbose", TRUE),
            or_correction = FALSE) {
     or <- effect_observed
     if (or_correction) {
