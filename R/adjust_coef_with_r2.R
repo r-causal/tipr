@@ -37,7 +37,7 @@ adjust_coef_with_r2 <- function(effect_observed,
                                 df,
                                 confounder_exposure_r2,
                                 confounder_outcome_r2,
-                                verbose = TRUE,
+                                verbose = getOption("tipr.verbose", TRUE),
                                 alpha = 0.05,
                                 ...) {
   effect_adjusted <- sensemakr::adjusted_estimate(

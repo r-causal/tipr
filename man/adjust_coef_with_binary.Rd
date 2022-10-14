@@ -11,7 +11,7 @@ adjust_coef_with_binary(
   unexposed_confounder_prev,
   confounder_outcome_effect,
   loglinear = FALSE,
-  verbose = TRUE
+  verbose = getOption("tipr.verbose", TRUE)
 )
 }
 \arguments{

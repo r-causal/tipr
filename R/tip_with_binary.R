@@ -56,7 +56,7 @@ tip_with_binary <- function(effect_observed,
                             exposed_confounder_prev = NULL,
                             unexposed_confounder_prev = NULL,
                             confounder_outcome_effect = NULL,
-                            verbose = TRUE,
+                            verbose = getOption("tipr.verbose", TRUE),
                             correction_factor = "none") {
   exposed_confounder_prev <- exposed_confounder_prev %||% list(NULL)
   unexposed_confounder_prev <- unexposed_confounder_prev %||% list(NULL)
@@ -243,7 +243,7 @@ tip_with_binary_one <- function(b,
 #' @param verbose Logical. Indicates whether to print informative message.
 #'    Default: `TRUE`
 
-tip_rr_with_binary <- function(effect_observed, exposed_confounder_prev = NULL, unexposed_confounder_prev = NULL, confounder_outcome_effect = NULL, verbose = TRUE) {
+tip_rr_with_binary <- function(effect_observed, exposed_confounder_prev = NULL, unexposed_confounder_prev = NULL, confounder_outcome_effect = NULL, verbose = getOption("tipr.verbose", TRUE)) {
   tip_with_binary(effect_observed, exposed_confounder_prev = exposed_confounder_prev, unexposed_confounder_prev = unexposed_confounder_prev, confounder_outcome_effect = confounder_outcome_effect, verbose = verbose)
 }
 
@@ -280,7 +280,7 @@ tip_rr_with_binary <- function(effect_observed, exposed_confounder_prev = NULL, 
 #' @examples
 #' tip_hr_with_binary(0.9, 0.9, 0.1)
 
-tip_hr_with_binary <- function(effect_observed, exposed_confounder_prev = NULL, unexposed_confounder_prev = NULL, confounder_outcome_effect = NULL, verbose = TRUE, hr_correction = FALSE) {
+tip_hr_with_binary <- function(effect_observed, exposed_confounder_prev = NULL, unexposed_confounder_prev = NULL, confounder_outcome_effect = NULL, verbose = getOption("tipr.verbose", TRUE), hr_correction = FALSE) {
   correction_factor <- ifelse(hr_correction, "hr", "none")
   tip_with_binary(effect_observed, exposed_confounder_prev = exposed_confounder_prev, unexposed_confounder_prev = unexposed_confounder_prev, confounder_outcome_effect = confounder_outcome_effect, verbose = verbose, correction_factor = correction_factor)
 }
@@ -318,7 +318,7 @@ tip_hr_with_binary <- function(effect_observed, exposed_confounder_prev = NULL, 
 #' @examples
 #' tip_or_with_binary(0.9, 0.9, 0.1)
 
-tip_or_with_binary <- function(effect_observed, exposed_confounder_prev = NULL, unexposed_confounder_prev = NULL, confounder_outcome_effect = NULL, verbose = TRUE, or_correction = FALSE) {
+tip_or_with_binary <- function(effect_observed, exposed_confounder_prev = NULL, unexposed_confounder_prev = NULL, confounder_outcome_effect = NULL, verbose = getOption("tipr.verbose", TRUE), or_correction = FALSE) {
   correction_factor <- ifelse(or_correction, "or", "none")
   tip_with_binary(effect_observed, exposed_confounder_prev = exposed_confounder_prev, unexposed_confounder_prev = unexposed_confounder_prev, confounder_outcome_effect = confounder_outcome_effect, verbose = verbose, correction_factor = correction_factor)
 }

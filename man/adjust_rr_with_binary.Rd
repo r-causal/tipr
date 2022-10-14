@@ -9,7 +9,7 @@ adjust_rr_with_binary(
   exposed_confounder_prev,
   unexposed_confounder_prev,
   confounder_outcome_effect,
-  verbose = TRUE
+  verbose = getOption("tipr.verbose", TRUE)
 )
 }
 \arguments{

@@ -3,7 +3,7 @@ output: github_document
 ---
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# tipr: R tools for tipping point sensitivity analyses
+# tipr: R tools for tipping point sensitivity analyses <img src="man/figures/logo.png" align="right" height="138" />
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/LucyMcGowan/tipr/workflows/R-CMD-check/badge.svg)](https://github.com/LucyMcGowan/tipr/actions)

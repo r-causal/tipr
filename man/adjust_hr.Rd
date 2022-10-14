@@ -10,7 +10,7 @@ adjust_hr(
   effect_observed,
   exposure_confounder_effect,
   confounder_outcome_effect,
-  verbose = TRUE,
+  verbose = getOption("tipr.verbose", TRUE),
   hr_correction = FALSE
 )
 
@@ -18,7 +18,7 @@ adjust_hr_with_continuous(
   effect_observed,
   exposure_confounder_effect,
   confounder_outcome_effect,
-  verbose = TRUE,
+  verbose = getOption("tipr.verbose", TRUE),
   hr_correction = FALSE
 )
 }

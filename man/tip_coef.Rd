@@ -9,14 +9,14 @@ tip_coef(
   effect_observed,
   exposure_confounder_effect = NULL,
   confounder_outcome_effect = NULL,
-  verbose = TRUE
+  verbose = getOption("tipr.verbose", TRUE)
 )
 
 tip_coef_with_continuous(
   effect_observed,
   exposure_confounder_effect = NULL,
   confounder_outcome_effect = NULL,
-  verbose = TRUE
+  verbose = getOption("tipr.verbose", TRUE)
 )
 }
 \arguments{
