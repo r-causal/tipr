@@ -1,11 +1,13 @@
 Package: tipr
 Type: Package
 Title: Tipping Point Analyses
-Version: 1.0.1
+Version: 1.0.1.9000
 Authors@R: c(
-    person("Lucy", "D'Agostino McGowan", , "lucydagostino@gmail.com", 
-    role = c("aut", "cre"), comment = c(ORCID = "0000-0002-6983-2759"))
-           )
+    person("Lucy", "D'Agostino McGowan", , "lucydagostino@gmail.com", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-6983-2759")),
+    person("Malcolm", "Barrett", , "malcolmbarrett@gmail.com", role = "ctb",
+           comment = c(ORCID = "0000-0003-0299-5825"))
+  )
 Description: The strength of evidence provided by epidemiological and observational 
             studies is inherently limited by the potential for unmeasured confounding. 
             We focus on three key quantities: the observed bound of the confidence 

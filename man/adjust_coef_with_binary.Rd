@@ -2,30 +2,37 @@
 % Please edit documentation in R/adjust_coefficient.R
 \name{adjust_coef_with_binary}
 \alias{adjust_coef_with_binary}
-\title{Adjust an observed coefficient from a loglinear model with a binary confounder}
+\title{Adjust an observed coefficient from a regression model with a binary
+confounder}
 \usage{
 adjust_coef_with_binary(
   effect_observed,
   exposed_confounder_prev,
   unexposed_confounder_prev,
   confounder_outcome_effect,
+  loglinear = FALSE,
   verbose = getOption("tipr.verbose", TRUE)
 )
 }
 \arguments{
-\item{effect_observed}{Numeric. Observed exposure - outcome effect from a loglinear
-model. This can be the beta coefficient, the lower confidence bound of
-the beta coefficient, or the upper confidence bound of the beta
+\item{effect_observed}{Numeric. Observed exposure - outcome effect from a
+loglinear model. This can be the beta coefficient, the lower confidence
+bound of the beta coefficient, or the upper confidence bound of the beta
 coefficient.}
 
-\item{exposed_confounder_prev}{Numeric between 0 and 1. Estimated prevalence of the
-unmeasured confounder in the exposed population}
+\item{exposed_confounder_prev}{Numeric between 0 and 1. Estimated prevalence
+of the unmeasured confounder in the exposed population}
 
-\item{unexposed_confounder_prev}{Numeric between 0 and 1. Estimated prevalence of the
-unmeasured confounder in the unexposed population}
+\item{unexposed_confounder_prev}{Numeric between 0 and 1. Estimated
+prevalence of the unmeasured confounder in the unexposed population}
 
-\item{confounder_outcome_effect}{Numeric. Estimated relationship
-between the unmeasured confounder and the outcome.}
+\item{confounder_outcome_effect}{Numeric. Estimated relationship between the
+unmeasured confounder and the outcome.}
+
+\item{loglinear}{Logical. Calculate the adjusted coefficient from a loglinear
+model instead of a linear model (the default). When \code{loglinear = FALSE},
+\code{adjust_coef_with_binary()} is equivalent to \code{adjust_coef()} where
+\code{exposure_confounder_effect} is the difference in prevalences.}
 
 \item{verbose}{Logical. Indicates whether to print informative message.
 Default: \code{TRUE}}
@@ -34,7 +41,8 @@ Default: \code{TRUE}}
 Data frame.
 }
 \description{
-Adjust an observed coefficient from a loglinear model with a binary confounder
+Adjust an observed coefficient from a regression model with a binary
+confounder
 }
 \examples{
 adjust_coef_with_binary(1.1, 0.5, 0.3, 1.3)

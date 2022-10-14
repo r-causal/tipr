@@ -46,20 +46,25 @@ adjust_coef <-
     return(o)
   }
 
-#' Adjust an observed coefficient from a loglinear model with a binary confounder
+#' Adjust an observed coefficient from a regression model with a binary
+#' confounder
 #'
-#' @param effect_observed Numeric. Observed exposure - outcome effect from a loglinear
-#'    model. This can be the beta coefficient, the lower confidence bound of
-#'    the beta coefficient, or the upper confidence bound of the beta
-#'    coefficient.
-#' @param exposed_confounder_prev Numeric between 0 and 1. Estimated prevalence of the
-#'    unmeasured confounder in the exposed population
-#' @param unexposed_confounder_prev Numeric between 0 and 1. Estimated prevalence of the
-#'    unmeasured confounder in the unexposed population
-#' @param confounder_outcome_effect Numeric. Estimated relationship
-#'    between the unmeasured confounder and the outcome.
+#' @param effect_observed Numeric. Observed exposure - outcome effect from a
+#'   loglinear model. This can be the beta coefficient, the lower confidence
+#'   bound of the beta coefficient, or the upper confidence bound of the beta
+#'   coefficient.
+#' @param exposed_confounder_prev Numeric between 0 and 1. Estimated prevalence
+#'   of the unmeasured confounder in the exposed population
+#' @param unexposed_confounder_prev Numeric between 0 and 1. Estimated
+#'   prevalence of the unmeasured confounder in the unexposed population
+#' @param confounder_outcome_effect Numeric. Estimated relationship between the
+#'   unmeasured confounder and the outcome.
+#' @param loglinear Logical. Calculate the adjusted coefficient from a loglinear
+#'   model instead of a linear model (the default). When `loglinear = FALSE`,
+#'   `adjust_coef_with_binary()` is equivalent to `adjust_coef()` where
+#'   `exposure_confounder_effect` is the difference in prevalences.
 #' @param verbose Logical. Indicates whether to print informative message.
-#'    Default: `TRUE`
+#'   Default: `TRUE`
 #'
 #' @return Data frame.
 #' @export
@@ -71,26 +76,36 @@ adjust_coef_with_binary <-
            exposed_confounder_prev,
            unexposed_confounder_prev,
            confounder_outcome_effect,
+           loglinear = FALSE,
            verbose = getOption("tipr.verbose", TRUE)) {
     check_prevalences(unexposed_confounder_prev, exposed_confounder_prev)
+    if (loglinear) {
+      confounding_factor <- log((exp(confounder_outcome_effect) * exposed_confounder_prev + (1 - exposed_confounder_prev)) /
+                                  (
+                                    exp(confounder_outcome_effect) * unexposed_confounder_prev + (1 - unexposed_confounder_prev)
+                                  ))
+      effect_adj <- effect_observed - confounding_factor
+      o <- tibble::tibble(
+        effect_adjusted = effect_adj,
+        effect_observed = effect_observed,
+        exposed_confounder_prev = exposed_confounder_prev,
+        unexposed_confounder_prev = unexposed_confounder_prev,
+        confounder_outcome_effect = confounder_outcome_effect
+      )
+    } else {
+      o <- adjust_coef(
+        effect_observed = effect_observed,
+        exposure_confounder_effect = exposed_confounder_prev - unexposed_confounder_prev,
+        confounder_outcome_effect = confounder_outcome_effect,
+        verbose = FALSE
+      )
+    }
 
-    confounding_factor <- log((exp(confounder_outcome_effect) * exposed_confounder_prev + (1 - exposed_confounder_prev)) /
-                                (
-                                  exp(confounder_outcome_effect) * unexposed_confounder_prev + (1 - unexposed_confounder_prev)
-                                ))
 
-    effect_adj <- effect_observed - confounding_factor
-    o <- tibble::tibble(
-      effect_adjusted = effect_adj,
-      effect_observed = effect_observed,
-      exposed_confounder_prev = exposed_confounder_prev,
-      unexposed_confounder_prev = unexposed_confounder_prev,
-      confounder_outcome_effect = confounder_outcome_effect
-    )
     if (verbose) {
       message_glue(
         "The observed effect ({round(effect_observed, 2)}) ",
-        "is updated to {round(effect_adj, 2)} ",
+        "is updated to {round(o$effect_adjusted, 2)} ",
         "by a confounder with the following specifications:",
         "\n  * estimated prevalence of the unmeasured confounder ",
         "in the exposed population: {round(exposed_confounder_prev, 2)}\n  * estimated prevalence of ",
