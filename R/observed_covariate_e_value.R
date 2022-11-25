@@ -14,8 +14,10 @@
 observed_covariate_e_value <- function(lb, ub, lb_adj, ub_adj, transform = NULL) {
   if (!is.null(transform)) {
     if (!transform %in% c("OR", "HR")) {
-      stop_glue("You input\n * `transform`: {transform}\n ",
-                "The only valid `transform` inputs are\n * 'HR'\n * 'OR'")
+      stop_cli(c(
+        "x" = "You input `transform`: {transform}\n ",
+        "i" = "The only valid `transform` inputs are 'HR' and 'OR'."
+      ))
     }
     if (transform == "OR") {
       lb <- sqrt(lb)

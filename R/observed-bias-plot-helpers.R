@@ -91,11 +91,11 @@ check_drop_list <- function(l) {
   if (!is.null(l)) {
     n <- names(l)
     if (length(n) != length(l)) {
-      stop_glue("`drop_list` must be a named list.")
+      stop_cli("`drop_list` must be a named list.")
     }
     c <- purrr::map_lgl(l, is.character)
     if (!all(c)) {
-      stop_glue("`drop_list` must be a named list of character vectors.")
+      stop_cli("`drop_list` must be a named list of character vectors.")
     }
   }
 }
