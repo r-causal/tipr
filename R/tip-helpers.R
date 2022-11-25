@@ -185,7 +185,7 @@ tip_exposure_r2 <- function(effect, se, df, outcome_r2) {
     stop_cli(c(
       "x" = "Given the input `effect`: {effect}, \\
       `outcome_r2`: {outcome_r2[exposure_r2 > 1]}, \\
-      there does not exist an unmeasured confounder that could tip this.",
+      there does not exist an unmeasured confounder that could tip this."
     ))
   }
   as.numeric(exposure_r2)
@@ -289,7 +289,7 @@ tip_outcome_r2 <- function(effect, se, df, exposure_r2) {
     stop_cli(c(
       "x" = "Given the input `effect`: {effect}, \\
       `exposure_r2`: {exposure_r2[outcome_r2 > 1]}, \\
-      there does not exist an unmeasured confounder that could tip this.",
+      there does not exist an unmeasured confounder that could tip this."
     ))
   }
   as.numeric(outcome_r2)
