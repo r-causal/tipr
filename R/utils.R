@@ -54,7 +54,7 @@ check_arguments <- function(what, ...) {
   if (not_enough(args)) {
     stop_cli(c(
       "x" = "`{what}` requires at least {count_required_args(args)} of the \\
-      following arguments specifed:",
+      following arguments specified:",
       bullets(arg_names)
     ))
   }
