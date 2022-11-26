@@ -107,10 +107,13 @@ set this to <code>TRUE</code>. Default: <code>FALSE</code>.</p></dd>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">adjust_or_with_binary</span><span class="op">(</span><span class="fl">3</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">3</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> The observed effect (OR: 3) is updated to OR: 1 by a confounder with the following specifications:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   * estimated prevalence of the unmeasured confounder in the exposed population: 1</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   * estimated prevalence of the unmeasured confounder in the unexposed population: 0</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   * estimated relationship between the unmeasured confounder and the outcome: 3</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> The observed effect (OR: 3) is updated to OR: 1 by a confounder with the</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   following specifications:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> estimated prevalence of the unmeasured confounder in the exposed population:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> estimated prevalence of the unmeasured confounder in the unexposed</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   population: 0</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> estimated relationship between the unmeasured confounder and the outcome: 3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   or_adjusted or_observed exposed_confounder_prev unexposed_confounder…¹ confo…²</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>                   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
@@ -118,12 +121,16 @@ set this to <code>TRUE</code>. Default: <code>FALSE</code>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with abbreviated variable names ¹​unexposed_confounder_prev,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ²​confounder_outcome_effect</span></span>
 <span class="r-in"><span><span class="fu">adjust_or_with_binary</span><span class="op">(</span><span class="fl">3</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">3</span>, or_correction <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> The observed effect (RR: 1.73) is updated to RR: 1 by a confounder with the following specifications:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   * estimated prevalence of the unmeasured confounder in the exposed population: 1</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   * estimated prevalence of the unmeasured confounder in the unexposed population: 0</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   * estimated relationship between the unmeasured confounder and the outcome: 1.73</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> You opted to use the odds ratio correction to convert your odds ratios to approximate risk ratios.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> This is a good idea if the outcome is common (&gt;15%).</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> The observed effect (RR: 1.73) is updated to RR: 1 by a confounder with the</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   following specifications:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> estimated prevalence of the unmeasured confounder in the exposed population:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> estimated prevalence of the unmeasured confounder in the unexposed</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   population: 0</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> estimated relationship between the unmeasured confounder and the outcome:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   1.73</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> You opted to use the odds ratio correction to convert your odds ratios to</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   approximate risk ratios. This is a good idea if the outcome is common (&gt;15%)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   rr_adjusted rr_observed exposed_confounder_prev unexposed_confounder…¹ confo…²</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>                   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>

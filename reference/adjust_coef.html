@@ -109,9 +109,10 @@ Default: <code>TRUE</code></p></dd>
 <span class="r-in"><span><span class="co">## with a difference in scaled means between exposure groups of 0.2</span></span></span>
 <span class="r-in"><span><span class="co">## and coefficient of 0.3</span></span></span>
 <span class="r-in"><span><span class="fu">adjust_coef</span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">0.2</span>, <span class="fl">0.3</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> The observed effect (0.5) is updated to 0.44 by a confounder with the following specifications:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> * estimated difference in scaled means: 0.2</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> * estimated relationship between the unmeasured confounder and the outcome: 0.3</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> The observed effect (0.5) is updated to 0.44 by a confounder with the</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   following specifications:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> estimated difference in scaled means: 0.2</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> estimated relationship between the unmeasured confounder and the outcome: 0.3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   effect_adjusted effect_observed exposure_confounder_effect confounder_outcom…¹</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>                      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>

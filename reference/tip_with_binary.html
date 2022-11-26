@@ -137,12 +137,13 @@ set this to "none" (default).</p></dd>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## to estimate the relationship between an unmeasured confounder and outcome</span></span></span>
 <span class="r-in"><span><span class="co">## needed to tip analysis</span></span></span>
 <span class="r-in"><span><span class="fu">tip_with_binary</span><span class="op">(</span><span class="fl">1.2</span>, exposed_confounder_prev <span class="op">=</span> <span class="fl">0.5</span>, unexposed_confounder_prev <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> The observed effect (1.2) WOULD be tipped by 1 unmeasured confounder</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> with the following specifications:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   * estimated prevalence of the unmeasured confounder in the exposed population: 0.5</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   * estimated prevalence of the unmeasured confounder in the unexposed population: 0</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   * estimated relationship between the unmeasured confounder and the outcome: 1.4</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The observed effect (1.2) WOULD be tipped by 1 unmeasured confounder with the</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> following specifications:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> estimated prevalence of the unmeasured confounder in the exposed population:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   0.5</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> estimated prevalence of the unmeasured confounder in the unexposed</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   population: 0</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> estimated relationship between the unmeasured confounder and the outcome: 1.4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 6</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   effect_adjusted effect_observed exposed_confounder_p…¹ unexp…² confo…³ n_unm…⁴</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
@@ -157,12 +158,13 @@ set this to "none" (default).</p></dd>
 <span class="r-in"><span>  exposed_confounder_prev <span class="op">=</span> <span class="fl">0.5</span>,</span></span>
 <span class="r-in"><span>  unexposed_confounder_prev <span class="op">=</span> <span class="fl">0</span>,</span></span>
 <span class="r-in"><span>  confounder_outcome_effect <span class="op">=</span> <span class="fl">1.1</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> The observed effect (1.2) WOULD be tipped by 4 unmeasured confounders</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> with the following specifications:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   * estimated prevalence of the unmeasured confounder in the exposed population: 0.5</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   * estimated prevalence of the unmeasured confounder in the unexposed population: 0</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   * estimated relationship between the unmeasured confounder and the outcome: 1.1</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The observed effect (1.2) WOULD be tipped by 4 unmeasured confounders with the</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> following specifications:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> estimated prevalence of the unmeasured confounder in the exposed population:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   0.5</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> estimated prevalence of the unmeasured confounder in the unexposed</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   population: 0</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> estimated relationship between the unmeasured confounder and the outcome: 1.1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 6</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   effect_adjusted effect_observed exposed_confounder_p…¹ unexp…² confo…³ n_unm…⁴</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
@@ -180,12 +182,14 @@ set this to "none" (default).</p></dd>
 <span class="r-in"><span>   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">conf.low</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span>   <span class="fu">tip_with_binary</span><span class="op">(</span>exposed_confounder_prev <span class="op">=</span> <span class="fl">1</span>, confounder_outcome_effect <span class="op">=</span> <span class="fl">1.15</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> The observed effect (1.13) WOULD be tipped by 1 unmeasured confounder</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> with the following specifications:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   * estimated prevalence of the unmeasured confounder in the exposed population: 1</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   * estimated prevalence of the unmeasured confounder in the unexposed population: 0.12</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   * estimated relationship between the unmeasured confounder and the outcome: 1.15</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The observed effect (1.13) WOULD be tipped by 1 unmeasured confounder with the</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> following specifications:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> estimated prevalence of the unmeasured confounder in the exposed population:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> estimated prevalence of the unmeasured confounder in the unexposed</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   population: 0.12</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> estimated relationship between the unmeasured confounder and the outcome:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   1.15</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 6</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   effect_adjusted effect_observed exposed_confounder_p…¹ unexp…² confo…³ n_unm…⁴</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>

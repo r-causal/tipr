@@ -5,21 +5,21 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="The strength of evidence provided by epidemiological and observational 
-            studies is inherently limited by the potential for unmeasured confounding. 
-            We focus on three key quantities: the observed bound of the confidence 
-            interval closest to the null, the relationship between an unmeasured 
-            confounder and the outcome, for example a plausible residual effect 
-            size for an unmeasured continuous or binary confounder, and the 
-            relationship between an unmeasured confounder and the exposure, 
-            for example a realistic mean difference or prevalence difference 
-            for this hypothetical confounder between exposure groups. Building 
-            on the methods put forth by Cornfield et al. (1959), Bross (1966), 
-            Schlesselman (1978), Rosenbaum &amp; Rubin (1983), Lin et al. (1998), 
-            Lash et al. (2009), Rosenbaum (1986), Cinelli &amp; Hazlett (2020), 
-            VanderWeele &amp; Ding (2017), and Ding &amp; VanderWeele (2016), 
-            we can use these quantities to assess how an unmeasured confounder
-            may tip our result to insignificance.">
+<meta name="description" content="The strength of evidence provided by epidemiological and
+    observational studies is inherently limited by the potential for
+    unmeasured confounding.  We focus on three key quantities: the
+    observed bound of the confidence interval closest to the null, the
+    relationship between an unmeasured confounder and the outcome, for
+    example a plausible residual effect size for an unmeasured continuous
+    or binary confounder, and the relationship between an unmeasured
+    confounder and the exposure, for example a realistic mean difference
+    or prevalence difference for this hypothetical confounder between
+    exposure groups. Building on the methods put forth by Cornfield et al.
+    (1959), Bross (1966), Schlesselman (1978), Rosenbaum &amp; Rubin (1983),
+    Lin et al. (1998), Lash et al. (2009), Rosenbaum (1986), Cinelli &amp;
+    Hazlett (2020), VanderWeele &amp; Ding (2017), and Ding &amp; VanderWeele
+    (2016), we can use these quantities to assess how an unmeasured
+    confounder may tip our result to insignificance.">
 <title>Tipping Point Analyses • tipr</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
@@ -32,21 +32,21 @@
 <script src="deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Tipping Point Analyses">
-<meta property="og:description" content="The strength of evidence provided by epidemiological and observational 
-            studies is inherently limited by the potential for unmeasured confounding. 
-            We focus on three key quantities: the observed bound of the confidence 
-            interval closest to the null, the relationship between an unmeasured 
-            confounder and the outcome, for example a plausible residual effect 
-            size for an unmeasured continuous or binary confounder, and the 
-            relationship between an unmeasured confounder and the exposure, 
-            for example a realistic mean difference or prevalence difference 
-            for this hypothetical confounder between exposure groups. Building 
-            on the methods put forth by Cornfield et al. (1959), Bross (1966), 
-            Schlesselman (1978), Rosenbaum &amp; Rubin (1983), Lin et al. (1998), 
-            Lash et al. (2009), Rosenbaum (1986), Cinelli &amp; Hazlett (2020), 
-            VanderWeele &amp; Ding (2017), and Ding &amp; VanderWeele (2016), 
-            we can use these quantities to assess how an unmeasured confounder
-            may tip our result to insignificance.">
+<meta property="og:description" content="The strength of evidence provided by epidemiological and
+    observational studies is inherently limited by the potential for
+    unmeasured confounding.  We focus on three key quantities: the
+    observed bound of the confidence interval closest to the null, the
+    relationship between an unmeasured confounder and the outcome, for
+    example a plausible residual effect size for an unmeasured continuous
+    or binary confounder, and the relationship between an unmeasured
+    confounder and the exposure, for example a realistic mean difference
+    or prevalence difference for this hypothetical confounder between
+    exposure groups. Building on the methods put forth by Cornfield et al.
+    (1959), Bross (1966), Schlesselman (1978), Rosenbaum &amp; Rubin (1983),
+    Lin et al. (1998), Lash et al. (2009), Rosenbaum (1986), Cinelli &amp;
+    Hazlett (2020), VanderWeele &amp; Ding (2017), and Ding &amp; VanderWeele
+    (2016), we can use these quantities to assess how an unmeasured
+    confounder may tip our result to insignificance.">
 <meta property="og:image" content="/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -101,6 +101,7 @@
 </h1>
 </div>
 <!-- badges: start -->
+
 <p><strong>Authors:</strong> <a href="https://www.lucymcgowan.com/" class="external-link">Lucy D’Agostino McGowan</a><br><strong>License:</strong> <a href="https://opensource.org/licenses/MIT" class="external-link">MIT</a></p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -127,12 +128,12 @@
 <span></span>
 <span><span class="va">mod</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span>exponentiate <span class="op">=</span> <span class="cn">TRUE</span>, conf.int <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co">## # A tibble: 3 × 7</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="co">##   term                estimate std.error statistic   p.value conf.low conf.high</span></span>
-<span id="cb5-3"><a href="#cb5-3"></a><span class="co">##   &lt;chr&gt;                  &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;</span></span>
-<span id="cb5-4"><a href="#cb5-4"></a><span class="co">## 1 (Intercept)           0.0366    0.151     -21.9  2.56e-106   0.0269    0.0486</span></span>
-<span id="cb5-5"><a href="#cb5-5"></a><span class="co">## 2 exposure              1.49      0.166       2.43 1.52e-  2   1.09      2.08  </span></span>
-<span id="cb5-6"><a href="#cb5-6"></a><span class="co">## 3 measured_confounder   2.43      0.0754     11.7  7.51e- 32   2.09      2.81</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 3 × 7</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="do">##   term                estimate std.error statistic   p.value conf.low conf.high</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;                  &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 (Intercept)           0.0366    0.151     -21.9  2.56e-106   0.0269    0.0486</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 exposure              1.49      0.166       2.43 1.52e-  2   1.09      2.08  </span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 3 measured_confounder   2.43      0.0754     11.7  7.51e- 32   2.09      2.81</span></span></code></pre></div>
 <p>We see the above example, the exposure-outcome relationship is 1.5 (95% CI: 1.1, 2.1). Note, in practice when estimating the effect of an exposure on a binary outcome using a GLM with the Poisson distribution and log link function, it is important to use a sandwich estimator to appropriately estimate the variability (this can be done in R using the <code>sandwich</code> package), which in this case gives a very similar result (95% CI: 1.1, 2.0).</p>
 </div>
 <div class="section level2">
@@ -142,33 +143,35 @@
 <p>Let’s assume the unmeasured confounder is normally distributed with a mean of 0.5 in the exposed group and 0 in the unexposed (and unit variance in both), resulting in a mean difference of 0.5 (<code>exposure_confounder_effect = 0.5</code>), let’s solve for the relationship between the unmeasured confounder and outcome needed to tip the analysis (in this case, we are solving for <code>confounder_outcome_effect</code>).</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/tip.html">tip</a></span><span class="op">(</span>effect_observed <span class="op">=</span> <span class="fl">1.5</span>, exposure_confounder_effect <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb7"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co">## The observed effect (1.5) WOULD be tipped by 1 unmeasured confounder</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a><span class="co">## with the following specifications:</span></span>
-<span id="cb7-3"><a href="#cb7-3"></a><span class="co">##   * estimated difference in scaled means between the unmeasured confounder</span></span>
-<span id="cb7-4"><a href="#cb7-4"></a><span class="co">##     in the exposed population and unexposed population: 0.5</span></span>
-<span id="cb7-5"><a href="#cb7-5"></a><span class="co">##   * estimated relationship between the unmeasured confounder and the outcome: 2.25</span></span>
-<span id="cb7-6"><a href="#cb7-6"></a></span>
-<span id="cb7-7"><a href="#cb7-7"></a><span class="co">## # A tibble: 1 × 5</span></span>
-<span id="cb7-8"><a href="#cb7-8"></a><span class="co">##   effect_adjusted effect_observed exposure_confounder_effect confounde…¹ n_unm…²</span></span>
-<span id="cb7-9"><a href="#cb7-9"></a><span class="co">##             &lt;dbl&gt;           &lt;dbl&gt;                      &lt;dbl&gt;       &lt;dbl&gt;   &lt;dbl&gt;</span></span>
-<span id="cb7-10"><a href="#cb7-10"></a><span class="co">## 1               1             1.5                        0.5        2.25       1</span></span>
-<span id="cb7-11"><a href="#cb7-11"></a><span class="co">## # … with abbreviated variable names ¹​confounder_outcome_effect,</span></span>
-<span id="cb7-12"><a href="#cb7-12"></a><span class="co">## #   ²​n_unmeasured_confounders</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="do">## ℹ The observed effect (1.5) WOULD be tipped by 1 unmeasured confounder with the</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="do">##   following specifications:</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="do">## • estimated difference in scaled means between the unmeasured confounder in the</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="do">##   exposed population and unexposed population: 0.5</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="do">## • estimated relationship between the unmeasured confounder and the outcome:</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="do">##   2.25</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 1 × 5</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="do">##   effect_adjusted effect_observed exposure_confounder_effect confounde…¹ n_unm…²</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="do">##             &lt;dbl&gt;           &lt;dbl&gt;                      &lt;dbl&gt;       &lt;dbl&gt;   &lt;dbl&gt;</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 1               1             1.5                        0.5        2.25       1</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with abbreviated variable names ¹​confounder_outcome_effect,</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="do">## #   ²​n_unmeasured_confounders</span></span></code></pre></div>
 <p>A hypothetical unobserved continuous confounder a scaled mean difference between exposure groups of <code>0.5</code> would need a relationship of at least 2.25 with the outcome to tip this analysis at the point estimate.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/tip.html">tip</a></span><span class="op">(</span>effect_observed <span class="op">=</span> <span class="fl">1.09</span>, exposure_confounder_effect <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb9"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co">## The observed effect (1.09) WOULD be tipped by 1 unmeasured confounder</span></span>
-<span id="cb9-2"><a href="#cb9-2"></a><span class="co">## with the following specifications:</span></span>
-<span id="cb9-3"><a href="#cb9-3"></a><span class="co">##   * estimated difference in scaled means between the unmeasured confounder</span></span>
-<span id="cb9-4"><a href="#cb9-4"></a><span class="co">##     in the exposed population and unexposed population: 0.5</span></span>
-<span id="cb9-5"><a href="#cb9-5"></a><span class="co">##   * estimated relationship between the unmeasured confounder and the outcome: 1.19</span></span>
-<span id="cb9-6"><a href="#cb9-6"></a></span>
-<span id="cb9-7"><a href="#cb9-7"></a><span class="co">## # A tibble: 1 × 5</span></span>
-<span id="cb9-8"><a href="#cb9-8"></a><span class="co">##   effect_adjusted effect_observed exposure_confounder_effect confounde…¹ n_unm…²</span></span>
-<span id="cb9-9"><a href="#cb9-9"></a><span class="co">##             &lt;dbl&gt;           &lt;dbl&gt;                      &lt;dbl&gt;       &lt;dbl&gt;   &lt;dbl&gt;</span></span>
-<span id="cb9-10"><a href="#cb9-10"></a><span class="co">## 1               1            1.09                        0.5        1.19       1</span></span>
-<span id="cb9-11"><a href="#cb9-11"></a><span class="co">## # … with abbreviated variable names ¹​confounder_outcome_effect,</span></span>
-<span id="cb9-12"><a href="#cb9-12"></a><span class="co">## #   ²​n_unmeasured_confounders</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="do">## ℹ The observed effect (1.09) WOULD be tipped by 1 unmeasured confounder with</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="do">##   the following specifications:</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="do">## • estimated difference in scaled means between the unmeasured confounder in the</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="do">##   exposed population and unexposed population: 0.5</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="do">## • estimated relationship between the unmeasured confounder and the outcome:</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="do">##   1.19</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 1 × 5</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="do">##   effect_adjusted effect_observed exposure_confounder_effect confounde…¹ n_unm…²</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="do">##             &lt;dbl&gt;           &lt;dbl&gt;                      &lt;dbl&gt;       &lt;dbl&gt;   &lt;dbl&gt;</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 1               1            1.09                        0.5        1.19       1</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with abbreviated variable names ¹​confounder_outcome_effect,</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="do">## #   ²​n_unmeasured_confounders</span></span></code></pre></div>
 <p>A hypothetical unobserved continuous confounder a scaled mean difference between exposure groups of <code>0.5</code> would need a relationship of at least 1.19 with the outcome to tip this analysis at the 5% level, rendering it inconclusive.</p>
 <p>Because this is simulated data, we can see what the <em>true</em> unmeasured confounder looked like. First we will calculate the difference in scaled means.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
@@ -179,10 +182,10 @@
 <span>              values_from <span class="op">=</span> <span class="va">m</span>,</span>
 <span>              names_prefix <span class="op">=</span> <span class="st">"u_"</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>estimate <span class="op">=</span> <span class="va">u_1</span> <span class="op">-</span> <span class="va">u_0</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb11"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co">## # A tibble: 1 × 1</span></span>
-<span id="cb11-2"><a href="#cb11-2"></a><span class="co">##   estimate</span></span>
-<span id="cb11-3"><a href="#cb11-3"></a><span class="co">##      &lt;dbl&gt;</span></span>
-<span id="cb11-4"><a href="#cb11-4"></a><span class="co">## 1    0.494</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 1 × 1</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="do">##   estimate</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="do">##      &lt;dbl&gt;</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 1    0.494</span></span></code></pre></div>
 <p>Now we can refit the above model with this unmeasured confounder included. According to our tipping point result, as long as the risk ratio of the unmeasured confounder and outcome in the model is greater than 2.25, the result that we observed will be “tipped” (the point estimate will cross the null).</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mod_true</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></span><span class="op">(</span></span>
@@ -192,14 +195,14 @@
 <span></span>
 <span><span class="va">mod_true</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span>exponentiate <span class="op">=</span> <span class="cn">TRUE</span>, conf.int <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb13"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="co">## # A tibble: 4 × 7</span></span>
-<span id="cb13-2"><a href="#cb13-2"></a><span class="co">##   term                   estimate std.error statistic   p.value conf.low conf.…¹</span></span>
-<span id="cb13-3"><a href="#cb13-3"></a><span class="co">##   &lt;chr&gt;                     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;</span></span>
-<span id="cb13-4"><a href="#cb13-4"></a><span class="co">## 1 (Intercept)              0.0245    0.163    -22.7   1.49e-114   0.0176  0.0334</span></span>
-<span id="cb13-5"><a href="#cb13-5"></a><span class="co">## 2 exposure                 0.921     0.172     -0.477 6.34e-  1   0.660   1.30  </span></span>
-<span id="cb13-6"><a href="#cb13-6"></a><span class="co">## 3 measured_confounder      2.44      0.0746    11.9   6.95e- 33   2.11    2.82  </span></span>
-<span id="cb13-7"><a href="#cb13-7"></a><span class="co">## 4 .unmeasured_confounder   2.42      0.0742    11.9   1.35e- 32   2.09    2.80  </span></span>
-<span id="cb13-8"><a href="#cb13-8"></a><span class="co">## # … with abbreviated variable name ¹​conf.high</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 4 × 7</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="do">##   term                   estimate std.error statistic   p.value conf.low conf.…¹</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;                     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 (Intercept)              0.0245    0.163    -22.7   1.49e-114   0.0176  0.0334</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 exposure                 0.921     0.172     -0.477 6.34e-  1   0.660   1.30  </span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 3 measured_confounder      2.44      0.0746    11.9   6.95e- 33   2.11    2.82  </span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 4 .unmeasured_confounder   2.42      0.0742    11.9   1.35e- 32   2.09    2.80  </span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with abbreviated variable name ¹​conf.high</span></span></code></pre></div>
 <p>Notice here the <code>.unmeasured_confounder</code> effect is 2.42 (which is greater than the 2.25 we calculated that would be needed to render our result null) and, as expected, the point estimate for the <code>exposure</code> has crossed the null (and now is less than 1).</p>
 </div>
 <div class="section level2">
@@ -211,19 +214,22 @@
 <code class="sourceCode R"><span><span class="fu"><a href="reference/tip_with_binary.html">tip_with_binary</a></span><span class="op">(</span>effect_observed <span class="op">=</span> <span class="fl">1.09</span>, </span>
 <span>                exposed_confounder_prev <span class="op">=</span> <span class="fl">0.25</span>, </span>
 <span>                unexposed_confounder_prev <span class="op">=</span> <span class="fl">0.10</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb15"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co">## The observed effect (1.09) WOULD be tipped by 1 unmeasured confounder</span></span>
-<span id="cb15-2"><a href="#cb15-2"></a><span class="co">## with the following specifications:</span></span>
-<span id="cb15-3"><a href="#cb15-3"></a><span class="co">##   * estimated prevalence of the unmeasured confounder in the exposed population: 0.25</span></span>
-<span id="cb15-4"><a href="#cb15-4"></a><span class="co">##   * estimated prevalence of the unmeasured confounder in the unexposed population: 0.1</span></span>
-<span id="cb15-5"><a href="#cb15-5"></a><span class="co">##   * estimated relationship between the unmeasured confounder and the outcome: 1.64</span></span>
-<span id="cb15-6"><a href="#cb15-6"></a></span>
-<span id="cb15-7"><a href="#cb15-7"></a><span class="co">## # A tibble: 1 × 6</span></span>
-<span id="cb15-8"><a href="#cb15-8"></a><span class="co">##   effect_adjusted effect_observed exposed_confounder_p…¹ unexp…² confo…³ n_unm…⁴</span></span>
-<span id="cb15-9"><a href="#cb15-9"></a><span class="co">##             &lt;dbl&gt;           &lt;dbl&gt;                  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;</span></span>
-<span id="cb15-10"><a href="#cb15-10"></a><span class="co">## 1               1            1.09                   0.25     0.1    1.64       1</span></span>
-<span id="cb15-11"><a href="#cb15-11"></a><span class="co">## # … with abbreviated variable names ¹​exposed_confounder_prev,</span></span>
-<span id="cb15-12"><a href="#cb15-12"></a><span class="co">## #   ²​unexposed_confounder_prev, ³​confounder_outcome_effect,</span></span>
-<span id="cb15-13"><a href="#cb15-13"></a><span class="co">## #   ⁴​n_unmeasured_confounders</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="do">## The observed effect (1.09) WOULD be tipped by 1 unmeasured confounder with the</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="do">## following specifications:</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="do">## • estimated prevalence of the unmeasured confounder in the exposed population:</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="do">##   0.25</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="do">## • estimated prevalence of the unmeasured confounder in the unexposed</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="do">##   population: 0.1</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="do">## • estimated relationship between the unmeasured confounder and the outcome:</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="do">##   1.64</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 1 × 6</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="do">##   effect_adjusted effect_observed exposed_confounder_p…¹ unexp…² confo…³ n_unm…⁴</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="do">##             &lt;dbl&gt;           &lt;dbl&gt;                  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 1               1            1.09                   0.25     0.1    1.64       1</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with abbreviated variable names ¹​exposed_confounder_prev,</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="do">## #   ²​unexposed_confounder_prev, ³​confounder_outcome_effect,</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="do">## #   ⁴​n_unmeasured_confounders</span></span></code></pre></div>
 <p>A hypothetical unobserved binary confounder that is prevalent in 10% of the unexposed population and 25% of the exposed population would need to have a relationship with the outcome of 1.64 to tip this analysis at the 5% level, rendering it inconclusive.</p>
 </div>
 <div class="section level2">
@@ -234,18 +240,19 @@
 <code class="sourceCode R"><span><span class="fu"><a href="reference/tip.html">tip</a></span><span class="op">(</span>effect_observed <span class="op">=</span> <span class="fl">1.09</span>, </span>
 <span>    exposure_confounder_effect <span class="op">=</span> <span class="fl">0.25</span>, </span>
 <span>    confounder_outcome_effect <span class="op">=</span> <span class="fl">1.05</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb17"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="co">## The observed effect (1.09) WOULD be tipped by 7 unmeasured confounders</span></span>
-<span id="cb17-2"><a href="#cb17-2"></a><span class="co">## with the following specifications:</span></span>
-<span id="cb17-3"><a href="#cb17-3"></a><span class="co">##   * estimated difference in scaled means between the unmeasured confounder</span></span>
-<span id="cb17-4"><a href="#cb17-4"></a><span class="co">##     in the exposed population and unexposed population: 0.25</span></span>
-<span id="cb17-5"><a href="#cb17-5"></a><span class="co">##   * estimated relationship between the unmeasured confounder and the outcome: 1.05</span></span>
-<span id="cb17-6"><a href="#cb17-6"></a></span>
-<span id="cb17-7"><a href="#cb17-7"></a><span class="co">## # A tibble: 1 × 5</span></span>
-<span id="cb17-8"><a href="#cb17-8"></a><span class="co">##   effect_adjusted effect_observed exposure_confounder_effect confounde…¹ n_unm…²</span></span>
-<span id="cb17-9"><a href="#cb17-9"></a><span class="co">##             &lt;dbl&gt;           &lt;dbl&gt;                      &lt;dbl&gt;       &lt;dbl&gt;   &lt;dbl&gt;</span></span>
-<span id="cb17-10"><a href="#cb17-10"></a><span class="co">## 1               1            1.09                       0.25        1.05    7.07</span></span>
-<span id="cb17-11"><a href="#cb17-11"></a><span class="co">## # … with abbreviated variable names ¹​confounder_outcome_effect,</span></span>
-<span id="cb17-12"><a href="#cb17-12"></a><span class="co">## #   ²​n_unmeasured_confounders</span></span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="do">## ℹ The observed effect (1.09) WOULD be tipped by 7 unmeasured confounders with</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="do">##   the following specifications:</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="do">## • estimated difference in scaled means between the unmeasured confounder in the</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="do">##   exposed population and unexposed population: 0.25</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="do">## • estimated relationship between the unmeasured confounder and the outcome:</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="do">##   1.05</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 1 × 5</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="do">##   effect_adjusted effect_observed exposure_confounder_effect confounde…¹ n_unm…²</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="do">##             &lt;dbl&gt;           &lt;dbl&gt;                      &lt;dbl&gt;       &lt;dbl&gt;   &lt;dbl&gt;</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 1               1            1.09                       0.25        1.05    7.07</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with abbreviated variable names ¹​confounder_outcome_effect,</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="do">## #   ²​n_unmeasured_confounders</span></span></code></pre></div>
 <p>It would take about <code>7</code> independent standardized Normal unmeasured confounders with a mean difference between exposure groups of 0.25 and a relationship with the outcome of 1.05 tip the observed analysis at the 5% level, rendering it inconclusive.</p>
 </div>
 <div class="section level2">
@@ -261,18 +268,18 @@
 <span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">conf.low</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="reference/tip.html">tip</a></span><span class="op">(</span>confounder_outcome_effect <span class="op">=</span> <span class="fl">2.5</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<div class="sourceCode" id="cb19"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="co">## The observed effect (1.09) WOULD be tipped by 1 unmeasured confounder</span></span>
-<span id="cb19-2"><a href="#cb19-2"></a><span class="co">## with the following specifications:</span></span>
-<span id="cb19-3"><a href="#cb19-3"></a><span class="co">##   * estimated difference in scaled means between the unmeasured confounder</span></span>
-<span id="cb19-4"><a href="#cb19-4"></a><span class="co">##     in the exposed population and unexposed population: 0.09</span></span>
-<span id="cb19-5"><a href="#cb19-5"></a><span class="co">##   * estimated relationship between the unmeasured confounder and the outcome: 2.5</span></span>
-<span id="cb19-6"><a href="#cb19-6"></a></span>
-<span id="cb19-7"><a href="#cb19-7"></a><span class="co">## # A tibble: 1 × 5</span></span>
-<span id="cb19-8"><a href="#cb19-8"></a><span class="co">##   effect_adjusted effect_observed exposure_confounder_effect confounde…¹ n_unm…²</span></span>
-<span id="cb19-9"><a href="#cb19-9"></a><span class="co">##             &lt;dbl&gt;           &lt;dbl&gt;                      &lt;dbl&gt;       &lt;dbl&gt;   &lt;dbl&gt;</span></span>
-<span id="cb19-10"><a href="#cb19-10"></a><span class="co">## 1               1            1.09                     0.0907         2.5       1</span></span>
-<span id="cb19-11"><a href="#cb19-11"></a><span class="co">## # … with abbreviated variable names ¹​confounder_outcome_effect,</span></span>
-<span id="cb19-12"><a href="#cb19-12"></a><span class="co">## #   ²​n_unmeasured_confounders</span></span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="do">## ℹ The observed effect (1.09) WOULD be tipped by 1 unmeasured confounder with</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="do">##   the following specifications:</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="do">## • estimated difference in scaled means between the unmeasured confounder in the</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="do">##   exposed population and unexposed population: 0.09</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="do">## • estimated relationship between the unmeasured confounder and the outcome: 2.5</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 1 × 5</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="do">##   effect_adjusted effect_observed exposure_confounder_effect confounde…¹ n_unm…²</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="do">##             &lt;dbl&gt;           &lt;dbl&gt;                      &lt;dbl&gt;       &lt;dbl&gt;   &lt;dbl&gt;</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 1               1            1.09                     0.0907         2.5       1</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with abbreviated variable names ¹​confounder_outcome_effect,</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="do">## #   ²​n_unmeasured_confounders</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="code-of-conduct">Code of Conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a>
