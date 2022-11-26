@@ -96,11 +96,12 @@ between the unmeasured confounder and outcome needed to tip the analysis
 tip(effect_observed = 1.5, exposure_confounder_effect = 0.5)
 ```
 
-    ## The observed effect (1.5) WOULD be tipped by 1 unmeasured confounder
-    ## with the following specifications:
-    ##   * estimated difference in scaled means between the unmeasured confounder
-    ##     in the exposed population and unexposed population: 0.5
-    ##   * estimated relationship between the unmeasured confounder and the outcome: 2.25
+    ## ℹ The observed effect (1.5) WOULD be tipped by 1 unmeasured confounder with the
+    ##   following specifications:
+    ## • estimated difference in scaled means between the unmeasured confounder in the
+    ##   exposed population and unexposed population: 0.5
+    ## • estimated relationship between the unmeasured confounder and the outcome:
+    ##   2.25
 
     ## # A tibble: 1 × 5
     ##   effect_adjusted effect_observed exposure_confounder_effect confounde…¹ n_unm…²
@@ -117,11 +118,12 @@ between exposure groups of `0.5` would need a relationship of at least
 tip(effect_observed = 1.09, exposure_confounder_effect = 0.5)
 ```
 
-    ## The observed effect (1.09) WOULD be tipped by 1 unmeasured confounder
-    ## with the following specifications:
-    ##   * estimated difference in scaled means between the unmeasured confounder
-    ##     in the exposed population and unexposed population: 0.5
-    ##   * estimated relationship between the unmeasured confounder and the outcome: 1.19
+    ## ℹ The observed effect (1.09) WOULD be tipped by 1 unmeasured confounder with
+    ##   the following specifications:
+    ## • estimated difference in scaled means between the unmeasured confounder in the
+    ##   exposed population and unexposed population: 0.5
+    ## • estimated relationship between the unmeasured confounder and the outcome:
+    ##   1.19
 
     ## # A tibble: 1 × 5
     ##   effect_adjusted effect_observed exposure_confounder_effect confounde…¹ n_unm…²
@@ -201,11 +203,14 @@ tip_with_binary(effect_observed = 1.09,
                 unexposed_confounder_prev = 0.10)
 ```
 
-    ## The observed effect (1.09) WOULD be tipped by 1 unmeasured confounder
-    ## with the following specifications:
-    ##   * estimated prevalence of the unmeasured confounder in the exposed population: 0.25
-    ##   * estimated prevalence of the unmeasured confounder in the unexposed population: 0.1
-    ##   * estimated relationship between the unmeasured confounder and the outcome: 1.64
+    ## The observed effect (1.09) WOULD be tipped by 1 unmeasured confounder with the
+    ## following specifications:
+    ## • estimated prevalence of the unmeasured confounder in the exposed population:
+    ##   0.25
+    ## • estimated prevalence of the unmeasured confounder in the unexposed
+    ##   population: 0.1
+    ## • estimated relationship between the unmeasured confounder and the outcome:
+    ##   1.64
 
     ## # A tibble: 1 × 6
     ##   effect_adjusted effect_observed exposed_confounder_p…¹ unexp…² confo…³ n_unm…⁴
@@ -231,11 +236,12 @@ tip(effect_observed = 1.09,
     confounder_outcome_effect = 1.05)
 ```
 
-    ## The observed effect (1.09) WOULD be tipped by 7 unmeasured confounders
-    ## with the following specifications:
-    ##   * estimated difference in scaled means between the unmeasured confounder
-    ##     in the exposed population and unexposed population: 0.25
-    ##   * estimated relationship between the unmeasured confounder and the outcome: 1.05
+    ## ℹ The observed effect (1.09) WOULD be tipped by 7 unmeasured confounders with
+    ##   the following specifications:
+    ## • estimated difference in scaled means between the unmeasured confounder in the
+    ##   exposed population and unexposed population: 0.25
+    ## • estimated relationship between the unmeasured confounder and the outcome:
+    ##   1.05
 
     ## # A tibble: 1 × 5
     ##   effect_adjusted effect_observed exposure_confounder_effect confounde…¹ n_unm…²
@@ -268,11 +274,11 @@ if (requireNamespace("broom", quietly = TRUE) &&  requireNamespace("dplyr", quie
 }
 ```
 
-    ## The observed effect (1.09) WOULD be tipped by 1 unmeasured confounder
-    ## with the following specifications:
-    ##   * estimated difference in scaled means between the unmeasured confounder
-    ##     in the exposed population and unexposed population: 0.09
-    ##   * estimated relationship between the unmeasured confounder and the outcome: 2.5
+    ## ℹ The observed effect (1.09) WOULD be tipped by 1 unmeasured confounder with
+    ##   the following specifications:
+    ## • estimated difference in scaled means between the unmeasured confounder in the
+    ##   exposed population and unexposed population: 0.09
+    ## • estimated relationship between the unmeasured confounder and the outcome: 2.5
 
     ## # A tibble: 1 × 5
     ##   effect_adjusted effect_observed exposure_confounder_effect confounde…¹ n_unm…²
