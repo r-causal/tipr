@@ -58,6 +58,13 @@ tip_with_binary <- function(effect_observed,
                             confounder_outcome_effect = NULL,
                             verbose = getOption("tipr.verbose", TRUE),
                             correction_factor = "none") {
+  check_arguments(
+    "tip_with_binary()",
+    exposed_confounder_prev,
+    unexposed_confounder_prev,
+    confounder_outcome_effect
+  )
+
   exposed_confounder_prev <- exposed_confounder_prev %||% list(NULL)
   unexposed_confounder_prev <- unexposed_confounder_prev %||% list(NULL)
   confounder_outcome_effect <- confounder_outcome_effect %||% list(NULL)
@@ -123,12 +130,12 @@ tip_with_binary_one <- function(b,
         confounder_outcome_effects <- confounder_outcome_effect
       }
 
-      warning_glue(
-        "The observed effect {b} would not tip with the unmeasured confounder given:",
-        "\n  * `exposed_confounder_prev`: {exposed_confounder_prevs}",
-        "\n  * `unexposed_confounder_prev`: {unexposed_confounder_prevs}",
-        "\n  * `confounder_outcome_effect`: {confounder_outcome_effects}\n\n"
-      )
+      warning_cli(c(
+        "!" = "The observed effect {b} would not tip with the unmeasured confounder given:",
+        "*" = "`exposed_confounder_prev`: {exposed_confounder_prevs}",
+        "*" = "`unexposed_confounder_prev`: {unexposed_confounder_prevs}",
+        "*" = "`confounder_outcome_effect`: {confounder_outcome_effects}"
+      ))
       n_unmeasured_confounders <- max(0, n_unmeasured_confounders)
     }
     too_small <-
@@ -149,12 +156,12 @@ tip_with_binary_one <- function(b,
       } else {
         confounder_outcome_effects <- confounder_outcome_effect
       }
-      warning_glue(
-        "The observed effect {b} would tip with < 1 of the given unmeasured confounders:",
-        "\n  * `exposed_confounder_prev`: {exposed_confounder_prevs}",
-        "\n  * `unexposed_confounder_prev`: {unexposed_confounder_prevs}",
-        "\n  * `confounder_outcome_effect`: {confounder_outcome_effects}\n\n"
-      )
+      warning_cli(c(
+        "!" = "The observed effect {b} would tip with < 1 of the given unmeasured confounders:",
+        "*" = "`exposed_confounder_prev`: {exposed_confounder_prevs}",
+        "*" = "`unexposed_confounder_prev`: {unexposed_confounder_prevs}",
+        "*" = "`confounder_outcome_effect`: {confounder_outcome_effects}"
+      ))
     }
   }
   o <- tibble::tibble(
@@ -169,53 +176,68 @@ tip_with_binary_one <- function(b,
     if (all(o$n_unmeasured_confounders == 0)) {
       o_notip <- o[o$n_unmeasured_confounders == 0,]
 
-      message_glue(
-        "The observed effect ({round(o_notip$effect_observed, 2)}) ",
-        "cannot be tipped by an unmeasured confounder\nwith the ",
-        "following specifications:",
-        "\n  * estimated prevalence of the unmeasured confounder ",
-        "in the exposed population: {round(o_notip$exposed_confounder_prev, 2)}\n  * estimated prevalence of ",
-        "the unmeasured confounder in the unexposed population: {round(o_notip$unexposed_confounder_prev, 2)}",
-        "\n  * estimated relationship between the unmeasured confounder and the ",
-        "outcome: {round(o_notip$confounder_outcome_effect, 2)}\n\n{correction}"
-      )
+      message_cli(c(
+        "i" = "The observed effect ({round(o_notip$effect_observed, 2)}) \\
+        cannot be tipped by an unmeasured confounder\nwith the \\
+        following specifications:",
+        "*" = "estimated prevalence of the unmeasured confounder \\
+        in the exposed population: {round(o_notip$exposed_confounder_prev, 2)}",
+        "*" = "estimated prevalence of \\
+        the unmeasured confounder in the unexposed population: \\
+        {round(o_notip$unexposed_confounder_prev, 2)}",
+        "*" = "estimated relationship between the unmeasured confounder and \\
+        the outcome: {round(o_notip$confounder_outcome_effect, 2)}"
+      ))
+
+      if (correction != "") message_cli(c("i" = correction))
     } else if (any(o$n_unmeasured_confounders == 0)) {
       o_notip <- o[o$n_unmeasured_confounders == 0,]
-      message_glue(
-        "The observed effect ({round(o_notip$effect_observed, 2)}) ",
-        "cannot be tipped by an unmeasured confounder\nwith the ",
-        "following specifications:",
-        "\n  * estimated prevalence of the unmeasured confounder ",
-        "in the exposed population: {round(o_notip$exposed_confounder_prev, 2)}\n  * estimated prevalence of ",
-        "the unmeasured confounder in the unexposed population: {round(o_notip$unexposed_confounder_prev, 2)}",
-        "\n  * estimated relationship between the unmeasured confounder and the ",
-        "outcome: {round(o_notip$confounder_outcome_effect, 2)}\n\n{correction}"
-      )
+      message_cli(c(
+        "i" = "The observed effect ({round(o_notip$effect_observed, 2)}) \\
+        cannot be tipped by an unmeasured confounder\nwith the \\
+        following specifications:",
+        "*" = "estimated prevalence of the unmeasured confounder \\
+        in the exposed population: {round(o_notip$exposed_confounder_prev, 2)}",
+        "*" = "estimated prevalence of \\
+        the unmeasured confounder in the unexposed population: \\
+        {round(o_notip$unexposed_confounder_prev, 2)}",
+        "*" = "estimated relationship between the unmeasured confounder and \\
+        the outcome: {round(o_notip$confounder_outcome_effect, 2)}"
+      ))
+
+      if (correction != "") message_cli(c("i" = correction))
 
       o_tip <- o[o$n_unmeasured_confounders != 0,]
-      message_glue(
-        "The observed effect ({round(o_tip$effect_observed, 2)}) WOULD ",
-        "be tipped by {round(o_tip$n_unmeasured_confounders)} ",
-        "unmeasured confounder{ifelse(o_tip$n_unmeasured_confounders > 1, 's', '')}\n",
-        "with the following ",
-        "specifications:\n  * estimated prevalence of the unmeasured confounder ",
-        "in the exposed population: {round(o_tip$exposed_confounder_prev, 2)}\n  * estimated prevalence of ",
-        "the unmeasured confounder in the unexposed population: {round(o_tip$unexposed_confounder_prev, 2)}",
-        "\n  * estimated relationship between the unmeasured confounder and the ",
-        "outcome: {round(o_tip$confounder_outcome_effect, 2)}\n\n{correction}"
-      )
+      message_cli(c(
+        "i" = "The observed effect ({round(o_tip$effect_observed, 2)}) WOULD \\
+        be tipped by {round(o_tip$n_unmeasured_confounders)} \\
+        unmeasured confounder{ifelse(o_tip$n_unmeasured_confounders > 1, 's', '')} \\
+        with the following  specifications",
+        "*" = "estimated prevalence of the unmeasured confounder \\
+        in the exposed population: {round(o_tip$exposed_confounder_prev, 2)}",
+        "*" = "estimated prevalence of the unmeasured confounder in the \\
+        unexposed population: {round(o_tip$unexposed_confounder_prev, 2)}",
+        "*" = "estimated relationship between the unmeasured confounder and \\
+        the outcome: {round(o_tip$confounder_outcome_effect, 2)}"
+      ))
+
+      if (correction != "") message_cli(c("i" = correction))
+
     } else {
-      message_glue(
-        "The observed effect ({round(o$effect_observed, 2)}) WOULD ",
-        "be tipped by {round(o$n_unmeasured_confounders)} ",
-        "unmeasured confounder{ifelse(o$n_unmeasured_confounders > 1, 's', '')}\n",
-        "with the following ",
-        "specifications:\n  * estimated prevalence of the unmeasured confounder ",
-        "in the exposed population: {round(o$exposed_confounder_prev, 2)}\n  * estimated prevalence of ",
-        "the unmeasured confounder in the unexposed population: {round(o$unexposed_confounder_prev, 2)}",
-        "\n  * estimated relationship between the unmeasured confounder and the ",
-        "outcome: {round(o$confounder_outcome_effect, 2)}\n\n{correction}"
-      )
+      message_cli(c(
+        "The observed effect ({round(o$effect_observed, 2)}) WOULD \\
+        be tipped by {round(o$n_unmeasured_confounders)} \\
+        unmeasured confounder{ifelse(o$n_unmeasured_confounders > 1, 's', '')} \\
+        with the following specifications:",
+        "*" = "estimated prevalence of the unmeasured confounder \\
+        in the exposed population: {round(o$exposed_confounder_prev, 2)}",
+        "*" = "estimated prevalence of the unmeasured confounder in the \\
+        unexposed population: {round(o$unexposed_confounder_prev, 2)}",
+        "*" = "estimated relationship between the unmeasured confounder and \\
+        the outcome: {round(o$confounder_outcome_effect, 2)}"
+      ))
+
+        if (correction != "") message_cli(c("i" = correction))
     }
   }
   o
@@ -244,7 +266,20 @@ tip_with_binary_one <- function(b,
 #'    Default: `TRUE`
 
 tip_rr_with_binary <- function(effect_observed, exposed_confounder_prev = NULL, unexposed_confounder_prev = NULL, confounder_outcome_effect = NULL, verbose = getOption("tipr.verbose", TRUE)) {
-  tip_with_binary(effect_observed, exposed_confounder_prev = exposed_confounder_prev, unexposed_confounder_prev = unexposed_confounder_prev, confounder_outcome_effect = confounder_outcome_effect, verbose = verbose)
+  check_arguments(
+    "tip_rr_with_binary()",
+    exposed_confounder_prev,
+    unexposed_confounder_prev,
+    confounder_outcome_effect
+  )
+
+  tip_with_binary(
+    effect_observed,
+    exposed_confounder_prev = exposed_confounder_prev,
+    unexposed_confounder_prev = unexposed_confounder_prev,
+    confounder_outcome_effect = confounder_outcome_effect,
+    verbose = verbose
+  )
 }
 
 #' Tip an observed hazard ratio with a binary confounder.
@@ -281,8 +316,22 @@ tip_rr_with_binary <- function(effect_observed, exposed_confounder_prev = NULL, 
 #' tip_hr_with_binary(0.9, 0.9, 0.1)
 
 tip_hr_with_binary <- function(effect_observed, exposed_confounder_prev = NULL, unexposed_confounder_prev = NULL, confounder_outcome_effect = NULL, verbose = getOption("tipr.verbose", TRUE), hr_correction = FALSE) {
+  check_arguments(
+    "tip_hr_with_binary()",
+    exposed_confounder_prev,
+    unexposed_confounder_prev,
+    confounder_outcome_effect
+  )
+
   correction_factor <- ifelse(hr_correction, "hr", "none")
-  tip_with_binary(effect_observed, exposed_confounder_prev = exposed_confounder_prev, unexposed_confounder_prev = unexposed_confounder_prev, confounder_outcome_effect = confounder_outcome_effect, verbose = verbose, correction_factor = correction_factor)
+  tip_with_binary(
+    effect_observed,
+    exposed_confounder_prev = exposed_confounder_prev,
+    unexposed_confounder_prev = unexposed_confounder_prev,
+    confounder_outcome_effect = confounder_outcome_effect,
+    verbose = verbose,
+    correction_factor = correction_factor
+  )
 }
 
 #' Tip an observed odds ratio with a binary confounder.
@@ -319,8 +368,22 @@ tip_hr_with_binary <- function(effect_observed, exposed_confounder_prev = NULL, 
 #' tip_or_with_binary(0.9, 0.9, 0.1)
 
 tip_or_with_binary <- function(effect_observed, exposed_confounder_prev = NULL, unexposed_confounder_prev = NULL, confounder_outcome_effect = NULL, verbose = getOption("tipr.verbose", TRUE), or_correction = FALSE) {
+  check_arguments(
+    "tip_or_with_binary()",
+    exposed_confounder_prev,
+    unexposed_confounder_prev,
+    confounder_outcome_effect
+  )
+
   correction_factor <- ifelse(or_correction, "or", "none")
-  tip_with_binary(effect_observed, exposed_confounder_prev = exposed_confounder_prev, unexposed_confounder_prev = unexposed_confounder_prev, confounder_outcome_effect = confounder_outcome_effect, verbose = verbose, correction_factor = correction_factor)
+  tip_with_binary(
+    effect_observed,
+    exposed_confounder_prev = exposed_confounder_prev,
+    unexposed_confounder_prev = unexposed_confounder_prev,
+    confounder_outcome_effect = confounder_outcome_effect,
+    verbose = verbose,
+    correction_factor = correction_factor
+  )
 }
 
 #' @rdname tip_with_binary
