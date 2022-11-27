@@ -203,8 +203,8 @@ tip_with_binary(effect_observed = 1.09,
                 unexposed_confounder_prev = 0.10)
 ```
 
-    ## The observed effect (1.09) WOULD be tipped by 1 unmeasured confounder with the
-    ## following specifications:
+    ## ℹ The observed effect (1.09) WOULD be tipped by 1 unmeasured confounder with
+    ##   the following specifications:
     ## • estimated prevalence of the unmeasured confounder in the exposed population:
     ##   0.25
     ## • estimated prevalence of the unmeasured confounder in the unexposed

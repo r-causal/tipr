@@ -225,7 +225,7 @@ tip_with_binary_one <- function(b,
 
     } else {
       message_cli(c(
-        "The observed effect ({round(o$effect_observed, 2)}) WOULD \\
+        "i" = "The observed effect ({round(o$effect_observed, 2)}) WOULD \\
         be tipped by {round(o$n_unmeasured_confounders)} \\
         unmeasured confounder{ifelse(o$n_unmeasured_confounders > 1, 's', '')} \\
         with the following specifications:",
