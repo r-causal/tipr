@@ -26,7 +26,7 @@ Or install the development version from GitHub:
 
 ```{r, eval = FALSE}
 # install.packages(devtools)
-devtools::install_github("lucymcgowan/tipr")
+devtools::install_github("r-causal/tipr")
 ```
 
 ```{r}
@@ -45,7 +45,7 @@ Using the example data `exdata_rr`, we can estimate the exposure-outcome relatio
 mod <- glm(outcome ~ exposure + measured_confounder, data = exdata_rr, 
            family = poisson)
 
-mod %>%
+mod |>
   broom::tidy(exponentiate = TRUE, conf.int = TRUE)
 ```
 
@@ -72,12 +72,12 @@ A hypothetical unobserved continuous confounder a scaled mean difference between
 Because this is simulated data, we can see what the *true* unmeasured confounder looked like. First we will calculate the difference in scaled means.
 
 ```{r}
-exdata_rr %>%
-  dplyr::group_by(exposure) %>%
-  dplyr::summarise(m = mean(.unmeasured_confounder / sd(.unmeasured_confounder))) %>%
+exdata_rr |>
+  dplyr::group_by(exposure) |>
+  dplyr::summarise(m = mean(.unmeasured_confounder / sd(.unmeasured_confounder))) |>
   tidyr::pivot_wider(names_from = exposure,
               values_from = m,
-              names_prefix = "u_") %>%
+              names_prefix = "u_") |>
   dplyr::summarise(estimate = u_1 - u_0)
 ```
 
@@ -89,7 +89,7 @@ mod_true <- glm(
   data = exdata_rr, 
   family = poisson)
 
-mod_true %>%
+mod_true |>
   broom::tidy(exponentiate = TRUE, conf.int = TRUE)
 ```
 
@@ -128,10 +128,10 @@ These functions were created to easily integrate with models tidied using the **
 ```{r}
 if (requireNamespace("broom", quietly = TRUE) &&  requireNamespace("dplyr", quietly = TRUE)) {
   glm(outcome ~ exposure + measured_confounder, data = exdata_rr, 
-           family = poisson) %>%
-    broom::tidy(conf.int = TRUE, exponentiate = TRUE) %>%
-    dplyr::filter(term == "exposure") %>%
-    dplyr::pull(conf.low) %>%
+           family = poisson) |>
+    broom::tidy(conf.int = TRUE, exponentiate = TRUE) |>
+    dplyr::filter(term == "exposure") |>
+    dplyr::pull(conf.low) |>
     tip(confounder_outcome_effect = 2.5)
 }
 ```
