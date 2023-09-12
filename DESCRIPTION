@@ -24,7 +24,7 @@ Description: The strength of evidence provided by epidemiological and
     (2016), we can use these quantities to assess how an unmeasured
     confounder may tip our result to insignificance.
 License: MIT + file LICENSE
-BugReports: https://github.com/LucyMcGowan/tipr/issues
+BugReports: https://github.com/r-causal/tipr/issues
 Depends: 
     R (>= 2.10)
 Imports:
