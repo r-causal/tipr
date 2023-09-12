@@ -1,4 +1,5 @@
-# tipr (development version)
+# tipr 1.0.2
+
 * `adjust_coef_with_binary()` now assumes the coefficient is from a linear model rather than loglinear. Use `loglinear = TRUE` to get the old behavior. (#12, @malcolmbarrett)
 * Fixed roxygen issue with package documentation
 
