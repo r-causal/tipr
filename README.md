@@ -11,7 +11,7 @@
 
 **Authors:** [Lucy D’Agostino
 McGowan](https://www.lucymcgowan.com/)<br/> **License:**
-[MIT](https://opensource.org/licenses/mit/)
+[MIT](https://opensource.org/license/mit/)
 
 ## Installation
 

@@ -29,7 +29,9 @@ Biometrics, 54(3), 948–963.
 \seealso{
 Useful links:
 \itemize{
-  \item Report bugs at \url{https://github.com/LucyMcGowan/tipr/issues}
+  \item \url{https://r-causal.github.io/tipr/}
+  \item \url{https://github.com/r-causal/tipr}
+  \item Report bugs at \url{https://github.com/r-causal/tipr/issues}
 }
 
 }
