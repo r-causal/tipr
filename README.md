@@ -9,8 +9,8 @@
 [![DOI](https://joss.theoj.org/papers/10.21105/joss.04495/status.svg)](https://doi.org/10.21105/joss.04495)
 <!-- badges: end -->
 
-**Authors:** [Lucy D’Agostino
-McGowan](https://www.lucymcgowan.com/)<br/> **License:**
+**Authors:** [Lucy D’Agostino McGowan](https://www.lucymcgowan.com/),
+[Malcolm Barrett](https://malco.io/)<br/> **License:**
 [MIT](https://opensource.org/license/mit/)
 
 ## Installation
