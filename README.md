@@ -7,6 +7,8 @@
 
 [![R-CMD-check](https://github.com/r-causal/tipr/workflows/R-CMD-check/badge.svg)](https://github.com/r-causal/tipr/actions)
 [![DOI](https://joss.theoj.org/papers/10.21105/joss.04495/status.svg)](https://doi.org/10.21105/joss.04495)
+[![R-universe
+version](https://r-causal.r-universe.dev/tipr/badges/version)](https://r-causal.r-universe.dev/tipr)
 <!-- badges: end -->
 
 **Authors:** [Lucy D’Agostino McGowan](https://www.lucymcgowan.com/),
@@ -21,11 +23,22 @@ Install the CRAN version
 install.packages("tipr")
 ```
 
-Or install the development version from GitHub:
+You can install the development version of tipr from
+[r-causal.r-universe.dev](https://r-causal.r-universe.dev/) with:
 
 ``` r
-# install.packages(devtools)
-devtools::install_github("r-causal/tipr")
+install.packages(
+  "tipr",
+  repos = c("https://r-causal.r-universe.dev", getOption("repos"))
+)
+```
+
+You can also install the development version of tipr from source from
+[GitHub](https://github.com/r-causal/tipr) with:
+
+``` r
+# install.packages("pak")
+pak::pak("r-causal/tipr")
 ```
 
 ``` r
